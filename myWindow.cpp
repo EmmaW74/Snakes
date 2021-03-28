@@ -165,7 +165,10 @@ void myWindow::showGameOver() {
 		SDL_Delay(200);
 	}
 	
-	SDL_Surface* surface = IMG_Load("GameOver.jpg");
+	SDL_Surface* surface = IMG_Load("Images/GameOver.jpg");
+	if (surface == NULL) {
+		std::cout << "Game over not loaded" << std::endl;
+	}
 	myTexture = SDL_CreateTextureFromSurface(myRenderer, surface);
 	SDL_RenderCopy(myRenderer, myTexture, NULL, NULL);
 	SDL_FreeSurface(surface);
