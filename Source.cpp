@@ -13,7 +13,6 @@ int main(int argc, char* args[])
 
 /*
 - 
-- Game Over image stopped working 
 - tidy code (sort continue to avoid setting get direction on same direction)
 - myApp on_close() at end 
 - Check memory management (every create Texture needs a destroy texture)
