@@ -5,11 +5,11 @@
 #include <SDL_image.h>
 #include <vector>
 #include<memory>
-enum Direction {
-	UP, //0
-	DOWN, //1
-	LEFT, //2
-	RIGHT //3
+enum class Direction {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
 };
 
 class mySnake
@@ -18,7 +18,6 @@ private:
 	std::vector<std::shared_ptr<myDot>> body; // Snake is a vector of smart pointers to dots - front of snake is back of vector
 	Direction current_direction;
 	int snakeLength;
-	//int section_size;
 
 public:
 	mySnake();
@@ -27,11 +26,9 @@ public:
 	int getSnakeLength();
 	void increaseLength();
 	void moveSnake();
-	bool checkCollision();
+	bool checkTailCollision();
 	std::vector<std::shared_ptr<myDot>> getBody();
-
 	~mySnake();
-
 };
 
 #endif

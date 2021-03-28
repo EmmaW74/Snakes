@@ -156,15 +156,19 @@
   <ItemGroup>
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
+    <ClCompile Include="myPrize.cpp" />
     <ClCompile Include="mySnake.cpp" />
     <ClCompile Include="myWindow.cpp" />
+    <ClCompile Include="Ruby.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApp.h" />
     <ClInclude Include="MyDot.h" />
+    <ClInclude Include="myPrize.h" />
     <ClInclude Include="mySnake.h" />
     <ClInclude Include="myWindow.h" />
+    <ClInclude Include="Ruby.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
