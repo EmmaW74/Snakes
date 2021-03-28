@@ -11,15 +11,20 @@
 class myApp
 {
 private:
+	bool started;
 	bool Running;
 	bool Paused;
 	mySnake* game_snake1;
 	myWindow* game_window;
+	std::vector<myPrize> current_prizes;
 
 public:
 	myApp();
+	void runGame();
 	void OnEvent(SDL_Event& e); // on event do something
 	bool checkRunning();
+	bool getStarted();
+	void updateStarted();
 	void stopGame();
 	mySnake* getSnake();
 	myWindow* getWindow();

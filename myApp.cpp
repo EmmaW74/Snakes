@@ -4,23 +4,46 @@
 #include <iostream>
 #include <stdlib.h>
 
-
 myApp::myApp(){
 	game_window = new myWindow();
 	game_snake1 = new mySnake();
 	Running = true;
 	Paused = false;
+	started = false;
 	std::cout << "myApp constructor called" << std::endl;
 }
 mySnake* myApp::getSnake() {
 	return game_snake1;
 }
 
+void myApp::runGame() {
+	SDL_Event e;
+	while (!getStarted()) {
+		//Wait for Enter to start the game
+		if (SDL_PollEvent(&e) != 0) {
+			OnEvent(e);
+		}
+	}
+	game_window->setBackground();
+	game_window->countdown();
+	while (checkRunning()) {
+		//While running, action event or if no event continue to move snake
+		if (SDL_PollEvent(&e) != 0) {
+			OnEvent(e);
+		}
+		else {
+			myContinue();
+			std::cout << "Continue" << std::endl;
+		}
+	}
+}
+
 void myApp::myContinue() {
+
 	if (!Paused) {
 		game_snake1->changeDirection(game_snake1->getDirection());
 		game_window->drawSnake(*game_snake1);
-		if (game_snake1->checkCollision()) {
+		if (game_snake1->checkTailCollision()) {
 			gameOver(game_window);
 		}
 	}
@@ -28,6 +51,14 @@ void myApp::myContinue() {
 
 myWindow* myApp::getWindow() {
 	return game_window;
+}
+
+void myApp::updateStarted() {
+	started = !started;
+}
+
+bool myApp::getStarted() {
+	return started;
 }
 
 void myApp::OnEvent(SDL_Event& e) {
@@ -41,6 +72,11 @@ void myApp::OnEvent(SDL_Event& e) {
 		//Select surfaces based on key press
 		switch (e.key.keysym.sym)
 		{
+
+		case SDLK_RETURN:
+			updateStarted();
+			break;
+
 		case SDLK_SPACE:
 			Paused = !Paused;
 			break;
@@ -48,12 +84,12 @@ void myApp::OnEvent(SDL_Event& e) {
 		case SDLK_UP:
 			if (!Paused) {
 				std::cout << "UP" << std::endl;
-				if (game_snake1->getDirection() == DOWN) {
+				if (game_snake1->getDirection() == Direction::DOWN) {
 					break;
 				}
 				else {
-					game_snake1->changeDirection(UP);
-					if (game_snake1->checkCollision()) {
+					game_snake1->changeDirection(Direction::UP);
+					if (game_snake1->checkTailCollision()) {
 						gameOver(game_window);
 					}
 					else {
@@ -66,12 +102,12 @@ void myApp::OnEvent(SDL_Event& e) {
 		case SDLK_DOWN:
 			if (!Paused) {
 				std::cout << "DOWN" << std::endl;
-				if (game_snake1->getDirection() == UP) {
+				if (game_snake1->getDirection() == Direction::UP) {
 					break;
 				}
 				else {
-					game_snake1->changeDirection(DOWN);
-					if (game_snake1->checkCollision()) {
+					game_snake1->changeDirection(Direction::DOWN);
+					if (game_snake1->checkTailCollision()) {
 						gameOver(game_window);
 					}
 					else {
@@ -84,13 +120,13 @@ void myApp::OnEvent(SDL_Event& e) {
 			if (!Paused) {
 				std::cout << "LEFT" << std::endl;
 
-				if (game_snake1->getDirection() == RIGHT) {
+				if (game_snake1->getDirection() == Direction::RIGHT) {
 					break;
 				}
 				else {
 
-					game_snake1->changeDirection(LEFT);
-					if (game_snake1->checkCollision()) {
+					game_snake1->changeDirection(Direction::LEFT);
+					if (game_snake1->checkTailCollision()) {
 						gameOver(game_window);
 					}
 					else {
@@ -104,12 +140,12 @@ void myApp::OnEvent(SDL_Event& e) {
 		case SDLK_RIGHT:
 			if (!Paused) {
 				std::cout << "RIGHT" << std::endl;
-				if (game_snake1->getDirection() == LEFT) {
-					break;
+				if (game_snake1->getDirection() == Direction::LEFT) {
+					break; 
 				}
 				else {
-					game_snake1->changeDirection(RIGHT);
-					if (game_snake1->checkCollision()) {
+					game_snake1->changeDirection(Direction::RIGHT);
+					if (game_snake1->checkTailCollision()) {
 						gameOver(game_window);
 					}
 					else {

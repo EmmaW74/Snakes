@@ -1,29 +1,32 @@
 #include "mySnake.h"
 #include "myWindow.h"
 #include <iostream>
+#include <stdlib.h>
 
 mySnake::mySnake() {
+	//Update this to get random starting points and directions
+	srand(time(NULL));
 	snakeLength = 16; // needs to be held somewhere else
 	int x = -160; // needs to be held somewhere else
-	for (int y = 0; y < snakeLength; y++) {
+	int y = rand() % 300 + 50;
+	for (int i = 0; i < snakeLength; i++) {
 
-		body.push_back(std::make_unique<myDot>(x, 100, 10, 10));
+		body.push_back(std::make_unique<myDot>(x, y, 10, 10));
 		x += 10;
 	}
-	current_direction = RIGHT;
+	current_direction = Direction::RIGHT;
 	
 }
 Direction mySnake::getDirection() {
 	return current_direction;
 }
 
-bool mySnake::checkCollision() {
-	
+bool mySnake::checkTailCollision() {
 	int head_x;
 	int head_y;
 	int tail_x;
 	int tail_y;
-	for (int x = 0; x < body.size()-1; x++) {
+	for (unsigned int x = 0; x < body.size()-1; x++) {
 		head_x = body.at(body.size() - 1)->get_x();
 		head_y = body.at(body.size() - 1)->get_y();
 		tail_x = body.at(x)->get_x();
@@ -37,6 +40,7 @@ bool mySnake::checkCollision() {
 	
 	return false;
 }
+
 
 std::vector<std::shared_ptr<myDot>> mySnake::getBody() {
 	return body;
@@ -58,28 +62,28 @@ void mySnake::moveSnake() {
 	//front of snake is back of vector
 	int x = body.at(snakeLength-1)->get_x();
 	int y = body.at(snakeLength-1)->get_y();
-	if (current_direction == UP) {
+	if (current_direction == Direction::UP) {
 		y -= 10;
 		//Check if goes off screen and wrap around
 		if (y < 0) {
 			y = SCREEN_HEIGHT - body.at(snakeLength - 1)->get_height();
 		}
 	}
-	else if (current_direction == DOWN) {
+	else if (current_direction == Direction::DOWN) {
 		y += 10;
 		//Check if goes off screen and wrap around
 		if (y > (SCREEN_HEIGHT - body.at(snakeLength - 1)->get_height())) {
 			y = 0;
 		}
 	}
-	else if (current_direction == LEFT) {
+	else if (current_direction == Direction::LEFT) {
 		x -= 10;
 		//Check if goes off screen and wrap around
 		if (x < 0) {
 			x = SCREEN_WIDTH - body.at(snakeLength - 1)->get_width();
 		}
 	}
-	else if (current_direction == RIGHT) {
+	else if (current_direction == Direction::RIGHT) {
 		x += 10;
 		//Check if goes off screen and wrap around
 		if (x > SCREEN_WIDTH - body.at(snakeLength - 1)->get_width()) {
