@@ -35,7 +35,6 @@ void myApp::runGame() {
 	current_prizes.push_back(new Ruby(random_position(), random_position()));
 	while (checkRunning()) {
 		incrementGameTimer();
-		//***Do something here to make prizes appear / disappear***
 		//While running, action event or if no event continue to move snake
 		if (SDL_PollEvent(&e) != 0) {
 			OnEvent(e);

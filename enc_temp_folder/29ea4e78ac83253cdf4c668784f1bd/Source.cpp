@@ -12,7 +12,7 @@ int main(int argc, char* args[])
 
 
 /*
-- timer to make gems appear and disappear (variable in prize for length of time on display?? - see myApp.cpp line 38)
+- timer to make gems appear and disappear (variable in prize for length of time on display - counter on frame 1 to ?? then restart)
 - myApp on_close() at end 
 - Check memory management (every create Texture needs a destroy texture)
 - add to length after x seconds & increase points - timer?

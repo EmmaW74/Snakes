@@ -9,15 +9,15 @@ private:
 	int x;
 	int y;
 	int points;
-	std::string image;
+	const char* image;
 
 public:
-	Ruby();
+	Ruby(int x, int y);
 	int get_width();
 	int get_height();
 	int get_x();
 	int get_y();
-	std::string get_image();
+	const char* get_image();
 	int get_points();
 	~Ruby();
 

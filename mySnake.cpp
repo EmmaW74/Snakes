@@ -1,12 +1,13 @@
 #include "mySnake.h"
 #include "myWindow.h"
+#include "myPrize.h"
 #include <iostream>
 #include <stdlib.h>
 
 mySnake::mySnake() {
 	//Update this to get random starting points and directions
 	srand(time(NULL));
-	snakeLength = 16; // needs to be held somewhere else
+	snakeLength = 20; // needs to be held somewhere else
 	int x = -160; // needs to be held somewhere else
 	int y = rand() % 300 + 50;
 	for (int i = 0; i < snakeLength; i++) {
@@ -41,6 +42,29 @@ bool mySnake::checkTailCollision() {
 	return false;
 }
 
+bool mySnake::checkPrizeCollision(myPrize* prize) {
+
+	int head_x = body.at(body.size() - 1)->get_x();
+	int head_y = body.at(body.size() - 1)->get_y();
+	int prize_x_min = prize->get_x()-5;
+	int prize_y_min = prize->get_y()-5;
+	int prize_x_max = (prize->get_x())+(prize->get_width()+5);
+	int prize_y_max = (prize->get_y())+(prize->get_height()+5);
+	bool x_collision = false;
+	bool y_collision = false;
+
+	if ((head_x >= prize_x_min) && (head_x <= prize_x_max)) {
+		x_collision = true;
+	}
+
+	if ((head_y >= prize_y_min) && (head_y <= prize_y_max)) {
+		y_collision = true;
+	}
+	if (x_collision && y_collision) {
+		return true;
+	}
+	return false;
+}
 
 std::vector<std::shared_ptr<myDot>> mySnake::getBody() {
 	return body;
@@ -90,7 +114,7 @@ void mySnake::moveSnake() {
 			x = 0;
 		}
 	}
-	body.push_back(std::make_unique<myDot>(x, y, 10, 10));
+	body.push_back(std::make_unique<myDot>(x, y, 15, 15));
 	body.erase(body.begin());
 	
 }
