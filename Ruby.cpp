@@ -1,10 +1,9 @@
 #include "Ruby.h"
 
-Ruby::Ruby(){
-	width = 27;
-	height = 40;
-	x = 100; // this needs to be random
-	y = 100; // this needs to be random
+Ruby::Ruby(int x, int y):
+	x{ x }, y{ y }{
+	width = 30;
+	height = 30;
 	image = "Images/ruby.bmp";
 	points = 50; // this could be random??
 }
@@ -20,7 +19,7 @@ int Ruby::get_x() {
 int Ruby::get_y() {
 	return y;
 }
-std::string Ruby::get_image() {
+const char* Ruby::get_image() {
 	return image;
 }
 int Ruby::get_points() {

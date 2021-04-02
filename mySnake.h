@@ -2,6 +2,7 @@
 #define MYSNAKE_H
 #include "SDL.h"
 #include "myDot.h"
+#include "myPrize.h"
 #include <SDL_image.h>
 #include <vector>
 #include<memory>
@@ -27,6 +28,7 @@ public:
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();
+	bool checkPrizeCollision(myPrize* prize);
 	std::vector<std::shared_ptr<myDot>> getBody();
 	~mySnake();
 };

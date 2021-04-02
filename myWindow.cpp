@@ -2,6 +2,7 @@
 #include "myPrize.h"
 #include "SDL.h"
 #include "SDL_image.h"
+#include "myApp.h"
 #include <iostream>
 #include "SDL_ttf.h"
 #include <string>
@@ -57,22 +58,74 @@ void myWindow::intro() {
 	publishTexture();
 }
 
+void myWindow::drawFrame(mySnake* snake, std::vector<myPrize*> prizes, int score){
+	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+	drawHeader();
+	drawScore(score);
+	if (prizes.size() > 0) {
+		drawPrize(prizes.at(0));
+	}
+	drawSnake(snake);
+	publishTexture();
+	SDL_Delay(150);
+	}
 
+void myWindow::drawPrize(myPrize* prize) {
+	SDL_Surface* surface = IMG_Load(prize->get_image());
+	if (surface == NULL) {
+		std::cout << "Prize image not loaded" << std::endl;
+	}
+	else {
+		SDL_Rect* temp;
+		temp = new SDL_Rect{ prize->get_x(),prize->get_y(),prize->get_height(),prize->get_width()};
+		SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0xFF, 0xFF, 0xFF));
+		myTexture = SDL_CreateTextureFromSurface(myRenderer, surface);
+		SDL_RenderSetViewport(myRenderer, temp);
+		SDL_RenderCopy(myRenderer, myTexture, NULL, NULL);
+		std::cout << "Render prize" << std::endl;
+		SDL_FreeSurface(surface);
+		SDL_RenderSetViewport(myRenderer, NULL);
+	}
+}
 
-void myWindow::drawSnake(mySnake snake) {
+void myWindow::drawHeader() {
+	std::cout << "Draw header" << std::endl;
+	SDL_Rect* temp = new SDL_Rect{ 0,0,640,40 };
+	SDL_SetRenderDrawColor(myRenderer, 0x12, 0x4a, 0x12, 0x00);
+	SDL_RenderFillRect(myRenderer, temp);
+}
+
+void myWindow::drawScore(int score) {
+	TTF_Init();
+	TTF_Font* font = TTF_OpenFont("Font/Arial.ttf", 200); //this opens a font style and sets a size
+	SDL_Color color = { 255, 255, 255 };  // this is the text color in rgb format
+	SDL_Rect Message_rect; //create a rect
+	Message_rect.x = 10;  //controls the rect's x coordinate 
+	Message_rect.y = 10; // controls the rect's y coordinte
+	Message_rect.w = 100; // controls the width of the rect
+	Message_rect.h = 30; // controls the height of the rect
+	std::string Emmatext = "";
+	Emmatext = "Score: " + std::to_string(score);	
+	SDL_Surface* surfaceMessageScore = TTF_RenderText_Solid(font, Emmatext.c_str(), color); //Create surface first
+	SDL_Texture* MessageScore = SDL_CreateTextureFromSurface(myRenderer, surfaceMessageScore); //Convert to texture
+	SDL_RenderCopy(myRenderer, MessageScore, NULL, &Message_rect);
+	
+	SDL_FreeSurface(surfaceMessageScore);
+	SDL_DestroyTexture(MessageScore);
+}
+
+void myWindow::drawSnake(mySnake* snake) {
 	std::cout << "Draw snake" << std::endl;
 	SDL_Rect* temp;
 	int x;
 	int y;
-	//SDL_SetRenderDrawColor(myRenderer, 0x2F, 0x3A, 0xCE, 0x2F);
-	//SDL_RenderClear(myRenderer);
-	//TEST
-	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
-	publishTexture();
-	//TEST
-	for (int i = 0; i < snake.getSnakeLength(); i++) {
-		x = snake.getBody().at(i)->get_x();
-		y = snake.getBody().at(i)->get_y();
+	
+	//SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+	//publishTexture();
+	
+	for (int i = 0; i < snake->getSnakeLength(); i++) {
+		x = snake->getBody().at(i)->get_x();
+		y = snake->getBody().at(i)->get_y();
 		SDL_SetRenderDrawColor(myRenderer, 0xF7, 0x02, 0x0b, 0xf7);
 		temp = new SDL_Rect{ x+1,y,8,10 };  //Make this a current position variable
 		SDL_RenderFillRect(myRenderer, temp);
@@ -81,9 +134,13 @@ void myWindow::drawSnake(mySnake snake) {
 		temp = new SDL_Rect{ x,y+1,10,8 };
 		SDL_RenderFillRect(myRenderer, temp);
 	}
-	publishTexture();
-	SDL_Delay(150);
+
+
+	//publishTexture();
+	//SDL_Delay(150);
 } 
+
+
 void myWindow::publishTexture() {
 	std::cout << "Publish" << std::endl;
 	SDL_RenderPresent(myRenderer);
