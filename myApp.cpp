@@ -24,7 +24,7 @@ mySnake* myApp::getSnake() {
 int myApp::random_position() {
 	//srand(time(NULL));
 	//return rand() % 300 + 50;
-	return 30 + (int)(450.0 * (rand() / (RAND_MAX + 30.0)));
+	return 30 + (int)(420.0 * (rand() / (RAND_MAX + 30.0)));
 }
 void myApp::runGame() {
 	SDL_Event e;
