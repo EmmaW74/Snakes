@@ -12,7 +12,6 @@ int main(int argc, char* args[])
 
 
 /*
-- BUG - Prizes keep appearing in the background when paused
 - top score held in file & shown on header
 - star gem that speeds game up
 - global variables for header and navigation areas (and stop gems and snake appearing over the top of the header)

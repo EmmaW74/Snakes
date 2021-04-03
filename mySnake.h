@@ -19,12 +19,15 @@ private:
 	std::vector<std::shared_ptr<myDot>> body; // Snake is a vector of smart pointers to dots - front of snake is back of vector
 	Direction current_direction;
 	int snakeLength;
+	int snakeSpeed;
 
 public:
 	mySnake();
 	Direction getDirection();
 	void changeDirection(Direction new_direction);
 	int getSnakeLength();
+	int getSnakeSpeed();
+	void increaseSnakeSpeed();
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();

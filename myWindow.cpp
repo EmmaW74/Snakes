@@ -69,7 +69,7 @@ void myWindow::drawFrame(mySnake* snake, std::vector<myPrize*> prizes, int score
 	}
 	drawSnake(snake);
 	publishTexture();
-	SDL_Delay(150);
+	SDL_Delay(snake->getSnakeSpeed());
 	}
 
 void myWindow::drawPrize(myPrize* prize) {
