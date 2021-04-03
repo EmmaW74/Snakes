@@ -33,10 +33,12 @@ void myApp::runGame() {
 	}
 	game_window->setBackground();
 	game_window->countdown();
-	//current_prizes.push_back(new Ruby(random_position(), random_position()));
+	
 	while (checkRunning()) {
-		incrementGameTimer();
-		addPrize();
+		if (!Paused) {
+			incrementGameTimer();
+			addPrize();
+		}
 		//While running, action event or if no event continue to move snake
 		if (SDL_PollEvent(&e) != 0) {
 			OnEvent(e);
