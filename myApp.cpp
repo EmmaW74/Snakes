@@ -5,6 +5,7 @@
 #include "Diamond.h"
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
 
 myApp::myApp(){
 	game_window = new myWindow();
@@ -13,6 +14,7 @@ myApp::myApp(){
 	Paused = false;
 	started = false;
 	gameTimer = 0;
+	srand(time(NULL));
 	std::cout << "myApp constructor called" << std::endl;
 }
 mySnake* myApp::getSnake() {
@@ -20,8 +22,9 @@ mySnake* myApp::getSnake() {
 }
 
 int myApp::random_position() {
-	srand(time(NULL));
-	return rand() % 300 + 50;
+	//srand(time(NULL));
+	//return rand() % 300 + 50;
+	return 30 + (int)(450.0 * (rand() / (RAND_MAX + 30.0)));
 }
 void myApp::runGame() {
 	SDL_Event e;
@@ -57,9 +60,9 @@ void myApp::incrementGameTimer() {
 
 void myApp::addPrize() {
 	if (get_timer() == 30) {
-		srand(time(NULL));
-		int type = rand() % 2;
-		if (type == 0) {
+		
+		int type = 1 + (int)(2.0 * (rand() / (RAND_MAX + 1.0)));
+		if (type == 1) {
 			current_prizes.push_back(new Ruby(random_position(), random_position()));
 		}
 		else {
@@ -88,6 +91,8 @@ void myApp::collectPoints(){
 		if (game_snake1->checkPrizeCollision(current_prizes.at(x))) {
 			score += current_prizes.at(x)->get_points();
 			current_prizes.erase(current_prizes.begin() + x);
+			game_snake1->increaseSnakeSpeed();
+			game_snake1->increaseLength();
 		}
 	}
 }

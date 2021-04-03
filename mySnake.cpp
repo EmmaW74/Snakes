@@ -6,8 +6,9 @@
 
 mySnake::mySnake() {
 	//Update this to get random starting points and directions
-	srand(time(NULL));
+	//srand(time(NULL));
 	snakeLength = 20; // needs to be held somewhere else
+	snakeSpeed = 150; //needs to be held somewhere else
 	int x = -160; // needs to be held somewhere else
 	int y = rand() % 300 + 50;
 	for (int i = 0; i < snakeLength; i++) {
@@ -79,6 +80,17 @@ int mySnake::getSnakeLength() {
 	return snakeLength;
 }
 
+int mySnake::getSnakeSpeed() {
+	return snakeSpeed;
+}
+
+void mySnake::increaseSnakeSpeed() {
+	//Reducing snakeSpeed reduces frame delay
+	if (getSnakeSpeed() > 50) {
+		snakeSpeed -= 10;
+	}
+}
+
 void mySnake::moveSnake() {
 	int SCREEN_WIDTH = 640;
 	int SCREEN_HEIGHT = 480;
@@ -120,6 +132,28 @@ void mySnake::moveSnake() {
 }
 void mySnake::increaseLength() {
 	// take direction and use it to calculate next position then push back to new pos
+	//body.push_back(std::make_unique<myDot>(x, y, 10, 10);
+	snakeLength++;
+	int front_x = body.at(body.size() - 1)->get_x();
+	int front_y = body.at(body.size() - 1)->get_y();
+	int width_height = body.at(body.size() - 1)->get_width();
+
+	if (getDirection() == Direction::UP) {
+		int new_y = front_y - 10;
+		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
+	}
+	else if (getDirection() == Direction::DOWN) {
+		int new_y = front_y + 10;
+		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
+	}
+	else if (getDirection() == Direction::LEFT) {
+		int new_x = front_x - 10;
+		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
+	}
+	else if (getDirection() == Direction::RIGHT) {
+		int new_x = front_x + 10;
+		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
+	}
 }
 
 mySnake::~mySnake(){}
