@@ -63,7 +63,9 @@ void myWindow::drawFrame(mySnake* snake, std::vector<myPrize*> prizes, int score
 	drawHeader();
 	drawScore(score);
 	if (prizes.size() > 0) {
-		drawPrize(prizes.at(0));
+		for (int x = 0; x < prizes.size(); x++) {
+			drawPrize(prizes.at(x));
+		}
 	}
 	drawSnake(snake);
 	publishTexture();
