@@ -2,6 +2,7 @@
 #include "myWindow.h"
 #include "mySnake.h"
 #include "Ruby.h"
+#include "Diamond.h"
 #include <iostream>
 #include <stdlib.h>
 
@@ -32,10 +33,10 @@ void myApp::runGame() {
 	}
 	game_window->setBackground();
 	game_window->countdown();
-	current_prizes.push_back(new Ruby(random_position(), random_position()));
+	//current_prizes.push_back(new Ruby(random_position(), random_position()));
 	while (checkRunning()) {
 		incrementGameTimer();
-		//***Do something here to make prizes appear / disappear***
+		addPrize();
 		//While running, action event or if no event continue to move snake
 		if (SDL_PollEvent(&e) != 0) {
 			OnEvent(e);
@@ -46,7 +47,28 @@ void myApp::runGame() {
 		}
 	}
 }
+void myApp::incrementGameTimer() {
+	//increments between 0 - 49 then restarts
+	gameTimer += 1;
+	gameTimer = gameTimer % 50;
+}
 
+void myApp::addPrize() {
+	if (get_timer() == 30) {
+		srand(time(NULL));
+		int type = rand() % 2;
+		if (type == 0) {
+			current_prizes.push_back(new Ruby(random_position(), random_position()));
+		}
+		else {
+			current_prizes.push_back(new Diamond(random_position(), random_position()));
+		}
+	}
+}
+
+int myApp::get_timer() {
+	return gameTimer;
+}
 void myApp::myContinue() {
 
 	if (!Paused) {

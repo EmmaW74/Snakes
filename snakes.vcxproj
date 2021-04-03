@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
     <ClCompile Include="myPrize.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Diamond.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="MyDot.h" />
     <ClInclude Include="myPrize.h" />

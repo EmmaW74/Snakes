@@ -22,14 +22,9 @@ private:
 
 public:
 	myApp();
-	void incrementGameTimer() {
-		//increment by one then set to modulus 50
-		gameTimer += 1;
-		gameTimer = gameTimer % 50;
-	}
-	int get_timer() {
-		return gameTimer;
-	}
+	void incrementGameTimer();
+	int get_timer();
+	void addPrize();
 	void runGame();
 	void OnEvent(SDL_Event& e); // on event do something
 	bool checkRunning();

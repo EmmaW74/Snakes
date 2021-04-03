@@ -12,15 +12,17 @@ int main(int argc, char* args[])
 
 
 /*
-- timer to make gems appear and disappear (variable in prize for length of time on display?? - see myApp.cpp line 38)
+- top score held in file & shown on header
+- star gem that speeds game up
+- global variables for header and navigation areas (and stop gems and snake appearing over the top of the header)
 - myApp on_close() at end 
 - Check memory management (every create Texture needs a destroy texture)
 - add to length after x seconds & increase points - timer?
 - add prizes to pick up (points / slow down / reduce length)
 - Add molehills to avoid - rise up then down
-- 
+- Change to smart pointers
 - Random start position
-- Separate move snake from change direction
+- Make gem collision more accurate
 
 image <a href='https://www.freepik.com/vectors/background'>Background vector created by macrovector - www.freepik.com</a>
 */
