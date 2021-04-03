@@ -24,13 +24,17 @@ Direction mySnake::getDirection() {
 }
 
 bool mySnake::checkTailCollision() {
-	int head_x;
-	int head_y;
+	int head_x = body.at(body.size() - 1)->get_x();
+	int head_y = body.at(body.size() - 1)->get_y();
 	int tail_x;
 	int tail_y;
+	if ((head_x <= 0 || head_x >= 630) || (head_y <= 50 || head_y >=470)) {
+		return true;
+	}
+	
 	for (unsigned int x = 0; x < body.size()-1; x++) {
-		head_x = body.at(body.size() - 1)->get_x();
-		head_y = body.at(body.size() - 1)->get_y();
+		//head_x = body.at(body.size() - 1)->get_x();
+		//head_y = body.at(body.size() - 1)->get_y();
 		tail_x = body.at(x)->get_x();
 		tail_y = body.at(x)->get_y();
 		
@@ -100,31 +104,31 @@ void mySnake::moveSnake() {
 	int y = body.at(snakeLength-1)->get_y();
 	if (current_direction == Direction::UP) {
 		y -= 10;
-		//Check if goes off screen and wrap around
+		/*//Check if goes off screen and wrap around
 		if (y < 0) {
 			y = SCREEN_HEIGHT - body.at(snakeLength - 1)->get_height();
-		}
+		} */
 	}
 	else if (current_direction == Direction::DOWN) {
 		y += 10;
-		//Check if goes off screen and wrap around
+		/*//Check if goes off screen and wrap around
 		if (y > (SCREEN_HEIGHT - body.at(snakeLength - 1)->get_height())) {
 			y = 0;
-		}
+		}*/
 	}
 	else if (current_direction == Direction::LEFT) {
 		x -= 10;
-		//Check if goes off screen and wrap around
+		/*//Check if goes off screen and wrap around
 		if (x < 0) {
 			x = SCREEN_WIDTH - body.at(snakeLength - 1)->get_width();
-		}
+		} */
 	}
 	else if (current_direction == Direction::RIGHT) {
 		x += 10;
-		//Check if goes off screen and wrap around
+		/*//Check if goes off screen and wrap around
 		if (x > SCREEN_WIDTH - body.at(snakeLength - 1)->get_width()) {
 			x = 0;
-		}
+		} */
 	}
 	body.push_back(std::make_unique<myDot>(x, y, 15, 15));
 	body.erase(body.begin());
