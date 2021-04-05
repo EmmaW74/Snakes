@@ -12,7 +12,7 @@ int main(int argc, char* args[])
 
 
 /*
-- bug - arrow keys are actioned when game not started yet
+- bug - delay on game over
 - top score held in file & shown on header
 - star gem 
 - global variables for header and navigation areas (and stop gems and snake appearing over the top of the header)

@@ -31,7 +31,9 @@ void myApp::runGame() {
 	while (!getStarted()) {
 		//Wait for Enter to start the game
 		if (SDL_PollEvent(&e) != 0) {
-			OnEvent(e);
+			if (e.key.keysym.sym == SDLK_RETURN) {
+				updateStarted();
+			}
 		}
 	}
 	game_window->setBackground();
