@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 mySnake::mySnake() {
+	std::cout << "mySnake constructor called" << std::endl;
 	//Update this to get random starting points and directions
 	//srand(time(NULL));
 	snakeLength = 20; // needs to be held somewhere else
@@ -33,14 +34,13 @@ bool mySnake::checkTailCollision() {
 	}
 	
 	for (unsigned int x = 0; x < body.size()-1; x++) {
-		//head_x = body.at(body.size() - 1)->get_x();
-		//head_y = body.at(body.size() - 1)->get_y();
+		
 		tail_x = body.at(x)->get_x();
 		tail_y = body.at(x)->get_y();
 		
 		if ((head_x == tail_x)&&(head_y==tail_y)) {
 			return true;
-			std::cout << "Collision" << std::endl;
+			//std::cout << "Collision" << std::endl;
 		}
 	}
 	
@@ -98,45 +98,32 @@ void mySnake::increaseSnakeSpeed() {
 void mySnake::moveSnake() {
 	int SCREEN_WIDTH = 640;
 	int SCREEN_HEIGHT = 480;
-	std::cout << "Move snake" << std::endl;
+	//std::cout << "Move snake" << std::endl;
 	//front of snake is back of vector
 	int x = body.at(snakeLength-1)->get_x();
 	int y = body.at(snakeLength-1)->get_y();
 	if (current_direction == Direction::UP) {
 		y -= 10;
-		/*//Check if goes off screen and wrap around
-		if (y < 0) {
-			y = SCREEN_HEIGHT - body.at(snakeLength - 1)->get_height();
-		} */
+		
 	}
 	else if (current_direction == Direction::DOWN) {
 		y += 10;
-		/*//Check if goes off screen and wrap around
-		if (y > (SCREEN_HEIGHT - body.at(snakeLength - 1)->get_height())) {
-			y = 0;
-		}*/
+		
 	}
 	else if (current_direction == Direction::LEFT) {
 		x -= 10;
-		/*//Check if goes off screen and wrap around
-		if (x < 0) {
-			x = SCREEN_WIDTH - body.at(snakeLength - 1)->get_width();
-		} */
+		
 	}
 	else if (current_direction == Direction::RIGHT) {
 		x += 10;
-		/*//Check if goes off screen and wrap around
-		if (x > SCREEN_WIDTH - body.at(snakeLength - 1)->get_width()) {
-			x = 0;
-		} */
+		
 	}
 	body.push_back(std::make_unique<myDot>(x, y, 15, 15));
 	body.erase(body.begin());
 	
 }
 void mySnake::increaseLength() {
-	// take direction and use it to calculate next position then push back to new pos
-	//body.push_back(std::make_unique<myDot>(x, y, 10, 10);
+	
 	snakeLength++;
 	int front_x = body.at(body.size() - 1)->get_x();
 	int front_y = body.at(body.size() - 1)->get_y();
@@ -160,4 +147,6 @@ void mySnake::increaseLength() {
 	}
 }
 
-mySnake::~mySnake(){}
+mySnake::~mySnake(){
+	std::cout << "mySnake destructor called" << std::endl;
+}

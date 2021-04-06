@@ -1,7 +1,9 @@
 #include "Diamond.h"
+#include <iostream>
 
 Diamond::Diamond(int x, int y) :
 	x{ x }, y{ y }{
+	std::cout << "Diamond constructor called" << std::endl;
 	width = 30;
 	height = 30;
 	image = "Images/diamond.bmp";
@@ -26,5 +28,5 @@ int Diamond::get_points() {
 	return points;
 }
 Diamond::~Diamond() {
-
+	std::cout << "Diamond destructor called" << std::endl;
 }

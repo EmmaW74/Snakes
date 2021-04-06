@@ -22,8 +22,6 @@ mySnake* myApp::getSnake() {
 }
 
 int myApp::random_position() {
-	//srand(time(NULL));
-	//return rand() % 300 + 50;
 	return 30 + (int)(420.0 * (rand() / (RAND_MAX + 30.0)));
 }
 void myApp::runGame() {
@@ -50,7 +48,7 @@ void myApp::runGame() {
 		}
 		else {
 			myContinue();
-			std::cout << "Continue" << std::endl;
+			//std::cout << "Continue" << std::endl;
 		}
 	}
 }
@@ -133,7 +131,7 @@ void myApp::OnEvent(SDL_Event& e) {
 
 		case SDLK_UP:
 			if (!Paused) {
-				std::cout << "UP" << std::endl;
+				//std::cout << "UP" << std::endl;
 				if (game_snake1->getDirection() == Direction::DOWN) {
 					break;
 				}
@@ -152,7 +150,7 @@ void myApp::OnEvent(SDL_Event& e) {
 
 		case SDLK_DOWN:
 			if (!Paused) {
-				std::cout << "DOWN" << std::endl;
+				//std::cout << "DOWN" << std::endl;
 				if (game_snake1->getDirection() == Direction::UP) {
 					break;
 				}
@@ -170,7 +168,7 @@ void myApp::OnEvent(SDL_Event& e) {
 			}
 		case SDLK_LEFT:
 			if (!Paused) {
-				std::cout << "LEFT" << std::endl;
+				//std::cout << "LEFT" << std::endl;
 
 				if (game_snake1->getDirection() == Direction::RIGHT) {
 					break;
@@ -185,14 +183,14 @@ void myApp::OnEvent(SDL_Event& e) {
 						game_window->drawFrame(game_snake1, current_prizes, score);
 						collectPoints();
 					}
-					//game_window->drawFrame(game_snake1, current_prizes, score);
+					
 					break;
 				}
 			}
 
 		case SDLK_RIGHT:
 			if (!Paused) {
-				std::cout << "RIGHT" << std::endl;
+				//std::cout << "RIGHT" << std::endl;
 				if (game_snake1->getDirection() == Direction::LEFT) {
 					break; 
 				}
@@ -205,7 +203,7 @@ void myApp::OnEvent(SDL_Event& e) {
 						game_window->drawFrame(game_snake1, current_prizes, score);
 						collectPoints();
 					}
-					//game_window->drawFrame(game_snake1, current_prizes, score);
+					
 					break;
 				}
 			}
@@ -214,7 +212,7 @@ void myApp::OnEvent(SDL_Event& e) {
 	}
 }
 bool myApp::checkRunning() {
-	std::cout << "Check running" << std::endl;
+	//std::cout << "Check running" << std::endl;
 	return Running;
 }
 
@@ -225,8 +223,11 @@ void myApp::stopGame() {
 void myApp::gameOver(myWindow* window) {
 	window->showGameOver();
 	Running = false;
-	SDL_Delay(5000);
+	SDL_Delay(3000);
+	delete game_snake1;
+	delete window;
 	exit(0);
+
 }
 
 myApp::~myApp() {
