@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RUBY_H
+#define RUBY_H
 #include "myPrize.h"
 class Ruby :
     public myPrize
@@ -22,3 +23,4 @@ public:
 
 };
 
+#endif

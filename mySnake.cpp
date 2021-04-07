@@ -2,6 +2,7 @@
 #include "myWindow.h"
 #include "myPrize.h"
 #include <time.h>
+#include <iostream>
 
 mySnake::mySnake() {
 	srand(time(NULL));
@@ -11,7 +12,7 @@ mySnake::mySnake() {
 	int y = rand() % 300 + 50;
 	for (int i = 0; i < snakeLength; i++) {
 
-		body.push_back(std::make_unique<myDot>(x, y, 10, 10));
+		body.push_back(std::make_shared<myDot>(x, y, 10, 10));
 		x += 10;
 	}
 	current_direction = Direction::RIGHT;
@@ -80,7 +81,6 @@ void mySnake::moveSnake() {
 	}
 	body.push_back(std::make_unique<myDot>(x, y, 15, 15));
 	body.erase(body.begin());
-
 }
 
 bool mySnake::checkTailCollision() {

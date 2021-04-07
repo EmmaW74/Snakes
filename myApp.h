@@ -43,8 +43,6 @@ public:
 	void incrementGameTimer();
 	int get_timer();
 	int random_position();
-	
-	~myApp();
 };
 
 #endif

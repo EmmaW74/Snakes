@@ -9,7 +9,7 @@
 #include <sstream>
 
 myWindow::myWindow() {
-	std::cout << "myWindow constructor called" << std::endl;
+	
 	//Initialisation flag
 	bool success = true;
 
@@ -100,6 +100,7 @@ void myWindow::drawHeader() {
 	SDL_Rect* temp = new SDL_Rect{ 0,0,640,40 };
 	SDL_SetRenderDrawColor(myRenderer, 0x12, 0x4a, 0x12, 0x00);
 	SDL_RenderFillRect(myRenderer, temp);
+	delete temp;
 }
 
 void myWindow::drawSnake(std::shared_ptr<mySnake> snake) {
@@ -115,8 +116,10 @@ void myWindow::drawSnake(std::shared_ptr<mySnake> snake) {
 		SDL_SetRenderDrawColor(myRenderer, 0xF7, 0x02, 0x0b, 0xf7);
 		temp = new SDL_Rect{ x + 1,y,8,10 };
 		SDL_RenderFillRect(myRenderer, temp);
+		delete temp;
 		temp = new SDL_Rect{ x,y + 1,10,8 };
 		SDL_RenderFillRect(myRenderer, temp);
+		delete temp;
 	}
 
 }
@@ -136,6 +139,7 @@ void myWindow::drawPrize(std::shared_ptr<myPrize> prize) {
 		//std::cout << "Render prize" << std::endl;
 		SDL_FreeSurface(surface);
 		SDL_RenderSetViewport(myRenderer, NULL);
+		delete temp;
 	}
 }
 
@@ -281,5 +285,4 @@ myWindow::~myWindow() {
 	TTF_Quit();
 	SDL_Quit();
 
-	std::cout << "myWindow destructor called" << std::endl;
 }

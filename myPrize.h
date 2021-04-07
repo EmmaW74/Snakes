@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MYPRIZE_H
+#define MYPRIZE_H
 #include <string>
 
 class myPrize
@@ -13,3 +14,4 @@ public:
 	virtual int get_points() = 0;
 }; 
 
+#endif

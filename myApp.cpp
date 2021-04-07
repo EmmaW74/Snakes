@@ -7,7 +7,6 @@
 
 
 myApp::myApp(){
-	std::cout << "myApp constructor called" << std::endl;
 	game_window = new myWindow();
 	game_snake1 = std::make_shared<mySnake> ();
 	Running = true;
@@ -233,8 +232,4 @@ int myApp::get_timer() {
 
 int myApp::random_position() {
 	return 30 + (int)(420.0 * (rand() / (RAND_MAX + 30.0)));
-}
-
-myApp::~myApp() {
-	std::cout << "myApp destructor called" << std::endl;
 }
