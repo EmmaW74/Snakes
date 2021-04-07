@@ -4,14 +4,15 @@ class Diamond :
     public myPrize
 {
 private:
-	int width;
-	int height;
+	const int width;
+	const int height;
 	int x;
 	int y;
 	int points;
 	const char* image;
 
 public:
+	
 	Diamond(int x, int y);
 	int get_width();
 	int get_height();
@@ -19,6 +20,5 @@ public:
 	int get_y();
 	const char* get_image();
 	int get_points();
-	~Diamond();
 };
 

@@ -4,8 +4,8 @@ class Ruby :
     public myPrize
 {
 private:
-	int width;
-	int height;
+	const int width;
+	const int height;
 	int x;
 	int y;
 	int points;
@@ -19,7 +19,6 @@ public:
 	int get_y();
 	const char* get_image();
 	int get_points();
-	~Ruby();
 
 };
 
