@@ -1,6 +1,5 @@
 #include "SDL.h"
 #include "myApp.h"
-#include <iostream>
 
 int main(int argc, char* args[])
 {
@@ -12,7 +11,8 @@ int main(int argc, char* args[])
 
 
 /*
-- bug - delay on game over
+- mySnake - snake length & speed - held as variables somewhere?
+- Diamond - Points assigned in constructor could be random & image could show points
 - top score held in file & shown on header
 - star gem 
 - global variables for header and navigation areas 

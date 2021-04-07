@@ -21,10 +21,10 @@ public:
 	myWindow();
 	SDL_Texture* LoadImage(std::string path);
 	void setBackground(); //Create a background surface to be reused
-	void drawFrame(mySnake* snake, std::vector<myPrize*> prizes, int score);
-	void drawSnake(mySnake* snake); //Draw snake to my texture
-	void drawPrize(myPrize* prize);
+	void drawFrame(std::shared_ptr<mySnake> snake, std::vector<std::shared_ptr<myPrize>> prizes, int score);
 	void drawHeader();
+	void drawSnake(std::shared_ptr<mySnake> snake); 
+	void drawPrize(std::shared_ptr<myPrize> prize);
 	void drawScore(int score);
 	void publishTexture(); //Publish my texture to window
 	void intro();

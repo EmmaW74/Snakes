@@ -1,16 +1,13 @@
 #include "mySnake.h"
 #include "myWindow.h"
 #include "myPrize.h"
-#include <iostream>
-#include <stdlib.h>
+#include <time.h>
 
 mySnake::mySnake() {
-	std::cout << "mySnake constructor called" << std::endl;
-	//Update this to get random starting points and directions
-	//srand(time(NULL));
-	snakeLength = 20; // needs to be held somewhere else
-	snakeSpeed = 150; //needs to be held somewhere else
-	int x = -160; // needs to be held somewhere else
+	srand(time(NULL));
+	snakeLength = 20; 
+	snakeSpeed = 150; 
+	int x = -160; 
 	int y = rand() % 300 + 50;
 	for (int i = 0; i < snakeLength; i++) {
 
@@ -20,8 +17,70 @@ mySnake::mySnake() {
 	current_direction = Direction::RIGHT;
 	
 }
-Direction mySnake::getDirection() {
-	return current_direction;
+
+void mySnake::changeDirection(Direction new_direction) {
+	current_direction = new_direction;
+	moveSnake();
+}
+
+void mySnake::increaseSnakeSpeed() {
+	//Reducing snakeSpeed reduces frame delay
+	if (getSnakeSpeed() > 50) {
+		snakeSpeed -= 10;
+	}
+}
+
+void mySnake::increaseLength() {
+
+	snakeLength++;
+	int front_x = body.at(body.size() - 1)->get_x();
+	int front_y = body.at(body.size() - 1)->get_y();
+	int width_height = body.at(body.size() - 1)->get_width();
+
+	if (getDirection() == Direction::UP) {
+		int new_y = front_y - 10;
+		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
+	}
+	else if (getDirection() == Direction::DOWN) {
+		int new_y = front_y + 10;
+		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
+	}
+	else if (getDirection() == Direction::LEFT) {
+		int new_x = front_x - 10;
+		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
+	}
+	else if (getDirection() == Direction::RIGHT) {
+		int new_x = front_x + 10;
+		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
+	}
+}
+
+void mySnake::moveSnake() {
+	int SCREEN_WIDTH = 640;
+	int SCREEN_HEIGHT = 480;
+	//std::cout << "Move snake" << std::endl;
+	//front of snake is back of vector
+	int x = body.at(snakeLength - 1)->get_x();
+	int y = body.at(snakeLength - 1)->get_y();
+	if (current_direction == Direction::UP) {
+		y -= 10;
+
+	}
+	else if (current_direction == Direction::DOWN) {
+		y += 10;
+
+	}
+	else if (current_direction == Direction::LEFT) {
+		x -= 10;
+
+	}
+	else if (current_direction == Direction::RIGHT) {
+		x += 10;
+
+	}
+	body.push_back(std::make_unique<myDot>(x, y, 15, 15));
+	body.erase(body.begin());
+
 }
 
 bool mySnake::checkTailCollision() {
@@ -47,7 +106,7 @@ bool mySnake::checkTailCollision() {
 	return false;
 }
 
-bool mySnake::checkPrizeCollision(myPrize* prize) {
+bool mySnake::checkPrizeCollision(std::shared_ptr<myPrize> prize) {
 
 	int head_x = body.at(body.size() - 1)->get_x();
 	int head_y = body.at(body.size() - 1)->get_y();
@@ -71,14 +130,9 @@ bool mySnake::checkPrizeCollision(myPrize* prize) {
 	return false;
 }
 
-std::vector<std::shared_ptr<myDot>> mySnake::getBody() {
-	return body;
+Direction mySnake::getDirection() {
+	return current_direction;
 }
-void mySnake::changeDirection(Direction new_direction) {
-	current_direction = new_direction;
-	moveSnake();
-}
-
 
 int mySnake::getSnakeLength() {
 	return snakeLength;
@@ -88,65 +142,6 @@ int mySnake::getSnakeSpeed() {
 	return snakeSpeed;
 }
 
-void mySnake::increaseSnakeSpeed() {
-	//Reducing snakeSpeed reduces frame delay
-	if (getSnakeSpeed() > 50) {
-		snakeSpeed -= 10;
-	}
-}
-
-void mySnake::moveSnake() {
-	int SCREEN_WIDTH = 640;
-	int SCREEN_HEIGHT = 480;
-	//std::cout << "Move snake" << std::endl;
-	//front of snake is back of vector
-	int x = body.at(snakeLength-1)->get_x();
-	int y = body.at(snakeLength-1)->get_y();
-	if (current_direction == Direction::UP) {
-		y -= 10;
-		
-	}
-	else if (current_direction == Direction::DOWN) {
-		y += 10;
-		
-	}
-	else if (current_direction == Direction::LEFT) {
-		x -= 10;
-		
-	}
-	else if (current_direction == Direction::RIGHT) {
-		x += 10;
-		
-	}
-	body.push_back(std::make_unique<myDot>(x, y, 15, 15));
-	body.erase(body.begin());
-	
-}
-void mySnake::increaseLength() {
-	
-	snakeLength++;
-	int front_x = body.at(body.size() - 1)->get_x();
-	int front_y = body.at(body.size() - 1)->get_y();
-	int width_height = body.at(body.size() - 1)->get_width();
-
-	if (getDirection() == Direction::UP) {
-		int new_y = front_y - 10;
-		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
-	}
-	else if (getDirection() == Direction::DOWN) {
-		int new_y = front_y + 10;
-		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
-	}
-	else if (getDirection() == Direction::LEFT) {
-		int new_x = front_x - 10;
-		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
-	}
-	else if (getDirection() == Direction::RIGHT) {
-		int new_x = front_x + 10;
-		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
-	}
-}
-
-mySnake::~mySnake(){
-	std::cout << "mySnake destructor called" << std::endl;
+std::vector<std::shared_ptr<myDot>> mySnake::getBody() {
+	return body;
 }

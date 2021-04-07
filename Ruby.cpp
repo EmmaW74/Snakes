@@ -2,12 +2,9 @@
 #include <iostream>
 
 Ruby::Ruby(int x, int y):
-	x{ x }, y{ y }{
-	width = 30;
-	height = 30;
+	x{ x }, y{ y }, width{ 30 }, height{ 30 }{
 	image = "Images/ruby.bmp";
-	points = 50; // this could be random??
-	std::cout << "Ruby constructor called" << std::endl;
+	points = 50; 
 }
 int Ruby::get_width() {
 	return width;
@@ -26,7 +23,4 @@ const char* Ruby::get_image() {
 }
 int Ruby::get_points() {
 	return points;
-}
-Ruby::~Ruby() {
-	std::cout << "Ruby destructor called" << std::endl;
 }

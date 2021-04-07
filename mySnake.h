@@ -23,17 +23,18 @@ private:
 
 public:
 	mySnake();
-	Direction getDirection();
+
 	void changeDirection(Direction new_direction);
-	int getSnakeLength();
-	int getSnakeSpeed();
 	void increaseSnakeSpeed();
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();
-	bool checkPrizeCollision(myPrize* prize);
+	bool checkPrizeCollision(std::shared_ptr<myPrize> prize);
+		
+	Direction getDirection();
+	int getSnakeLength();
+	int getSnakeSpeed();
 	std::vector<std::shared_ptr<myDot>> getBody();
-	~mySnake();
 };
 
 #endif

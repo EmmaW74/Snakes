@@ -17,6 +17,3 @@ int myDot::get_x() {
 int myDot::get_y() {
 	return y;
 }
-myDot::~myDot() {
-	//std::cout << "myDot destructor called" << std::endl;
-};
