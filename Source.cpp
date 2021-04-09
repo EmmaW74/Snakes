@@ -12,7 +12,6 @@ int main(int argc, char* args[])
 
 
 /*
-- Next - Check all textures and surfaces are removed once no longer needed
 - END GAME - TIDY UP AND GIVE OPTION TO PLAY AGAIN
 - Diamond - Points assigned in constructor could be random & image could show points
 - top score held in file & shown on header

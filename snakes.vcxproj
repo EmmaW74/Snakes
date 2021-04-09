@@ -157,7 +157,6 @@
     <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
-    <ClCompile Include="myPrize.cpp" />
     <ClCompile Include="mySnake.cpp" />
     <ClCompile Include="myWindow.cpp" />
     <ClCompile Include="Ruby.cpp" />

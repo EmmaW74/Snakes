@@ -197,9 +197,9 @@ void myApp::gameOver(myWindow* window) {
 	window->showGameOver();
 	stopGame();
 	SDL_Delay(3000);
-	//delete game_snake1;
+	
 	delete window;
-	//exit(0);
+	
 
 }
 
