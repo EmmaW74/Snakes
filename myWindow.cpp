@@ -9,7 +9,7 @@
 #include <sstream>
 
 myWindow::myWindow() {
-	std::cout << "myWindow constructor called" << std::endl;
+	
 	//Initialisation flag
 	bool success = true;
 
@@ -44,7 +44,7 @@ myWindow::myWindow() {
 		}
 	}
 }
-
+/*
 SDL_Texture* myWindow::LoadImage(std::string path) {
 
 	//The final texture
@@ -73,12 +73,13 @@ SDL_Texture* myWindow::LoadImage(std::string path) {
 
 
 }
-
+*/
 void myWindow::setBackground() {
 	SDL_Surface* temp = IMG_Load("Images/grass.jpg");
 	myBackground = SDL_CreateTextureFromSurface(myRenderer, temp);
 	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	publishTexture();
+	SDL_FreeSurface(temp);
 }
 
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::shared_ptr<myPrize>> prizes, int score) {
@@ -100,6 +101,7 @@ void myWindow::drawHeader() {
 	SDL_Rect* temp = new SDL_Rect{ 0,0,640,40 };
 	SDL_SetRenderDrawColor(myRenderer, 0x12, 0x4a, 0x12, 0x00);
 	SDL_RenderFillRect(myRenderer, temp);
+	delete temp;
 }
 
 void myWindow::drawSnake(std::shared_ptr<mySnake> snake) {
@@ -115,8 +117,10 @@ void myWindow::drawSnake(std::shared_ptr<mySnake> snake) {
 		SDL_SetRenderDrawColor(myRenderer, 0xF7, 0x02, 0x0b, 0xf7);
 		temp = new SDL_Rect{ x + 1,y,8,10 };
 		SDL_RenderFillRect(myRenderer, temp);
+		delete temp;
 		temp = new SDL_Rect{ x,y + 1,10,8 };
 		SDL_RenderFillRect(myRenderer, temp);
+		delete temp;
 	}
 
 }
@@ -136,6 +140,7 @@ void myWindow::drawPrize(std::shared_ptr<myPrize> prize) {
 		//std::cout << "Render prize" << std::endl;
 		SDL_FreeSurface(surface);
 		SDL_RenderSetViewport(myRenderer, NULL);
+		delete temp;
 	}
 }
 
@@ -169,6 +174,8 @@ void myWindow::intro() {
 	SDL_Texture* intro_page = SDL_CreateTextureFromSurface(myRenderer, temp);
 	SDL_RenderCopy(myRenderer, intro_page, NULL, NULL);
 	publishTexture();
+	SDL_DestroyTexture(intro_page);
+	SDL_FreeSurface(temp);
 }
 
 void myWindow::showGameOver() {
@@ -217,7 +224,7 @@ void myWindow::countdown() {
 	for (int num = 3; num > 0; num--) {
 		s << num;
 		surfaceMessage = TTF_RenderText_Solid(font, s.str().c_str(), color); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(myRenderer, surfaceMessage); //now you can convert it into a texture
+		Message = SDL_CreateTextureFromSurface(myRenderer, surfaceMessage); //now you can convert it into a texture
 		SDL_RenderCopy(myRenderer, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
 		publishTexture();
 		SDL_Delay(1000);
@@ -258,8 +265,9 @@ void myWindow::renderPrize(myPrize* prize) {
 			SDL_RenderCopy(myRenderer, newTexture, NULL, &renderQuad);
 
 		}
-		//Get rid of old loaded surface
+		//Get rid of old loaded surface and texture
 		SDL_FreeSurface(temp);
+		SDL_DestroyTexture(newTexture);
 	}
 }
 
@@ -281,5 +289,4 @@ myWindow::~myWindow() {
 	TTF_Quit();
 	SDL_Quit();
 
-	std::cout << "myWindow destructor called" << std::endl;
 }

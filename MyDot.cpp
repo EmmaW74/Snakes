@@ -17,3 +17,4 @@ int myDot::get_x() {
 int myDot::get_y() {
 	return y;
 }
+

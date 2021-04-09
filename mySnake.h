@@ -35,6 +35,7 @@ public:
 	int getSnakeLength();
 	int getSnakeSpeed();
 	std::vector<std::shared_ptr<myDot>> getBody();
+
 };
 
 #endif

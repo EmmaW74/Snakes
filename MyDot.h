@@ -15,7 +15,6 @@ public:
 	int get_height();
 	int get_x();
 	int get_y();
-	
-};
+	};
 
 #endif

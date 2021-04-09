@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DIAMOND_H
+#define DIAMOND_H
 #include "myPrize.h"
 class Diamond :
     public myPrize
@@ -22,3 +23,4 @@ public:
 	int get_points();
 };
 
+#endif
