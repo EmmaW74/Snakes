@@ -24,3 +24,7 @@ const char* Diamond::get_image() {
 int Diamond::get_points() {
 	return points;
 }
+
+//Diamond::~Diamond() {
+//	std::cout << "Diamond destructor" << std::endl;
+//}

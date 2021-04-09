@@ -24,3 +24,7 @@ const char* Ruby::get_image() {
 int Ruby::get_points() {
 	return points;
 }
+
+//Ruby::~Ruby() {
+//	std::cout << "Ruby destructor" << std::endl;
+//}

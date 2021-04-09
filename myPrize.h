@@ -12,6 +12,7 @@ public:
 	virtual int get_y() = 0;
 	virtual const char* get_image() = 0;
 	virtual int get_points() = 0;
+	virtual ~myPrize() {}
 }; 
 
 #endif

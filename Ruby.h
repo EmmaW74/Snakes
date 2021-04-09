@@ -20,7 +20,7 @@ public:
 	int get_y();
 	const char* get_image();
 	int get_points();
-
+	//~Ruby();
 };
 
 #endif

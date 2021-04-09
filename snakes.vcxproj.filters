@@ -30,9 +30,6 @@
     <ClCompile Include="MyDot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="myPrize.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Ruby.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
