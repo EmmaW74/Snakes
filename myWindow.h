@@ -19,7 +19,7 @@ private:
 public:
 
 	myWindow();
-	SDL_Texture* LoadImage(std::string path);
+	//SDL_Texture* LoadImage(std::string path);
 	void setBackground(); //Create a background surface to be reused
 	void drawFrame(std::shared_ptr<mySnake> snake, std::vector<std::shared_ptr<myPrize>> prizes, int score);
 	void drawHeader();
