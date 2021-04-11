@@ -6,22 +6,22 @@ Diamond::Diamond(int x, int y) :
 	image = "Images/diamond.bmp";
 	points = 100;
 }
-int Diamond::get_width() {
+const int Diamond::get_width() {
 	return width;
 }
-int Diamond::get_height() {
+const int Diamond::get_height() {
 	return height;
 }
-int Diamond::get_x() {
+const int Diamond::get_x() {
 	return x;
 }
-int Diamond::get_y() {
+const int Diamond::get_y() {
 	return y;
 }
-const char* Diamond::get_image() {
+const const char* Diamond::get_image() {
 	return image;
 }
-int Diamond::get_points() {
+const int Diamond::get_points() {
 	return points;
 }
 

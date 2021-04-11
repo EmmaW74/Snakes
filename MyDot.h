@@ -3,6 +3,7 @@
 
 class myDot
 {
+	//The snake body is made up of myDot objects.
 private:
 	const int width;
 	const int height;
@@ -11,10 +12,10 @@ private:
 
 public:
 	myDot(int x, int y, int width, int height);
-	int get_width();
-	int get_height();
-	int get_x();
-	int get_y();
+	const int get_width();
+	const int get_height();
+	const int get_x();
+	const int get_y();
 	};
 
 #endif

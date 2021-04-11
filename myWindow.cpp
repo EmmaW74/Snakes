@@ -1,5 +1,5 @@
 #include "myWindow.h"
-#include "myPrize.h"
+#include "ImyPrize.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "myApp.h"
@@ -82,7 +82,7 @@ void myWindow::setBackground() {
 	SDL_FreeSurface(temp);
 }
 
-void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::shared_ptr<myPrize>> prizes, int score) {
+void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::shared_ptr<ImyPrize>> prizes, int score) {
 	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	drawHeader();
 	drawScore(score);
@@ -125,7 +125,7 @@ void myWindow::drawSnake(std::shared_ptr<mySnake> snake) {
 
 }
 
-void myWindow::drawPrize(std::shared_ptr<myPrize> prize) {
+void myWindow::drawPrize(std::shared_ptr<ImyPrize> prize) {
 	SDL_Surface* surface = IMG_Load(prize->get_image());
 	if (surface == NULL) {
 		std::cout << "Prize image not loaded" << std::endl;
@@ -239,7 +239,7 @@ void myWindow::countdown() {
 	SDL_DestroyTexture(Message);
 }
 
-void myWindow::renderPrize(myPrize* prize) {
+void myWindow::renderPrize(ImyPrize* prize) {
 	SDL_Surface* temp = IMG_Load("Images/ruby.bmp");
 	if (temp == NULL)
 	{

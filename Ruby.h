@@ -1,9 +1,10 @@
 #ifndef RUBY_H
 #define RUBY_H
-#include "myPrize.h"
+#include "ImyPrize.h"
 class Ruby :
-    public myPrize
+    public ImyPrize
 {
+	//Prize type ruby
 private:
 	const int width;
 	const int height;
@@ -14,12 +15,12 @@ private:
 
 public:
 	Ruby(int x, int y);
-	int get_width();
-	int get_height();
-	int get_x();
-	int get_y();
-	const char* get_image();
-	int get_points();
+	const int get_width();
+	const int get_height();
+	const int get_x();
+	const int get_y();
+	const const char* get_image();
+	const int get_points();
 	//~Ruby();
 };
 

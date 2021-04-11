@@ -10,13 +10,14 @@
 
 class myApp
 {
+	//This class handles the logic of the game
 private:
 	bool started;
 	bool Running;
 	bool Paused;
 	std::shared_ptr<mySnake> game_snake1;
 	myWindow* game_window;
-	std::vector<std::shared_ptr<myPrize>> current_prizes;
+	std::vector<std::shared_ptr<ImyPrize>> current_prizes;
 	int score = 100;
 	int gameTimer;
 
@@ -34,14 +35,14 @@ public:
 	void gameOver(myWindow* window);
 	
 	// gets
-	bool getStarted();
-	bool getRunning();
-	std::shared_ptr<mySnake> getSnake();
-	myWindow* getWindow();
+	const bool getStarted();
+	const bool getRunning();
+	const std::shared_ptr<mySnake> getSnake();
+	const myWindow* getWindow();
+	const int get_timer();
 
 	// general tasks
 	void incrementGameTimer();
-	int get_timer();
 	int random_position();
 };
 

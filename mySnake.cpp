@@ -1,6 +1,6 @@
 #include "mySnake.h"
 #include "myWindow.h"
-#include "myPrize.h"
+#include "ImyPrize.h"
 #include <time.h>
 #include <iostream>
 
@@ -106,7 +106,7 @@ bool mySnake::checkTailCollision() {
 	return false;
 }
 
-bool mySnake::checkPrizeCollision(std::shared_ptr<myPrize> prize) {
+bool mySnake::checkPrizeCollision(std::shared_ptr<ImyPrize> prize) {
 
 	int head_x = body.at(body.size() - 1)->get_x();
 	int head_y = body.at(body.size() - 1)->get_y();
@@ -130,18 +130,18 @@ bool mySnake::checkPrizeCollision(std::shared_ptr<myPrize> prize) {
 	return false;
 }
 
-Direction mySnake::getDirection() {
+const Direction mySnake::getDirection() {
 	return current_direction;
 }
 
-int mySnake::getSnakeLength() {
+const int mySnake::getSnakeLength() {
 	return snakeLength;
 }
 
-int mySnake::getSnakeSpeed() {
+const int mySnake::getSnakeSpeed() {
 	return snakeSpeed;
 }
 
-std::vector<std::shared_ptr<myDot>> mySnake::getBody() {
+const std::vector<std::shared_ptr<myDot>> mySnake::getBody() {
 	return body;
 }
