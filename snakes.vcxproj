@@ -166,7 +166,7 @@
     <ClInclude Include="Diamond.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="MyDot.h" />
-    <ClInclude Include="myPrize.h" />
+    <ClInclude Include="ImyPrize.h" />
     <ClInclude Include="mySnake.h" />
     <ClInclude Include="myWindow.h" />
     <ClInclude Include="Ruby.h" />

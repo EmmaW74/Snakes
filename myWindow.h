@@ -3,11 +3,12 @@
 #include "SDL.h"
 #include <SDL_image.h>
 #include "mySnake.h"
-#include "myPrize.h"
+#include "ImyPrize.h"
 
 
 class myWindow
 {
+//This class handles window creation and rendering
 private:
 	SDL_Window* myAppWindow = NULL;
 	SDL_Renderer* myRenderer = NULL;
@@ -21,16 +22,16 @@ public:
 	myWindow();
 	//SDL_Texture* LoadImage(std::string path);
 	void setBackground(); //Create a background surface to be reused
-	void drawFrame(std::shared_ptr<mySnake> snake, std::vector<std::shared_ptr<myPrize>> prizes, int score);
+	void drawFrame(std::shared_ptr<mySnake> snake, std::vector<std::shared_ptr<ImyPrize>> prizes, int score);
 	void drawHeader();
 	void drawSnake(std::shared_ptr<mySnake> snake); 
-	void drawPrize(std::shared_ptr<myPrize> prize);
+	void drawPrize(std::shared_ptr<ImyPrize> prize);
 	void drawScore(int score);
 	void publishTexture(); //Publish my texture to window
 	void intro();
 	void showGameOver();
 	void countdown();
-	void renderPrize(myPrize* prize); //load prize image and update renderer
+	void renderPrize(ImyPrize* prize); //load prize image and update renderer
 	~myWindow();
 };
 

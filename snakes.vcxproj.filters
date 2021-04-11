@@ -50,13 +50,13 @@
     <ClInclude Include="MyDot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="myPrize.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Ruby.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Diamond.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImyPrize.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

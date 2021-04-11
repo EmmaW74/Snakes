@@ -2,7 +2,7 @@
 #define MYSNAKE_H
 #include "SDL.h"
 #include "myDot.h"
-#include "myPrize.h"
+#include "ImyPrize.h"
 #include <SDL_image.h>
 #include <vector>
 #include<memory>
@@ -15,6 +15,7 @@ enum class Direction {
 
 class mySnake
 {
+	//Represents the snake and manages its movement
 private:
 	std::vector<std::shared_ptr<myDot>> body; // Snake is a vector of smart pointers to dots - front of snake is back of vector
 	Direction current_direction;
@@ -29,12 +30,12 @@ public:
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();
-	bool checkPrizeCollision(std::shared_ptr<myPrize> prize);
+	bool checkPrizeCollision(std::shared_ptr<ImyPrize> prize);
 		
-	Direction getDirection();
-	int getSnakeLength();
-	int getSnakeSpeed();
-	std::vector<std::shared_ptr<myDot>> getBody();
+	const Direction getDirection();
+	const int getSnakeLength();
+	const int getSnakeSpeed();
+	const std::vector<std::shared_ptr<myDot>> getBody();
 
 };
 

@@ -203,31 +203,31 @@ void myApp::gameOver(myWindow* window) {
 
 }
 
-bool myApp::getStarted() {
+const bool myApp::getStarted() {
 	return started;
 }
 
-bool myApp::getRunning() {
+const bool myApp::getRunning() {
 	//std::cout << "Check running" << std::endl;
 	return Running;
 }
 
-std::shared_ptr<mySnake> myApp::getSnake() {
+const std::shared_ptr<mySnake> myApp::getSnake() {
 	return game_snake1;
 }
 
-myWindow* myApp::getWindow() {
+const myWindow* myApp::getWindow() {
 	return game_window;
+}
+
+const int myApp::get_timer() {
+	return gameTimer;
 }
 
 void myApp::incrementGameTimer() {
 	//increments between 0 - 49 then restarts
 	gameTimer += 1;
 	gameTimer = gameTimer % 50;
-}
-
-int myApp::get_timer() {
-	return gameTimer;
 }
 
 int myApp::random_position() {

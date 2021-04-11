@@ -6,22 +6,22 @@ Ruby::Ruby(int x, int y):
 	image = "Images/ruby.bmp";
 	points = 50; 
 }
-int Ruby::get_width() {
+const int Ruby::get_width() {
 	return width;
 }
-int Ruby::get_height() {
+const int Ruby::get_height() {
 	return height;
 }
-int Ruby::get_x() {
+const int Ruby::get_x() {
 	return x;
 }
-int Ruby::get_y() {
+const int Ruby::get_y() {
 	return y;
 }
-const char* Ruby::get_image() {
+const const char* Ruby::get_image() {
 	return image;
 }
-int Ruby::get_points() {
+const int Ruby::get_points() {
 	return points;
 }
 
