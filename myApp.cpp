@@ -72,7 +72,7 @@ void myApp::OnEvent(SDL_Event& e) {
 
 		case SDLK_UP:
 			if (!Paused) {
-				//std::cout << "UP" << std::endl;
+			
 				if (game_snake1->getDirection() == Direction::DOWN) {
 					break;
 				}
@@ -91,7 +91,7 @@ void myApp::OnEvent(SDL_Event& e) {
 
 		case SDLK_DOWN:
 			if (!Paused) {
-				//std::cout << "DOWN" << std::endl;
+				
 				if (game_snake1->getDirection() == Direction::UP) {
 					break;
 				}
@@ -109,7 +109,6 @@ void myApp::OnEvent(SDL_Event& e) {
 			}
 		case SDLK_LEFT:
 			if (!Paused) {
-				//std::cout << "LEFT" << std::endl;
 
 				if (game_snake1->getDirection() == Direction::RIGHT) {
 					break;
@@ -131,7 +130,7 @@ void myApp::OnEvent(SDL_Event& e) {
 
 		case SDLK_RIGHT:
 			if (!Paused) {
-				//std::cout << "RIGHT" << std::endl;
+				
 				if (game_snake1->getDirection() == Direction::LEFT) {
 					break;
 				}
@@ -208,7 +207,6 @@ const bool myApp::getStarted() {
 }
 
 const bool myApp::getRunning() {
-	//std::cout << "Check running" << std::endl;
 	return Running;
 }
 

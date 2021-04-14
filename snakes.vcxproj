@@ -157,6 +157,7 @@
     <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
+    <ClCompile Include="myLinkedList.cpp" />
     <ClCompile Include="mySnake.cpp" />
     <ClCompile Include="myWindow.cpp" />
     <ClCompile Include="Ruby.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="myApp.h" />
     <ClInclude Include="MyDot.h" />
     <ClInclude Include="ImyPrize.h" />
+    <ClInclude Include="myLinkedList.h" />
     <ClInclude Include="mySnake.h" />
     <ClInclude Include="myWindow.h" />
     <ClInclude Include="Ruby.h" />

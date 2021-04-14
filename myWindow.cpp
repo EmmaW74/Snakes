@@ -3,6 +3,8 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "myApp.h"
+#include "myLinkedList.h"
+#include "mySnake.h"
 #include <iostream>
 #include "SDL_ttf.h"
 #include <string>
@@ -91,7 +93,7 @@ void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::share
 			drawPrize(prizes.at(x));
 		}
 	}
-	drawSnake(snake);
+	drawSnake(snake->getBody());
 	publishTexture();
 	SDL_Delay(snake->getSnakeSpeed());
 }
@@ -104,16 +106,19 @@ void myWindow::drawHeader() {
 	delete temp;
 }
 
-void myWindow::drawSnake(std::shared_ptr<mySnake> snake) {
-	//std::cout << "Draw snake" << std::endl;
+void myWindow::drawSnake(std::shared_ptr <myLinkedList> snake_body) {
+
 	SDL_Rect* temp;
 	int x;
 	int y;
 
+	node* temp_node = snake_body->get_head();
+	int head_x;
+	int head_y;
 
-	for (int i = 0; i < snake->getSnakeLength(); i++) {
-		x = snake->getBody().at(i)->get_x();
-		y = snake->getBody().at(i)->get_y();
+	do {
+		x = temp_node->data->get_x();
+		y = temp_node->data->get_y();
 		SDL_SetRenderDrawColor(myRenderer, 0xF7, 0x02, 0x0b, 0xf7);
 		temp = new SDL_Rect{ x + 1,y,8,10 };
 		SDL_RenderFillRect(myRenderer, temp);
@@ -121,8 +126,9 @@ void myWindow::drawSnake(std::shared_ptr<mySnake> snake) {
 		temp = new SDL_Rect{ x,y + 1,10,8 };
 		SDL_RenderFillRect(myRenderer, temp);
 		delete temp;
-	}
+		temp_node = temp_node->next;
 
+	} while (temp_node->next != nullptr);
 }
 
 void myWindow::drawPrize(std::shared_ptr<ImyPrize> prize) {
@@ -137,7 +143,6 @@ void myWindow::drawPrize(std::shared_ptr<ImyPrize> prize) {
 		myTexture = SDL_CreateTextureFromSurface(myRenderer, surface);
 		SDL_RenderSetViewport(myRenderer, temp);
 		SDL_RenderCopy(myRenderer, myTexture, NULL, NULL);
-		//std::cout << "Render prize" << std::endl;
 		SDL_FreeSurface(surface);
 		SDL_RenderSetViewport(myRenderer, NULL);
 		delete temp;
@@ -203,7 +208,7 @@ void myWindow::showGameOver() {
 }
 
 void myWindow::countdown() {
-	// This needs a loop and extra reusable functions
+	
 	TTF_Init();
 	TTF_Font* font = TTF_OpenFont("Font/Arial.ttf", 200); //this opens a font style and sets a size
 
@@ -234,7 +239,7 @@ void myWindow::countdown() {
 		s.str("");
 	}
 
-	//Don't forget to free your surface and texture
+	//Free your surface and texture
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
 }
