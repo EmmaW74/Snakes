@@ -6,17 +6,18 @@
 
 mySnake::mySnake() {
 	srand(time(NULL));
-	snakeLength = 20; 
-	snakeSpeed = 150; 
-	int x = -160; 
+	snakeLength = 20;
+	snakeSpeed = 150;
+	int x = 0;
 	int y = rand() % 300 + 50;
+	body = std::make_shared<myLinkedList>(new myDot{ x, y, 10, 10 });
+	x -= 10;
 	for (int i = 0; i < snakeLength; i++) {
-
-		body.push_back(std::make_shared<myDot>(x, y, 10, 10));
-		x += 10;
+		
+		body->add_node_tail(new myDot{ x, y, 10, 10 });
+		x -= 10;
 	}
 	current_direction = Direction::RIGHT;
-	
 }
 
 void mySnake::changeDirection(Direction new_direction) {
@@ -34,35 +35,34 @@ void mySnake::increaseSnakeSpeed() {
 void mySnake::increaseLength() {
 
 	snakeLength++;
-	int front_x = body.at(body.size() - 1)->get_x();
-	int front_y = body.at(body.size() - 1)->get_y();
-	int width_height = body.at(body.size() - 1)->get_width();
+	int tail_x = body->get_tail()->data->get_x();
+	int tail_y = body->get_tail()->data->get_y();
+	int width_height = body->get_tail()->data->get_width();
 
 	if (getDirection() == Direction::UP) {
-		int new_y = front_y - 10;
-		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
+		int new_y = tail_y + 10;
+		body->add_node_tail(new myDot(tail_x, new_y, 10, 10));
 	}
 	else if (getDirection() == Direction::DOWN) {
-		int new_y = front_y + 10;
-		body.push_back(std::make_unique<myDot>(front_x, new_y, 10, 10));
+		int new_y = tail_y - 10;
+		body->add_node_tail(new myDot(tail_x, new_y, 10, 10));
 	}
 	else if (getDirection() == Direction::LEFT) {
-		int new_x = front_x - 10;
-		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
+		int new_x = tail_y + 10;
+		body->add_node_tail(new myDot(new_x, tail_y, 10, 10));
 	}
 	else if (getDirection() == Direction::RIGHT) {
-		int new_x = front_x + 10;
-		body.push_back(std::make_unique<myDot>(new_x, front_y, 10, 10));
+		int new_x = tail_y - 10;
+		body->add_node_tail(new myDot(new_x, tail_y, 10, 10));
 	}
 }
 
 void mySnake::moveSnake() {
+	
 	int SCREEN_WIDTH = 640;
 	int SCREEN_HEIGHT = 480;
-	//std::cout << "Move snake" << std::endl;
-	//front of snake is back of vector
-	int x = body.at(snakeLength - 1)->get_x();
-	int y = body.at(snakeLength - 1)->get_y();
+	int x = body->get_head()->data->get_x();
+	int y = body->get_head()->data->get_y();
 	if (current_direction == Direction::UP) {
 		y -= 10;
 
@@ -79,41 +79,44 @@ void mySnake::moveSnake() {
 		x += 10;
 
 	}
-	body.push_back(std::make_unique<myDot>(x, y, 15, 15));
-	body.erase(body.begin());
+	body->add_node_head(new myDot(x, y, 15, 15));
+	body->remove_node_tail();
 }
 
 bool mySnake::checkTailCollision() {
-	int head_x = body.at(body.size() - 1)->get_x();
-	int head_y = body.at(body.size() - 1)->get_y();
-	int tail_x;
-	int tail_y;
-	if ((head_x <= 0 || head_x >= 630) || (head_y <= 50 || head_y >=470)) {
+
+	int head_x = body->get_head()->data->get_x();
+	int head_y = body->get_head()->data->get_y();
+	node* ptr = body->get_head()->next;
+	int ptr_x;
+	int ptr_y;
+
+	
+	if ((head_x <= -10 || head_x >= 640) || (head_y <= 40 || head_y >= 480)) {
 		return true;
+		std::cout << "Collision" << std::endl;
 	}
-	
-	for (unsigned int x = 0; x < body.size()-1; x++) {
-		
-		tail_x = body.at(x)->get_x();
-		tail_y = body.at(x)->get_y();
-		
-		if ((head_x == tail_x)&&(head_y==tail_y)) {
+	while (ptr->next != nullptr) {
+		ptr_x = ptr->data->get_x();
+		ptr_y = ptr->data->get_y();
+
+		if ((head_x == ptr_x) && (head_y == ptr_y)) {
 			return true;
-			//std::cout << "Collision" << std::endl;
+			
 		}
+		ptr = ptr->next;
 	}
-	
 	return false;
 }
 
 bool mySnake::checkPrizeCollision(std::shared_ptr<ImyPrize> prize) {
 
-	int head_x = body.at(body.size() - 1)->get_x();
-	int head_y = body.at(body.size() - 1)->get_y();
-	int prize_x_min = prize->get_x()-5;
-	int prize_y_min = prize->get_y()-5;
-	int prize_x_max = (prize->get_x())+(prize->get_width()+5);
-	int prize_y_max = (prize->get_y())+(prize->get_height()+5);
+	int head_x = body->get_head()->data->get_x();
+	int head_y = body->get_head()->data->get_y();
+	int prize_x_min = prize->get_x() - 5;
+	int prize_y_min = prize->get_y() - 5;
+	int prize_x_max = (prize->get_x()) + (prize->get_width() + 5);
+	int prize_y_max = (prize->get_y()) + (prize->get_height() + 5);
 	bool x_collision = false;
 	bool y_collision = false;
 
@@ -128,6 +131,7 @@ bool mySnake::checkPrizeCollision(std::shared_ptr<ImyPrize> prize) {
 		return true;
 	}
 	return false;
+
 }
 
 const Direction mySnake::getDirection() {
@@ -142,6 +146,6 @@ const int mySnake::getSnakeSpeed() {
 	return snakeSpeed;
 }
 
-const std::vector<std::shared_ptr<myDot>> mySnake::getBody() {
+std::shared_ptr<myLinkedList> mySnake::getBody() {
 	return body;
 }

@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "myDot.h"
 #include "ImyPrize.h"
+#include "myLinkedList.h"
 #include <SDL_image.h>
 #include <vector>
 #include<memory>
@@ -17,7 +18,7 @@ class mySnake
 {
 	//Represents the snake and manages its movement
 private:
-	std::vector<std::shared_ptr<myDot>> body; // Snake is a vector of smart pointers to dots - front of snake is back of vector
+	std::shared_ptr<myLinkedList> body;
 	Direction current_direction;
 	int snakeLength;
 	int snakeSpeed;
@@ -35,7 +36,7 @@ public:
 	const Direction getDirection();
 	const int getSnakeLength();
 	const int getSnakeSpeed();
-	const std::vector<std::shared_ptr<myDot>> getBody();
+	std::shared_ptr<myLinkedList> getBody();
 
 };
 

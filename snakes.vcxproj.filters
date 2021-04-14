@@ -36,6 +36,9 @@
     <ClCompile Include="Diamond.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="myLinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myWindow.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImyPrize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="myLinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
