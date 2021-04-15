@@ -44,7 +44,6 @@ void myApp::runGame() {
 		}
 		else {
 			myContinue();
-			//std::cout << "Continue" << std::endl;
 		}
 	}
 
@@ -58,7 +57,7 @@ void myApp::OnEvent(SDL_Event& e) {
 	}
 	else if (e.type == SDL_KEYDOWN)
 	{
-		//Select surfaces based on key press
+		//Action key presses
 		switch (e.key.keysym.sym)
 		{
 
@@ -153,7 +152,7 @@ void myApp::OnEvent(SDL_Event& e) {
 }
 
 void myApp::myContinue() {
-
+	//Continues snake movement while no key presses
 	if (!Paused) {
 		game_snake1->changeDirection(game_snake1->getDirection());
 		game_window->drawFrame(game_snake1, current_prizes, score);
@@ -165,6 +164,7 @@ void myApp::myContinue() {
 }
 
 void myApp::addPrize() {
+	//Adds a prize of random type to the prizes vector
 	if (get_timer() == 30) {
 
 		int type = 1 + (int)(2.0 * (rand() / (RAND_MAX + 1.0)));
