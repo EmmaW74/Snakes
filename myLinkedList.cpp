@@ -43,6 +43,7 @@ void myLinkedList::add_node_head(myDot* data) {
 }
 
 void myLinkedList::remove_node_tail() {
+	//Removes last node from linked list, deletes node and related myDot, updates tail pointer
 	node* ptr2 = head;
 	node* ptr1 = head->next;
 	if (ptr1 == nullptr) {
