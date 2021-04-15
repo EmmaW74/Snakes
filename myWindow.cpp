@@ -46,37 +46,9 @@ myWindow::myWindow() {
 		}
 	}
 }
-/*
-SDL_Texture* myWindow::LoadImage(std::string path) {
 
-	//The final texture
-	SDL_Texture* newTexture = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == NULL)
-	{
-		std::cout << "Unable to load image!" << IMG_GetError() << std::endl;
-	}
-	else
-	{
-		//Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(myRenderer, loadedSurface);
-		if (newTexture == NULL)
-		{
-			std::cout << "Unable to create texture: " << path.c_str() << " - " << SDL_GetError() << std::endl;
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
-	}
-
-	return newTexture;
-
-
-}
-*/
 void myWindow::setBackground() {
+	//sets up myBackground texture
 	SDL_Surface* temp = IMG_Load("Images/grass.jpg");
 	myBackground = SDL_CreateTextureFromSurface(myRenderer, temp);
 	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
@@ -85,6 +57,8 @@ void myWindow::setBackground() {
 }
 
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::shared_ptr<ImyPrize>> prizes, int score) {
+	// Draws header, score, snake and any prizes and adds a delay based on snake speed
+	
 	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	drawHeader();
 	drawScore(score);
@@ -99,7 +73,7 @@ void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::share
 }
 
 void myWindow::drawHeader() {
-	//std::cout << "Draw header" << std::endl;
+	//renders header bar
 	SDL_Rect* temp = new SDL_Rect{ 0,0,640,40 };
 	SDL_SetRenderDrawColor(myRenderer, 0x12, 0x4a, 0x12, 0x00);
 	SDL_RenderFillRect(myRenderer, temp);
@@ -221,16 +195,15 @@ void myWindow::countdown() {
 	Message_rect.w = 100; // controls the width of the rect
 	Message_rect.h = 200; // controls the height of the rect
 
-	//need an int to char* here to do a countdown loop!! This works - need to do loop
 	SDL_Surface* surfaceMessage = NULL;
 	SDL_Texture* Message = NULL;
 	std::stringstream s;
 
 	for (int num = 3; num > 0; num--) {
 		s << num;
-		surfaceMessage = TTF_RenderText_Solid(font, s.str().c_str(), color); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-		Message = SDL_CreateTextureFromSurface(myRenderer, surfaceMessage); //now you can convert it into a texture
-		SDL_RenderCopy(myRenderer, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
+		surfaceMessage = TTF_RenderText_Solid(font, s.str().c_str(), color); // TTF_RenderText_Solid can only be used on SDL_Surface
+		Message = SDL_CreateTextureFromSurface(myRenderer, surfaceMessage); //Surface then converted into a texture
+		SDL_RenderCopy(myRenderer, Message, NULL, &Message_rect); //NULL is instead of crop size as no crop needed
 		publishTexture();
 		SDL_Delay(1000);
 		SDL_RenderClear(myRenderer);
@@ -245,6 +218,7 @@ void myWindow::countdown() {
 }
 
 void myWindow::renderPrize(ImyPrize* prize) {
+	//creates a texture for the prize image and copies to myRenderer ready to publish
 	SDL_Surface* temp = IMG_Load("Images/ruby.bmp");
 	if (temp == NULL)
 	{
@@ -264,7 +238,7 @@ void myWindow::renderPrize(ImyPrize* prize) {
 		}
 		else
 		{
-			//Get image dimensions
+			//Need to get image dimensions without constants here
 
 			SDL_Rect renderQuad = { 100, 100, 27, 40 };
 			SDL_RenderCopy(myRenderer, newTexture, NULL, &renderQuad);
