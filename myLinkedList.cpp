@@ -45,13 +45,24 @@ void myLinkedList::add_node_head(myDot* data) {
 void myLinkedList::remove_node_tail() {
 	node* ptr2 = head;
 	node* ptr1 = head->next;
-	while (ptr1->next != nullptr) {
-		ptr2 = ptr2->next;
-		ptr1 = ptr1->next;
+	if (ptr1 == nullptr) {
+		head = nullptr;
+		delete ptr2->data;
+		delete ptr2;
 	}
-	ptr2->next = nullptr;
-	tail = ptr2;
+	else {
+		while (ptr1->next != nullptr) {
+			ptr2 = ptr2->next;
+			ptr1 = ptr1->next;
+		}
+		ptr2->next = nullptr;
+		tail = ptr2;
+		delete ptr1->data;
+		delete ptr1;
+	}
 }
 myLinkedList::~myLinkedList() {
-
+	while (head != nullptr) {
+		remove_node_tail();
+	}
 }
