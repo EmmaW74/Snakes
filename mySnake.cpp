@@ -84,7 +84,7 @@ void mySnake::moveSnake() {
 }
 
 bool mySnake::checkTailCollision() {
-
+	//checks if head dot has collided with any other dot in snake body
 	int head_x = body->get_head()->data->get_x();
 	int head_y = body->get_head()->data->get_y();
 	node* ptr = body->get_head()->next;
@@ -94,7 +94,7 @@ bool mySnake::checkTailCollision() {
 	
 	if ((head_x <= -10 || head_x >= 640) || (head_y <= 40 || head_y >= 480)) {
 		return true;
-		std::cout << "Collision" << std::endl;
+		
 	}
 	while (ptr->next != nullptr) {
 		ptr_x = ptr->data->get_x();
