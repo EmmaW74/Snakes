@@ -169,10 +169,10 @@ void myApp::addPrize() {
 
 		int type = 1 + (int)(2.0 * (rand() / (RAND_MAX + 1.0)));
 		if (type == 1) {
-			current_prizes.push_back(std::make_unique<Ruby>(random_position(), random_position()));
+			current_prizes.push_back(std::make_unique<Ruby>(random_position(), random_position(),30)); 
 		}
 		else {
-			current_prizes.push_back(std::make_unique<Diamond>(random_position(), random_position()));
+			current_prizes.push_back(std::make_unique<Diamond>(random_position(), random_position(),30));
 		}
 	}
 }

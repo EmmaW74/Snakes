@@ -1,7 +1,7 @@
 #ifndef MYAPP_H
 #define MYPP_H
 #include "SDL.h"
-#include "myDot.h"
+#include "MyDot.h"
 #include "mySnake.h"
 #include "myWindow.h"
 #include <SDL_image.h>

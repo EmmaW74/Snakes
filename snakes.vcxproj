@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Diamond.cpp" />
+    <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
     <ClCompile Include="myLinkedList.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Diamond.h" />
+    <ClInclude Include="IRenderable.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="MyDot.h" />
     <ClInclude Include="ImyPrize.h" />

@@ -1,10 +1,11 @@
 #ifndef MYLINKEDLIST_H
 #define MYLINKEDLIST_H
-#include "MyDot.h"
+
+class MyDot;
 
 struct node {
-	myDot* data;
-	node* next;
+    MyDot* data;
+    node* next;
 };
 
 
@@ -16,16 +17,14 @@ private:
     node* tail; 
     
 public:
-    myLinkedList(myDot* dot);
+    myLinkedList(MyDot* dot);
     node* get_head();//can't add const as this stops it being used elsewhere
     node* get_tail(); //can't add const as this stops it being used elsewhere
     void set_tail();
-    void add_node_tail(myDot* data);
-    void add_node_head(myDot* data);
+    void add_node_tail(MyDot* data);
+    void add_node_head(MyDot* data);
     void remove_node_tail();
     ~myLinkedList();
 };
-
-
 
 #endif

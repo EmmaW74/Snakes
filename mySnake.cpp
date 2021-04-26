@@ -1,6 +1,7 @@
 #include "mySnake.h"
 #include "myWindow.h"
 #include "ImyPrize.h"
+#include "IRenderable.h"
 #include <time.h>
 #include <iostream>
 
@@ -10,11 +11,11 @@ mySnake::mySnake() {
 	snakeSpeed = 150;
 	int x = 0;
 	int y = rand() % 300 + 50;
-	body = std::make_shared<myLinkedList>(new myDot{ x, y, 10, 10 });
+	children = std::make_shared<myLinkedList>(new MyDot{ x, y, 10, 10 });
 	x -= 10;
 	for (int i = 0; i < snakeLength; i++) {
 		
-		body->add_node_tail(new myDot{ x, y, 10, 10 });
+		children->add_node_tail(new MyDot{ x, y, 10, 10 });
 		x -= 10;
 	}
 	current_direction = Direction::RIGHT;
@@ -35,25 +36,25 @@ void mySnake::increaseSnakeSpeed() {
 void mySnake::increaseLength() {
 
 	snakeLength++;
-	int tail_x = body->get_tail()->data->get_x();
-	int tail_y = body->get_tail()->data->get_y();
-	int width_height = body->get_tail()->data->get_width();
+	int tail_x = children->get_tail()->data->get_x();
+	int tail_y = children->get_tail()->data->get_y();
+	int width_height = children->get_tail()->data->get_width();
 
 	if (getDirection() == Direction::UP) {
 		int new_y = tail_y + 10;
-		body->add_node_tail(new myDot(tail_x, new_y, 10, 10));
+		children->add_node_tail(new MyDot(tail_x, new_y, 10, 10));
 	}
 	else if (getDirection() == Direction::DOWN) {
 		int new_y = tail_y - 10;
-		body->add_node_tail(new myDot(tail_x, new_y, 10, 10));
+		children->add_node_tail(new MyDot(tail_x, new_y, 10, 10));
 	}
 	else if (getDirection() == Direction::LEFT) {
 		int new_x = tail_y + 10;
-		body->add_node_tail(new myDot(new_x, tail_y, 10, 10));
+		children->add_node_tail(new MyDot(new_x, tail_y, 10, 10));
 	}
 	else if (getDirection() == Direction::RIGHT) {
 		int new_x = tail_y - 10;
-		body->add_node_tail(new myDot(new_x, tail_y, 10, 10));
+		children->add_node_tail(new MyDot(new_x, tail_y, 10, 10));
 	}
 }
 
@@ -61,8 +62,8 @@ void mySnake::moveSnake() {
 	
 	int SCREEN_WIDTH = 640;
 	int SCREEN_HEIGHT = 480;
-	int x = body->get_head()->data->get_x();
-	int y = body->get_head()->data->get_y();
+	int x = children->get_head()->data->get_x();
+	int y = children->get_head()->data->get_y();
 	if (current_direction == Direction::UP) {
 		y -= 10;
 
@@ -79,15 +80,15 @@ void mySnake::moveSnake() {
 		x += 10;
 
 	}
-	body->add_node_head(new myDot(x, y, 15, 15));
-	body->remove_node_tail();
+	children->add_node_head(new MyDot(x, y, 15, 15));
+	children->remove_node_tail();
 }
 
 bool mySnake::checkTailCollision() {
 	//checks if head dot has collided with any other dot in snake body
-	int head_x = body->get_head()->data->get_x();
-	int head_y = body->get_head()->data->get_y();
-	node* ptr = body->get_head()->next;
+	int head_x = children->get_head()->data->get_x();
+	int head_y = children->get_head()->data->get_y();
+	node* ptr = children->get_head()->next;
 	int ptr_x;
 	int ptr_y;
 
@@ -111,8 +112,8 @@ bool mySnake::checkTailCollision() {
 
 bool mySnake::checkPrizeCollision(std::shared_ptr<ImyPrize> prize) {
 
-	int head_x = body->get_head()->data->get_x();
-	int head_y = body->get_head()->data->get_y();
+	int head_x = children->get_head()->data->get_x();
+	int head_y = children->get_head()->data->get_y();
 	int prize_x_min = prize->get_x() - 5;
 	int prize_y_min = prize->get_y() - 5;
 	int prize_x_max = (prize->get_x()) + (prize->get_width() + 5);
@@ -146,6 +147,6 @@ const int mySnake::getSnakeSpeed() {
 	return snakeSpeed;
 }
 
-std::shared_ptr<myLinkedList> mySnake::getBody() {
-	return body;
+const std::shared_ptr<myLinkedList> mySnake::getchildren() {
+	return children;
 }

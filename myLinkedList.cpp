@@ -1,6 +1,7 @@
 #include "myLinkedList.h"
+#include "MyDot.h"
 
-myLinkedList::myLinkedList(myDot* dot) {
+myLinkedList::myLinkedList(MyDot* dot) {
 	head = new node{ dot,nullptr };
 	tail = head;
 	
@@ -21,7 +22,7 @@ void myLinkedList::set_tail() {
 	delete ptr;
 }
 
-void myLinkedList::add_node_tail(myDot* data) {
+void myLinkedList::add_node_tail(MyDot* data) {
 	node* temp = new node;
 	temp->data = data;
 	temp->next = nullptr;
@@ -35,7 +36,7 @@ void myLinkedList::add_node_tail(myDot* data) {
 	
 }
 
-void myLinkedList::add_node_head(myDot* data) {
+void myLinkedList::add_node_head(MyDot* data) {
 	node* temp = new node;
 	temp->data = data;
 	temp->next = head;
@@ -43,7 +44,7 @@ void myLinkedList::add_node_head(myDot* data) {
 }
 
 void myLinkedList::remove_node_tail() {
-	//Removes last node from linked list, deletes node and related myDot, updates tail pointer
+	//Removes last node from linked list, deletes node and related MyDot, updates tail pointer
 	node* ptr2 = head;
 	node* ptr1 = head->next;
 	if (ptr1 == nullptr) {
