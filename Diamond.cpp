@@ -7,49 +7,47 @@ Diamond::Diamond(int x, int y, int width_height) :
 	points = 100;
 	font = "";
 	colour_key = "";
-	children = NULL;
+	
 	colour_blue = NULL;
 	colour_green = NULL;
 	colour_red = NULL;
 }
-const int Diamond::get_width() {
+int Diamond::get_width() const {
 	return width;
 }
-const int Diamond::get_height() {
+int Diamond::get_height() const {
 	return height;
 }
-const int Diamond::get_x() {
+int Diamond::get_x() const {
 	return x;
 }
-const int Diamond::get_y() {
+int Diamond::get_y() const {
 	return y;
 }
-const const char* Diamond::get_image() {
+const char* Diamond::get_image() const {
 	return image;
 }
-const int Diamond::get_points() {
+int Diamond::get_points() const {
 	return points;
 }
 
-const std::string Diamond::get_font() {
+std::string Diamond::get_font() const {
 	return font;
 }
-const std::string Diamond::get_colour_key() {
+std::string Diamond::get_colour_key() const {
 return colour_key;
 }
-const uint8_t Diamond::get_colour_red() {
+uint8_t Diamond::get_colour_red() const {
 	return colour_red;
 }
-const uint8_t Diamond::get_colour_blue() {
+uint8_t Diamond::get_colour_blue() const {
 	return colour_blue;
 }
-const uint8_t Diamond::get_colour_green() {
+uint8_t Diamond::get_colour_green() const {
 return colour_green; 
 }
 
-const std::shared_ptr<myLinkedList> Diamond::get_children() {
-	return children;
-}
+
 
 //Diamond::~Diamond() {
 //	std::cout << "Diamond destructor" << std::endl;

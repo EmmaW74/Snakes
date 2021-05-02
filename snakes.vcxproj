@@ -159,8 +159,12 @@
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
     <ClCompile Include="myLinkedList.cpp" />
+    <ClCompile Include="myPrizePot.cpp" />
     <ClCompile Include="mySnake.cpp" />
     <ClCompile Include="myWindow.cpp" />
+    <ClCompile Include="RenderableColourBlock.cpp" />
+    <ClCompile Include="RenderableImage.cpp" />
+    <ClCompile Include="RenderableText.cpp" />
     <ClCompile Include="Ruby.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
@@ -171,8 +175,12 @@
     <ClInclude Include="MyDot.h" />
     <ClInclude Include="ImyPrize.h" />
     <ClInclude Include="myLinkedList.h" />
+    <ClInclude Include="myPrizePot.h" />
     <ClInclude Include="mySnake.h" />
     <ClInclude Include="myWindow.h" />
+    <ClInclude Include="RenderableColourBlock.h" />
+    <ClInclude Include="RenderableImage.h" />
+    <ClInclude Include="RenderableText.h" />
     <ClInclude Include="Ruby.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

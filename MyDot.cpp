@@ -4,14 +4,13 @@
 
 MyDot::MyDot(int x, int y, int width, int height):
 	x{ x }, y{ y }, width{ width }, height{ height } {
-	colour_key = "";
 	colour_red = 0x02;
 	colour_blue = 0x0b;
 	colour_green = 0xf7;
-	font = "";
-	children = NULL;
+	
 	//std::cout << "MyDot constructor called" << std::endl;
 }
+/*
 const int MyDot::get_width() {
 	return width;
 }
@@ -45,4 +44,12 @@ const std::string MyDot::get_colour_key() {
 }
 const std::shared_ptr<myLinkedList> MyDot::get_children() {
 	return children;
+}
+*/
+
+void MyDot::draw_element(SDL_Renderer* myRenderer) {
+	SDL_Rect* temp = new SDL_Rect{ x,y,width,height };
+	SDL_SetRenderDrawColor(myRenderer, colour_red, colour_green, colour_blue, 0xff);
+	SDL_RenderFillRect(myRenderer, temp);
+	delete temp;
 }

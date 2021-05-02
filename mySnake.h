@@ -14,11 +14,11 @@ enum class Direction {
 	RIGHT
 };
 
-class mySnake
+class mySnake: public RenderableColourBlock
 {
 	//Represents the snake and manages its movement
 private:
-	std::shared_ptr<myLinkedList> children;
+	std::shared_ptr<myLinkedList<MyDot>> children;
 	Direction current_direction;
 	int snakeLength;
 	int snakeSpeed;
@@ -36,8 +36,8 @@ public:
 	const Direction getDirection();
 	const int getSnakeLength();
 	const int getSnakeSpeed();
-	const std::shared_ptr<myLinkedList> getchildren();
-
+	std::shared_ptr<myLinkedList<MyDot>> getchildren() const;
+	void draw_element(SDL_Renderer* myRenderer);
 };
 
 #endif

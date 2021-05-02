@@ -23,7 +23,7 @@ public:
 	void setBackground(); //Create a background surface to be reused
 	void drawFrame(std::shared_ptr<mySnake> snake, std::vector<std::shared_ptr<ImyPrize>> prizes, int score);
 	void drawHeader();
-	void drawSnake(std::shared_ptr <myLinkedList> snake_children);
+	//void drawSnake(std::shared_ptr <myLinkedList> snake_children);
 	void drawPrize(std::shared_ptr<ImyPrize> prize);
 	void drawScore(int score);
 	void publishTexture(); //Publish my texture to window

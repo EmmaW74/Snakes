@@ -2,8 +2,15 @@
 #include "myWindow.h"
 #include "ImyPrize.h"
 #include "IRenderable.h"
+#include "myLinkedList.h"
+#include "myApp.h"
+#include "MyDot.h"
 #include <time.h>
 #include <iostream>
+#include "SDL.h"
+
+template<class T>
+struct node;
 
 mySnake::mySnake() {
 	srand(time(NULL));
@@ -11,7 +18,8 @@ mySnake::mySnake() {
 	snakeSpeed = 150;
 	int x = 0;
 	int y = rand() % 300 + 50;
-	children = std::make_shared<myLinkedList>(new MyDot{ x, y, 10, 10 });
+	children = std::make_shared<myLinkedList<MyDot>>(new MyDot{ x, y, 10, 10 });//ERROR HERE
+	
 	x -= 10;
 	for (int i = 0; i < snakeLength; i++) {
 		
@@ -88,7 +96,7 @@ bool mySnake::checkTailCollision() {
 	//checks if head dot has collided with any other dot in snake body
 	int head_x = children->get_head()->data->get_x();
 	int head_y = children->get_head()->data->get_y();
-	node* ptr = children->get_head()->next;
+	node<MyDot>* ptr = children->get_head()->next;
 	int ptr_x;
 	int ptr_y;
 
@@ -147,6 +155,14 @@ const int mySnake::getSnakeSpeed() {
 	return snakeSpeed;
 }
 
-const std::shared_ptr<myLinkedList> mySnake::getchildren() {
+std::shared_ptr<myLinkedList<MyDot>> mySnake::getchildren() const {
 	return children;
+}
+
+void mySnake::draw_element(SDL_Renderer* myRenderer) {
+	node<MyDot>* temp = children->get_head();
+	while (temp != NULL) {
+		temp->data->draw_element(myRenderer);
+		temp = temp->next;
+	} 
 }

@@ -58,8 +58,9 @@ void myWindow::setBackground() {
 
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::shared_ptr<ImyPrize>> prizes, int score) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
-	
-	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+	snake->draw_element(myRenderer);
+
+	/*SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	drawHeader();
 	drawScore(score);
 	if (prizes.size() > 0) {
@@ -69,6 +70,7 @@ void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::share
 		}
 	}
 	drawSnake(snake->getchildren());
+	*/
 	publishTexture();
 	SDL_Delay(snake->getSnakeSpeed());
 }
@@ -80,7 +82,7 @@ void myWindow::drawHeader() {
 	SDL_RenderFillRect(myRenderer, temp);
 	delete temp;
 }
-
+/*
 void myWindow::drawSnake(std::shared_ptr <myLinkedList> snake_children) {
 
 	SDL_Rect* temp;
@@ -104,7 +106,7 @@ void myWindow::drawSnake(std::shared_ptr <myLinkedList> snake_children) {
 		temp_node = temp_node->next;
 
 	} while (temp_node->next != nullptr);
-}
+}*/
 /*
 void myWindow::drawPrize(std::shared_ptr<ImyPrize> prize) {
 	SDL_Surface* surface = IMG_Load(prize->get_image());
@@ -250,7 +252,7 @@ void myWindow::renderPrize(ImyPrize* prize) {
 		SDL_DestroyTexture(newTexture);
 	}
 }
-
+/*
 void myWindow::renderElement(std::shared_ptr<IRenderable> element) {
 	if (element->get_image() != NULL) {
 		//do something to upload image to myRenderer
@@ -287,7 +289,7 @@ void myWindow::renderElement(std::shared_ptr<IRenderable> element) {
 		SDL_RenderFillRect(myRenderer, temp);
 		delete temp;
 	}
-}
+}*/
 
 
 
