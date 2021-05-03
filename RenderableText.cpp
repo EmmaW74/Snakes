@@ -1,27 +1,27 @@
 #include "RenderableText.h"
 
-const int RenderableText::get_width() {
+int RenderableText::get_width() const {
 	return width;
 }
-const int RenderableText::get_height() {
+int RenderableText::get_height() const {
 	return height;
 }
-const int RenderableText::get_x() {
+int RenderableText::get_x() const {
 	return x;
 }
-const int RenderableText::get_y() {
+int RenderableText::get_y() const {
 	return y;
 }
-const uint8_t RenderableText::get_colour_red() {
+uint8_t RenderableText::get_colour_red() const {
 	return colour_red;
 }
-const uint8_t RenderableText::get_colour_blue() {
+uint8_t RenderableText::get_colour_blue() const {
 	return colour_blue;
 }
-const uint8_t RenderableText::get_colour_green() {
+uint8_t RenderableText::get_colour_green() const {
 	return colour_green;
 }
-const std::string RenderableText::get_font() {
+std::string RenderableText::get_font() const {
 	return font;
 }
 

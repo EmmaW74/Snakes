@@ -94,6 +94,8 @@ void mySnake::moveSnake() {
 
 bool mySnake::checkTailCollision() {
 	//checks if head dot has collided with any other dot in snake body
+
+	/*
 	int head_x = children->get_head()->data->get_x();
 	int head_y = children->get_head()->data->get_y();
 	node<MyDot>* ptr = children->get_head()->next;
@@ -115,6 +117,7 @@ bool mySnake::checkTailCollision() {
 		}
 		ptr = ptr->next;
 	}
+	*/
 	return false;
 }
 
@@ -143,15 +146,15 @@ bool mySnake::checkPrizeCollision(std::shared_ptr<ImyPrize> prize) {
 
 }
 
-const Direction mySnake::getDirection() {
+Direction mySnake::getDirection() const {
 	return current_direction;
 }
 
-const int mySnake::getSnakeLength() {
+int mySnake::getSnakeLength() const {
 	return snakeLength;
 }
 
-const int mySnake::getSnakeSpeed() {
+int mySnake::getSnakeSpeed()  const {
 	return snakeSpeed;
 }
 

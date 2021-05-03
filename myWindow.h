@@ -3,7 +3,8 @@
 #include "SDL.h"
 #include <SDL_image.h>
 #include "mySnake.h"
-#include "ImyPrize.h"
+//#include "ImyPrize.h"
+#include "myPrizePot.h"
 #include "IRenderable.h"
 
 class myWindow
@@ -21,7 +22,7 @@ public:
 
 	myWindow();
 	void setBackground(); //Create a background surface to be reused
-	void drawFrame(std::shared_ptr<mySnake> snake, std::vector<std::shared_ptr<ImyPrize>> prizes, int score);
+	void drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr <myPrizePot> current_prizes, int score);
 	void drawHeader();
 	//void drawSnake(std::shared_ptr <myLinkedList> snake_children);
 	void drawPrize(std::shared_ptr<ImyPrize> prize);

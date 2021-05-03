@@ -1,7 +1,7 @@
 #ifndef RUBY_H
 #define RUBY_H
 #include "ImyPrize.h"
-#include "IRenderable.h"
+
 class Ruby :
     public ImyPrize
 {
@@ -21,6 +21,7 @@ private:
 	
 	
 public:
+	
 	Ruby(int x, int y, int width_height);
 	
 	int get_x() const;
@@ -29,14 +30,14 @@ public:
 	int get_width() const;
 	int get_height() const;
 	int get_points() const;
-	std::string get_font() const;
+	//std::string get_font() const;
 	std::string get_colour_key() const;
-	uint8_t get_colour_red() const;
-	uint8_t get_colour_blue() const;
-	uint8_t get_colour_green() const;
-	
+	////uint8_t get_colour_red() const;
+	//uint8_t get_colour_blue() const;
+	//uint8_t get_colour_green() const;
+	void draw_element(SDL_Renderer* myRenderer);
 
-	//~Ruby();
+
 };
 
 #endif

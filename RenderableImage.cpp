@@ -3,7 +3,7 @@
 #include "SDL_image.h"
 #include <iostream>
 
-
+/*
 void RenderableImage::draw_element(SDL_Renderer* myRenderer) {
 	//creates a texture for the image and copies to myRenderer ready to publish
 	SDL_Surface* tempSurface = IMG_Load(image);
@@ -32,3 +32,4 @@ void RenderableImage::draw_element(SDL_Renderer* myRenderer) {
 		SDL_FreeSurface(tempSurface);
 	}
 }
+*/

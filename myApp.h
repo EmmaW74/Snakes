@@ -7,6 +7,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <vector>
+#include "myPrizePot.h"
 
 class myApp
 {
@@ -17,7 +18,7 @@ private:
 	bool Paused;
 	std::shared_ptr<mySnake> game_snake1;
 	myWindow* game_window;
-	std::vector<std::shared_ptr<ImyPrize>> current_prizes;
+	std::shared_ptr<myPrizePot> current_prizes;
 	int score = 100;
 	int gameTimer;
 

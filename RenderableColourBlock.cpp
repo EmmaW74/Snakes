@@ -2,10 +2,10 @@
 #include "SDL.h"
 #include "myLinkedList.h"
 
-class MyDot;
+//class MyDot;
 
 RenderableColourBlock::RenderableColourBlock() {};
-
+/*
 int RenderableColourBlock::get_width() const {
 	return width;
 }
@@ -31,7 +31,7 @@ uint8_t RenderableColourBlock::get_colour_blue() const {
 std::shared_ptr<myLinkedList<IRenderable>> RenderableColourBlock::get_children() const {
 	return children;
 }
-/*
+
 void RenderableColourBlock::draw_element(SDL_Renderer* myRenderer) {
 	SDL_Rect* temp = new SDL_Rect{ x,y,width,height };
 	SDL_SetRenderDrawColor(myRenderer, colour_red, colour_green, colour_blue, 0xff);

@@ -9,6 +9,7 @@
 myApp::myApp(){
 	game_window = new myWindow();
 	game_snake1 = std::make_shared<mySnake> ();
+	current_prizes = std::make_shared<myPrizePot>();
 	Running = true;
 	Paused = false;
 	started = false;
@@ -169,21 +170,28 @@ void myApp::addPrize() {
 
 		int type = 1 + (int)(2.0 * (rand() / (RAND_MAX + 1.0)));
 		if (type == 1) {
-			current_prizes.push_back(std::make_unique<Ruby>(random_position(), random_position(),30)); 
+			current_prizes->add_prize(std::shared_ptr<ImyPrize> {new Ruby{ random_position(), random_position(), 30 }});
+			//current_prizes->push_back(std::make_unique<Ruby>(random_position(), random_position(),30)); 
 		}
 		else {
-			current_prizes.push_back(std::make_unique<Diamond>(random_position(), random_position(),30));
+			current_prizes->add_prize(std::shared_ptr<ImyPrize> {new Diamond{ random_position(), random_position(), 30 } });
 		}
 	}
 }
 
 void myApp::collectPoints() {
-	for (int x = 0; x < current_prizes.size(); x++) {
-		if (game_snake1->checkPrizeCollision(current_prizes.at(x))) {
-			score += current_prizes.at(x)->get_points();
-			current_prizes.erase(current_prizes.begin() + x);
-			game_snake1->increaseSnakeSpeed();
-			game_snake1->increaseLength();
+	//std::shared_ptr<std::vector<std::shared_ptr<ImyPrize>>> temp = current_prizes->getchildren();
+	if (current_prizes->get_prize_count() > 0) {
+		if ((current_prizes->getchildren())->size() > 0) {
+			for (int x = 0; x < (current_prizes->getchildren())->size(); x++) {
+				if (game_snake1->checkPrizeCollision((current_prizes->getchildren())->at(x))) {
+					//if (game_snake1->checkPrizeCollision(temp->at(x))) {
+					score += (current_prizes->getchildren())->at(x)->get_points();
+					current_prizes->remove_prize(x);
+					game_snake1->increaseSnakeSpeed();
+					game_snake1->increaseLength();
+				}
+			}
 		}
 	}
 }

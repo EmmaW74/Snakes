@@ -24,14 +24,14 @@ public:
 	MyDot(int x, int y, int width, int height);
 	void draw_element(SDL_Renderer* myRenderer);
 	
-	/*const int get_width();
-	const int get_height();
-	const int get_x();
-	const int get_y();
-	const uint8_t get_colour_red();
-	const uint8_t get_colour_blue();
-	const uint8_t get_colour_green();
-	const std::shared_ptr<myLinkedList> get_children();*/
+	int get_width() const;
+	int get_height() const;
+	int get_x() const;
+	int get_y() const;
+	uint8_t get_colour_red() const;
+	uint8_t get_colour_blue() const;
+	uint8_t get_colour_green() const;
+	//const std::shared_ptr<myLinkedList> get_children();
 	};
 
 #endif

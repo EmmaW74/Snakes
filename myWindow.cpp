@@ -56,10 +56,13 @@ void myWindow::setBackground() {
 	SDL_FreeSurface(temp);
 }
 
-void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::vector <std::shared_ptr<ImyPrize>> prizes, int score) {
+void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, int score) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
+	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	snake->draw_element(myRenderer);
-
+	if (current_prizes != NULL) {
+	current_prizes->draw_element(myRenderer);
+}
 	/*SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	drawHeader();
 	drawScore(score);
@@ -219,7 +222,7 @@ void myWindow::countdown() {
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
 }
-
+/*
 void myWindow::renderPrize(ImyPrize* prize) {
 	//creates a texture for the prize image and copies to myRenderer ready to publish
 	SDL_Surface* temp = IMG_Load("Images/ruby.bmp");
@@ -252,7 +255,7 @@ void myWindow::renderPrize(ImyPrize* prize) {
 		SDL_DestroyTexture(newTexture);
 	}
 }
-/*
+
 void myWindow::renderElement(std::shared_ptr<IRenderable> element) {
 	if (element->get_image() != NULL) {
 		//do something to upload image to myRenderer
@@ -289,7 +292,8 @@ void myWindow::renderElement(std::shared_ptr<IRenderable> element) {
 		SDL_RenderFillRect(myRenderer, temp);
 		delete temp;
 	}
-}*/
+}
+*/
 
 
 
