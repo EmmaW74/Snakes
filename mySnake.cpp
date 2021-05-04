@@ -18,7 +18,7 @@ mySnake::mySnake() {
 	snakeSpeed = 150;
 	int x = 0;
 	int y = rand() % 300 + 50;
-	children = std::make_shared<myLinkedList<MyDot>>(new MyDot{ x, y, 10, 10 });//ERROR HERE
+	children = std::make_shared<myLinkedList<MyDot>>(new MyDot{ x, y, 10, 10 });
 	
 	x -= 10;
 	for (int i = 0; i < snakeLength; i++) {
@@ -95,7 +95,7 @@ void mySnake::moveSnake() {
 bool mySnake::checkTailCollision() {
 	//checks if head dot has collided with any other dot in snake body
 
-	/*
+	
 	int head_x = children->get_head()->data->get_x();
 	int head_y = children->get_head()->data->get_y();
 	node<MyDot>* ptr = children->get_head()->next;
@@ -117,7 +117,7 @@ bool mySnake::checkTailCollision() {
 		}
 		ptr = ptr->next;
 	}
-	*/
+	
 	return false;
 }
 

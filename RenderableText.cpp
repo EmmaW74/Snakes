@@ -1,5 +1,5 @@
 #include "RenderableText.h"
-
+/*
 int RenderableText::get_width() const {
 	return width;
 }
@@ -28,3 +28,4 @@ std::string RenderableText::get_font() const {
 void RenderableText::draw_element(SDL_Renderer* myRenderer) {
 	// code to add text
 }
+*/

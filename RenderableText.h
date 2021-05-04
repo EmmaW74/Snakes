@@ -5,13 +5,13 @@ class RenderableText :
     public IRenderable
 {
 private:
-	const int width;
-	const int height;
-	int x;
-	int y;
-	uint8_t colour_red;
-	uint8_t colour_blue;
-	uint8_t colour_green;
+	//const int width;
+	//const int height;
+	//int x;
+	//int y;
+	//uint8_t colour_red;
+	//uint8_t colour_blue;
+	//uint8_t colour_green;
 	std::string font;
 
 public:
@@ -26,7 +26,7 @@ public:
 	virtual uint8_t get_colour_blue() const = 0;
 	virtual uint8_t get_colour_green() const = 0;
 
-	void draw_element(SDL_Renderer* myRenderer);
+	virtual void draw_element(SDL_Renderer* myRenderer);
 
 };
 
