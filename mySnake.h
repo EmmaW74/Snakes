@@ -22,6 +22,7 @@ private:
 	Direction current_direction;
 	int snakeLength;
 	int snakeSpeed;
+	
 
 public:
 	mySnake();

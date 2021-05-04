@@ -54,6 +54,9 @@
     <ClCompile Include="myPrizePot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Score_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myWindow.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="myPrizePot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Score_controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

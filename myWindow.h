@@ -15,6 +15,7 @@ private:
 	SDL_Renderer* myRenderer = NULL;
 	SDL_Texture* myTexture = NULL;
 	SDL_Texture* myBackground = NULL;
+	RenderableColourBlock* banner = NULL;
 	int SCREEN_WIDTH = 640;
 	int SCREEN_HEIGHT = 480;
 	

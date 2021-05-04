@@ -44,6 +44,7 @@ myWindow::myWindow() {
 				intro();
 			}
 		}
+		banner = new RenderableColourBlock{640,40,0,0,0x12,0x4a,0x12};
 	}
 }
 
@@ -59,9 +60,11 @@ void myWindow::setBackground() {
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, int score) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
 	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+	banner->draw_element(myRenderer);
 	snake->draw_element(myRenderer);
 	if (current_prizes != NULL) {
 	current_prizes->draw_element(myRenderer);
+
 }
 	/*SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	drawHeader();
@@ -80,10 +83,10 @@ void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPri
 
 void myWindow::drawHeader() {
 	//renders header bar
-	SDL_Rect* temp = new SDL_Rect{ 0,0,640,40 };
-	SDL_SetRenderDrawColor(myRenderer, 0x12, 0x4a, 0x12, 0x00);
-	SDL_RenderFillRect(myRenderer, temp);
-	delete temp;
+	//SDL_Rect* temp = new SDL_Rect{ 0,0,640,40 };
+	//SDL_SetRenderDrawColor(myRenderer, 0x12, 0x4a, 0x12, 0x00);
+	//SDL_RenderFillRect(myRenderer, temp);
+	//delete temp;
 }
 /*
 void myWindow::drawSnake(std::shared_ptr <myLinkedList> snake_children) {

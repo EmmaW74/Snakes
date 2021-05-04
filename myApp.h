@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include "myPrizePot.h"
+#include "RenderableText.h"
+#include "Score_controller.h"
 
 class myApp
 {
@@ -20,6 +22,7 @@ private:
 	myWindow* game_window;
 	std::shared_ptr<myPrizePot> current_prizes;
 	int score = 100;
+	//std::shared_ptr <Score_controller> score; //Need to create this in constructor and add to collect points and draw frame
 	int gameTimer;
 
 public:

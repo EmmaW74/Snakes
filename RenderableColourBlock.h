@@ -5,29 +5,30 @@ class RenderableColourBlock :
     public IRenderable
 {
 private:
-	/*int width;
+	int width;
 	int height;
 	int x;
 	int y;
 	uint8_t colour_red;
 	uint8_t colour_blue;
 	uint8_t colour_green;
-	std::shared_ptr<myLinkedList<IRenderable>> children;
-	*/
+	//std::shared_ptr<myLinkedList<IRenderable>> children;
+	
 
 public:
 	RenderableColourBlock();
-	virtual int get_x() const = 0;
-	virtual int get_y() const = 0;
-	virtual int get_width() const = 0;
-	virtual int get_height() const = 0;
+	RenderableColourBlock(int width, int height, int x, int y, uint8_t red, uint8_t blue, uint8_t green);
+	int get_x() const;
+	int get_y() const;
+	int get_width() const;
+	int get_height() const;
 
-	virtual uint8_t get_colour_red() const = 0;
-	virtual uint8_t get_colour_blue() const = 0;
-	virtual uint8_t get_colour_green() const = 0;
+	uint8_t get_colour_red() const;
+	uint8_t get_colour_blue() const;
+	uint8_t get_colour_green() const;
 	//virtual std::shared_ptr<myLinkedList<IRenderable>> get_children() const = 0;
 	
-	virtual void draw_element(SDL_Renderer* myRenderer) = 0;
+	void draw_element(SDL_Renderer* myRenderer);
 
 	
 };
