@@ -31,7 +31,7 @@ mySnake::mySnake() {
 
 void mySnake::changeDirection(Direction new_direction) {
 	current_direction = new_direction;
-	moveSnake();
+	//moveSnake();
 }
 
 void mySnake::increaseSnakeSpeed() {

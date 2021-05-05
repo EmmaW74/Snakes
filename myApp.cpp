@@ -36,10 +36,10 @@ void myApp::runGame() {
 	game_window->countdown();
 
 	while (getRunning()) {
-		if (!Paused) {
-			incrementGameTimer();
-			addPrize();
-		}
+		//if (!Paused) {
+		//	incrementGameTimer();
+		//	addPrize();
+		//}
 		//While running, action event or if no event continue to move snake
 		if (SDL_PollEvent(&e) != 0) {
 			OnEvent(e);
@@ -50,7 +50,7 @@ void myApp::runGame() {
 	}
 
 }
-
+/*
 void myApp::OnEvent(SDL_Event& e) {
 	//User requests quit
 	if (e.type == SDL_QUIT)
@@ -152,11 +152,88 @@ void myApp::OnEvent(SDL_Event& e) {
 		}
 	}
 }
+*/
+
+void myApp::OnEvent(SDL_Event& e) {
+	//User requests quit
+	if (e.type == SDL_QUIT)
+	{
+		stopGame();
+	}
+	else if (e.type == SDL_KEYDOWN)
+	{
+			switch (e.key.keysym.sym)
+			{
+
+			case SDLK_RETURN:
+				updateStarted();
+				break;
+
+			case SDLK_SPACE:
+				Paused = !Paused;
+				break;
+
+			case SDLK_UP:
+				if (!Paused) {
+
+					if (game_snake1->getDirection() == Direction::DOWN) {
+						break;
+					}
+					else {
+						game_snake1->changeDirection(Direction::UP);
+						break;
+					}
+				}
+
+			case SDLK_DOWN:
+				if (!Paused) {
+
+					if (game_snake1->getDirection() == Direction::UP) {
+						break;
+					}
+					else {
+						game_snake1->changeDirection(Direction::DOWN);
+						break;
+					}
+				}
+			case SDLK_LEFT:
+				if (!Paused) {
+
+					if (game_snake1->getDirection() == Direction::RIGHT) {
+						break;
+					}
+					else {
+
+						game_snake1->changeDirection(Direction::LEFT);
+						break;
+					}
+				}
+
+			case SDLK_RIGHT:
+				if (!Paused) {
+
+					if (game_snake1->getDirection() == Direction::LEFT) {
+						break;
+					}
+					else {
+						game_snake1->changeDirection(Direction::RIGHT);
+						break;
+					}
+				}
+
+			}
+			myContinue();
+		}
+	}
+	
 
 void myApp::myContinue() {
 	//Continues snake movement while no key presses
 	if (!Paused) {
-		game_snake1->changeDirection(game_snake1->getDirection());
+		incrementGameTimer();
+		addPrize();
+		//game_snake1->changeDirection(game_snake1->getDirection());
+		game_snake1->moveSnake();
 		game_window->drawFrame(game_snake1, current_prizes, score);
 		if (game_snake1->checkTailCollision()) {
 			gameOver(game_window);
