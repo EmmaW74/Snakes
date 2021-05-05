@@ -15,6 +15,7 @@ myApp::myApp(){
 	started = false;
 	gameTimer = 0;
 	srand(time(NULL));
+	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
 }
 
 void myApp::updateStarted() {
@@ -186,7 +187,7 @@ void myApp::collectPoints() {
 			for (int x = 0; x < (current_prizes->getchildren())->size(); x++) {
 				if (game_snake1->checkPrizeCollision((current_prizes->getchildren())->at(x))) {
 					//if (game_snake1->checkPrizeCollision(temp->at(x))) {
-					score += (current_prizes->getchildren())->at(x)->get_points();
+					score->update_score((current_prizes->getchildren())->at(x)->get_points());
 					current_prizes->remove_prize(x);
 					game_snake1->increaseSnakeSpeed();
 					game_snake1->increaseLength();

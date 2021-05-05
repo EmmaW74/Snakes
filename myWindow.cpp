@@ -57,14 +57,14 @@ void myWindow::setBackground() {
 	SDL_FreeSurface(temp);
 }
 
-void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, int score) {
+void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, std::shared_ptr<Score_controller> score) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
 	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	banner->draw_element(myRenderer);
 	snake->draw_element(myRenderer);
 	if (current_prizes != NULL) {
 	current_prizes->draw_element(myRenderer);
-
+	score->draw_element(myRenderer);
 }
 	/*SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	drawHeader();

@@ -9,16 +9,16 @@ class IRenderable
 	//Interface class for rendering to window
 	int x;
 	int y;
-	int width;
-	int height;
+	//int width;
+	//int height;
 
 
 public:
 	
 	virtual int get_x() const = 0;
 	virtual int get_y() const = 0;
-	virtual int get_width() const = 0;
-	virtual int get_height() const = 0;
+	//virtual int get_width() const = 0;
+	//virtual int get_height() const = 0;
 
 	/*
 	virtual const const char* get_image() = 0;
