@@ -22,6 +22,7 @@ private:
 	myWindow* game_window;
 	std::shared_ptr<myPrizePot> current_prizes;
 	std::shared_ptr <Score_controller> score; 
+	std::shared_ptr <RenderableImage> myBackground;
 	int gameTimer;
 
 public:

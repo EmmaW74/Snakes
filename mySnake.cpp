@@ -30,8 +30,38 @@ mySnake::mySnake() {
 }
 
 void mySnake::changeDirection(Direction new_direction) {
-	current_direction = new_direction;
-	//moveSnake();
+//Changes snake direction provided it's not turning back the opposite way
+		switch (new_direction) {
+		case Direction::DOWN:
+			if (current_direction == Direction::UP) {
+				break;
+			}
+			else {
+				current_direction = new_direction;
+			}
+		case Direction::UP:
+			if (current_direction == Direction::DOWN) {
+				break;
+			}
+			else {
+				current_direction = new_direction;
+			}
+
+		case Direction::LEFT:
+			if (current_direction == Direction::RIGHT) {
+				break;
+			}
+			else {
+				current_direction = new_direction;
+			}
+		case Direction::RIGHT:
+			if (current_direction == Direction::LEFT) {
+				break;
+			}
+			else {
+				current_direction = new_direction;
+			}
+		}
 }
 
 void mySnake::increaseSnakeSpeed() {

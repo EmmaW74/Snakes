@@ -48,18 +48,20 @@ myWindow::myWindow() {
 	}
 }
 
-void myWindow::setBackground() {
+void myWindow::setBackground(std::shared_ptr<RenderableImage> background) {
 	//sets up myBackground texture
-	SDL_Surface* temp = IMG_Load("Images/grass.jpg");
+	/*SDL_Surface* temp = IMG_Load("Images/grass.jpg");
 	myBackground = SDL_CreateTextureFromSurface(myRenderer, temp);
 	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	publishTexture();
-	SDL_FreeSurface(temp);
+	SDL_FreeSurface(temp); */
+	background->draw_element(myRenderer);
 }
 
-void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, std::shared_ptr<Score_controller> score) {
+void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
-	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+	//SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+	background->draw_element(myRenderer);
 	banner->draw_element(myRenderer);
 	snake->draw_element(myRenderer);
 	if (current_prizes != NULL) {
@@ -190,7 +192,7 @@ void myWindow::showGameOver() {
 
 }
 
-void myWindow::countdown() {
+void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
 	
 	TTF_Init();
 	TTF_Font* font = TTF_OpenFont("Font/Arial.ttf", 200); //this opens a font style and sets a size
@@ -216,7 +218,8 @@ void myWindow::countdown() {
 		publishTexture();
 		SDL_Delay(1000);
 		SDL_RenderClear(myRenderer);
-		SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+		background->draw_element(myRenderer);
+		//SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 		publishTexture();
 		s.str("");
 	}
@@ -304,8 +307,8 @@ myWindow::~myWindow() {
 	//Free loaded images
 	SDL_DestroyTexture(myTexture);
 	myTexture = NULL;
-	SDL_DestroyTexture(myBackground);
-	myBackground = NULL;
+	//SDL_DestroyTexture(myBackground);
+	//myBackground = NULL;
 
 	//Destroy window    
 	SDL_DestroyRenderer(myRenderer);

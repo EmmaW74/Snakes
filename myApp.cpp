@@ -16,6 +16,7 @@ myApp::myApp(){
 	gameTimer = 0;
 	srand(time(NULL));
 	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
+	myBackground = std::make_shared<RenderableImage>(0,0,"Images/grass.jpg"); //ERROR HERE
 }
 
 void myApp::updateStarted() {
@@ -32,8 +33,8 @@ void myApp::runGame() {
 			}
 		}
 	}
-	game_window->setBackground();
-	game_window->countdown();
+	game_window->setBackground(myBackground);
+	game_window->countdown(myBackground);
 
 	while (getRunning()) {
 		//if (!Paused) {
@@ -41,14 +42,22 @@ void myApp::runGame() {
 		//	addPrize();
 		//}
 		//While running, action event or if no event continue to move snake
-		if (SDL_PollEvent(&e) != 0) {
-			OnEvent(e);
+		if (Paused) {
+			if (SDL_PollEvent(&e) != 0 && e.type == SDL_KEYDOWN) {
+				if (e.key.keysym.sym == SDLK_SPACE) {
+					Paused = !Paused;
+				}
+			}
 		}
 		else {
-			myContinue();
+			if (SDL_PollEvent(&e) != 0) {
+				OnEvent(e);
+			}
+			else {
+				myContinue();
+			}
 		}
 	}
-
 }
 /*
 void myApp::OnEvent(SDL_Event& e) {
@@ -174,53 +183,20 @@ void myApp::OnEvent(SDL_Event& e) {
 				break;
 
 			case SDLK_UP:
-				if (!Paused) {
-
-					if (game_snake1->getDirection() == Direction::DOWN) {
-						break;
-					}
-					else {
-						game_snake1->changeDirection(Direction::UP);
-						break;
-					}
-				}
+				game_snake1->changeDirection(Direction::UP);
+				break;
 
 			case SDLK_DOWN:
-				if (!Paused) {
-
-					if (game_snake1->getDirection() == Direction::UP) {
-						break;
-					}
-					else {
-						game_snake1->changeDirection(Direction::DOWN);
-						break;
-					}
-				}
+				game_snake1->changeDirection(Direction::DOWN);
+				break;
+				
 			case SDLK_LEFT:
-				if (!Paused) {
-
-					if (game_snake1->getDirection() == Direction::RIGHT) {
-						break;
-					}
-					else {
-
-						game_snake1->changeDirection(Direction::LEFT);
-						break;
-					}
-				}
+				game_snake1->changeDirection(Direction::LEFT);
+				break;
 
 			case SDLK_RIGHT:
-				if (!Paused) {
-
-					if (game_snake1->getDirection() == Direction::LEFT) {
-						break;
-					}
-					else {
-						game_snake1->changeDirection(Direction::RIGHT);
-						break;
-					}
-				}
-
+				game_snake1->changeDirection(Direction::RIGHT);
+				break;
 			}
 			myContinue();
 		}
@@ -234,7 +210,7 @@ void myApp::myContinue() {
 		addPrize();
 		//game_snake1->changeDirection(game_snake1->getDirection());
 		game_snake1->moveSnake();
-		game_window->drawFrame(game_snake1, current_prizes, score);
+		game_window->drawFrame(game_snake1, current_prizes, score, myBackground);
 		if (game_snake1->checkTailCollision()) {
 			gameOver(game_window);
 		}
