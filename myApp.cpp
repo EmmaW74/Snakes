@@ -16,7 +16,7 @@ myApp::myApp(){
 	gameTimer = 0;
 	srand(time(NULL));
 	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
-	myBackground = std::make_shared<RenderableImage>(0,0,"Images/grass.jpg"); //ERROR HERE
+	myBackground = std::make_shared<RenderableImage>(0,0,"Images/grass.jpg"); 
 }
 
 void myApp::updateStarted() {
@@ -33,7 +33,7 @@ void myApp::runGame() {
 			}
 		}
 	}
-	game_window->setBackground(myBackground);
+	
 	game_window->countdown(myBackground);
 
 	while (getRunning()) {

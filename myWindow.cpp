@@ -48,109 +48,17 @@ myWindow::myWindow() {
 	}
 }
 
-void myWindow::setBackground(std::shared_ptr<RenderableImage> background) {
-	//sets up myBackground texture
-	/*SDL_Surface* temp = IMG_Load("Images/grass.jpg");
-	myBackground = SDL_CreateTextureFromSurface(myRenderer, temp);
-	SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
-	publishTexture();
-	SDL_FreeSurface(temp); */
-	background->draw_element(myRenderer);
-}
-
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
-	//SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
 	background->draw_element(myRenderer);
 	banner->draw_element(myRenderer);
 	snake->draw_element(myRenderer);
 	if (current_prizes != NULL) {
-	current_prizes->draw_element(myRenderer);
-	score->draw_element(myRenderer);
-}
-	/*SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
-	drawHeader();
-	drawScore(score);
-	if (prizes.size() > 0) {
-		for (int x = 0; x < prizes.size(); x++) {
-			//drawPrize(prizes.at(x));
-			renderElement(prizes.at(x));
+		current_prizes->draw_element(myRenderer);
+		score->draw_element(myRenderer);
 		}
-	}
-	drawSnake(snake->getchildren());
-	*/
 	publishTexture();
 	SDL_Delay(snake->getSnakeSpeed());
-}
-
-void myWindow::drawHeader() {
-	//renders header bar
-	//SDL_Rect* temp = new SDL_Rect{ 0,0,640,40 };
-	//SDL_SetRenderDrawColor(myRenderer, 0x12, 0x4a, 0x12, 0x00);
-	//SDL_RenderFillRect(myRenderer, temp);
-	//delete temp;
-}
-/*
-void myWindow::drawSnake(std::shared_ptr <myLinkedList> snake_children) {
-
-	SDL_Rect* temp;
-	int x;
-	int y;
-
-	node* temp_node = snake_children->get_head();
-	int head_x;
-	int head_y;
-
-	do {
-		x = temp_node->data->get_x();
-		y = temp_node->data->get_y();
-		SDL_SetRenderDrawColor(myRenderer, 0xF7, 0x02, 0x0b, 0xf7);
-		temp = new SDL_Rect{ x + 1,y,8,10 };
-		SDL_RenderFillRect(myRenderer, temp);
-		delete temp;
-		temp = new SDL_Rect{ x,y + 1,10,8 };
-		SDL_RenderFillRect(myRenderer, temp);
-		delete temp;
-		temp_node = temp_node->next;
-
-	} while (temp_node->next != nullptr);
-}*/
-/*
-void myWindow::drawPrize(std::shared_ptr<ImyPrize> prize) {
-	SDL_Surface* surface = IMG_Load(prize->get_image());
-	if (surface == NULL) {
-		std::cout << "Prize image not loaded" << std::endl;
-	}
-	else {
-		SDL_Rect* temp;
-		temp = new SDL_Rect{ prize->get_x(),prize->get_y(),prize->get_height(),prize->get_width() };
-		SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0xFF, 0xFF, 0xFF));
-		myTexture = SDL_CreateTextureFromSurface(myRenderer, surface);
-		SDL_RenderSetViewport(myRenderer, temp);
-		SDL_RenderCopy(myRenderer, myTexture, NULL, NULL);
-		SDL_FreeSurface(surface);
-		SDL_RenderSetViewport(myRenderer, NULL);
-		delete temp;
-	}
-}
-*/
-void myWindow::drawScore(int score) {
-	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("Font/Arial.ttf", 200); //this opens a font style and sets a size
-	SDL_Color color = { 255, 255, 255 };  // this is the text color in rgb format
-	SDL_Rect Message_rect; //create a rect
-	Message_rect.x = 10;  //controls the rect's x coordinate 
-	Message_rect.y = 10; // controls the rect's y coordinte
-	Message_rect.w = 100; // controls the width of the rect
-	Message_rect.h = 30; // controls the height of the rect
-	std::string score_text = "";
-	score_text = "Score: " + std::to_string(score);
-	SDL_Surface* surfaceMessageScore = TTF_RenderText_Solid(font, score_text.c_str(), color); //Create surface first
-	SDL_Texture* MessageScore = SDL_CreateTextureFromSurface(myRenderer, surfaceMessageScore); //Convert to texture
-	SDL_RenderCopy(myRenderer, MessageScore, NULL, &Message_rect);
-
-	SDL_FreeSurface(surfaceMessageScore);
-	SDL_DestroyTexture(MessageScore);
 }
 
 void myWindow::publishTexture() {
@@ -211,15 +119,16 @@ void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
 	std::stringstream s;
 
 	for (int num = 3; num > 0; num--) {
+		SDL_RenderClear(myRenderer);
+		background->draw_element(myRenderer);
+
 		s << num;
 		surfaceMessage = TTF_RenderText_Solid(font, s.str().c_str(), color); // TTF_RenderText_Solid can only be used on SDL_Surface
 		Message = SDL_CreateTextureFromSurface(myRenderer, surfaceMessage); //Surface then converted into a texture
 		SDL_RenderCopy(myRenderer, Message, NULL, &Message_rect); // NULL is instead of crop size as no crop needed
 		publishTexture();
 		SDL_Delay(1000);
-		SDL_RenderClear(myRenderer);
-		background->draw_element(myRenderer);
-		//SDL_RenderCopy(myRenderer, myBackground, NULL, NULL);
+		
 		publishTexture();
 		s.str("");
 	}
@@ -228,87 +137,12 @@ void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
 }
-/*
-void myWindow::renderPrize(ImyPrize* prize) {
-	//creates a texture for the prize image and copies to myRenderer ready to publish
-	SDL_Surface* temp = IMG_Load("Images/ruby.bmp");
-	if (temp == NULL)
-	{
-		std::cout << "loadPrize: Unable to load image" << SDL_GetError() << std::endl;
-	}
-	else
-	{
-		//Color key image
-		SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 0xFF, 0xFF, 0xFF));
-
-		//Create texture from surface pixels
-		SDL_Texture* newTexture = SDL_CreateTextureFromSurface(myRenderer, temp);
-		if (newTexture == NULL)
-		{
-			std::cout << "Unable to create texture" << std::endl;
-
-		}
-		else
-		{
-			//Need to get image dimensions without constants here
-
-			SDL_Rect renderQuad = { 100, 100, 27, 40 };
-			SDL_RenderCopy(myRenderer, newTexture, NULL, &renderQuad);
-
-		}
-		//Get rid of old loaded surface and texture
-		SDL_FreeSurface(temp);
-		SDL_DestroyTexture(newTexture);
-	}
-}
-
-void myWindow::renderElement(std::shared_ptr<IRenderable> element) {
-	if (element->get_image() != NULL) {
-		//do something to upload image to myRenderer
-		SDL_Surface* surface = IMG_Load(element->get_image());
-		if (surface == NULL) {
-			std::cout << "Element image not loaded" << std::endl;
-		}
-		else {
-			SDL_Rect* temp;
-			temp = new SDL_Rect{ element->get_x(),element->get_y(),element->get_height(),element->get_width() };
-			SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0xFF, 0xFF, 0xFF));
-			myTexture = SDL_CreateTextureFromSurface(myRenderer, surface);
-			SDL_RenderSetViewport(myRenderer, temp);
-			SDL_RenderCopy(myRenderer, myTexture, NULL, NULL);
-			SDL_FreeSurface(surface);
-			SDL_RenderSetViewport(myRenderer, NULL);
-			delete temp;
-		}
-	}
-	else if (element->get_font() != "") {
-		//do something to put text on page
-	}
-	else {
-		//draw element based on measurements/colours
-		SDL_Rect* temp;
-		int x = element->get_x();
-		int y = element->get_y();
-		int w = element->get_width();
-		int h = element->get_height();
-
-		//SDL_SetRenderDrawColor(myRenderer, 0xF7, 0x02, 0x0b, 0xf7);
-		SDL_SetRenderDrawColor(myRenderer, element->get_colour_red(), element->get_colour_green(), element->get_colour_blue(), 0xf7);
-		temp = new SDL_Rect{ x,y,w,h };
-		SDL_RenderFillRect(myRenderer, temp);
-		delete temp;
-	}
-}
-*/
-
 
 
 myWindow::~myWindow() {
 	//Free loaded images
 	SDL_DestroyTexture(myTexture);
 	myTexture = NULL;
-	//SDL_DestroyTexture(myBackground);
-	//myBackground = NULL;
 
 	//Destroy window    
 	SDL_DestroyRenderer(myRenderer);

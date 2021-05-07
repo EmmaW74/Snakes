@@ -5,7 +5,9 @@
 Score_controller::Score_controller() {};
 
 Score_controller::Score_controller(int x, int y, uint8_t red, uint8_t blue, uint8_t green) :
-	font{ "Font/Arial.ttf" }, text{ "Score: " }, x{ x }, y{ y }, colour_red{ red }, colour_blue{ blue }, colour_green{ green }, score{ 0 }{};
+	font{ "Font/Arial.ttf" }, text{ "Score: " }, x{ x }, y{ y }, colour_red{ red }, colour_blue{ blue }, colour_green{ green }, score{ 0 }{
+	update_score(score);
+};
 
 void Score_controller::update_score(int addScore) {
 	score += addScore;

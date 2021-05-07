@@ -25,12 +25,8 @@ private:
 public:
 
 	myWindow();
-	void setBackground(std::shared_ptr<RenderableImage> background); //Create a background surface to be reused
 	void drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr <myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background);
-	void drawHeader();
-	//void drawSnake(std::shared_ptr <myLinkedList> snake_children);
-	void drawPrize(std::shared_ptr<ImyPrize> prize);
-	void drawScore(int score);
+	
 	void publishTexture(); //Publish my texture to window
 	void intro();
 	void showGameOver();
