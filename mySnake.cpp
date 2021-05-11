@@ -151,26 +151,34 @@ bool mySnake::checkTailCollision() {
 	return false;
 }
 
-bool mySnake::checkPrizeCollision(std::shared_ptr<ImyPrize> prize) {
+bool mySnake::checkPrizeCollision(ImyPrize* prize) {
 
-	int head_x = children->get_head()->data->get_x();
-	int head_y = children->get_head()->data->get_y();
-	int prize_x_min = prize->get_x() - 5;
-	int prize_y_min = prize->get_y() - 5;
-	int prize_x_max = (prize->get_x()) + (prize->get_width() + 5);
-	int prize_y_max = (prize->get_y()) + (prize->get_height() + 5);
-	bool x_collision = false;
-	bool y_collision = false;
+	//BUG here? only collects prizes in the order they appeared
 
-	if ((head_x >= prize_x_min) && (head_x <= prize_x_max)) {
-		x_collision = true;
+	if (prize == nullptr) {
+		return false;
 	}
+	else {
 
-	if ((head_y >= prize_y_min) && (head_y <= prize_y_max)) {
-		y_collision = true;
-	}
-	if (x_collision && y_collision) {
-		return true;
+		int head_x = children->get_head()->data->get_x();
+		int head_y = children->get_head()->data->get_y();
+		int prize_x_min = prize->get_x() - 5;
+		int prize_y_min = prize->get_y() - 5;
+		int prize_x_max = (prize->get_x()) + (prize->get_width() + 5);
+		int prize_y_max = (prize->get_y()) + (prize->get_height() + 5);
+		bool x_collision = false;
+		bool y_collision = false;
+
+		if ((head_x >= prize_x_min) && (head_x <= prize_x_max)) {
+			x_collision = true;
+		}
+
+		if ((head_y >= prize_y_min) && (head_y <= prize_y_max)) {
+			y_collision = true;
+		}
+		if (x_collision && y_collision) {
+			return true;
+		}
 	}
 	return false;
 

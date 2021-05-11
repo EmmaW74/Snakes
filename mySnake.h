@@ -32,7 +32,7 @@ public:
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();
-	bool checkPrizeCollision(std::shared_ptr<ImyPrize> prize);
+	bool checkPrizeCollision(ImyPrize* prize);
 		
 	Direction getDirection() const;
 	int getSnakeLength() const;

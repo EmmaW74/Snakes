@@ -224,11 +224,11 @@ void myApp::addPrize() {
 
 		int type = 1 + (int)(2.0 * (rand() / (RAND_MAX + 1.0)));
 		if (type == 1) {
-			current_prizes->add_prize(std::shared_ptr<ImyPrize> {new Ruby{ random_position(), random_position(), 30 }});
+			current_prizes->add_prize(new Ruby{ random_position(), random_position(), 30 });
 			//current_prizes->push_back(std::make_unique<Ruby>(random_position(), random_position(),30)); 
 		}
 		else {
-			current_prizes->add_prize(std::shared_ptr<ImyPrize> {new Diamond{ random_position(), random_position(), 30 } });
+			current_prizes->add_prize(new Diamond{ random_position(), random_position(), 30 } );
 		}
 	}
 }
@@ -236,19 +236,20 @@ void myApp::addPrize() {
 void myApp::collectPoints() {
 	//std::shared_ptr<std::vector<std::shared_ptr<ImyPrize>>> temp = current_prizes->getchildren();
 	if (current_prizes->get_prize_count() > 0) {
-		if ((current_prizes->getchildren())->size() > 0) {
-			for (int x = 0; x < (current_prizes->getchildren())->size(); x++) {
-				if (game_snake1->checkPrizeCollision((current_prizes->getchildren())->at(x))) {
+			for (int x = 0; x < (current_prizes->getchildren())->get_size(); x++) {
+				std::cout << "Collect points: " << x << std::endl;
+				bool temp = game_snake1->checkPrizeCollision((current_prizes->getchildren())->get_element(x));
+				if (temp) {
 					//if (game_snake1->checkPrizeCollision(temp->at(x))) {
-					score->update_score((current_prizes->getchildren())->at(x)->get_points());
-					current_prizes->remove_prize(x);
+					score->update_score((current_prizes->getchildren())->get_element(x)->get_points());
+					current_prizes->remove_prize((current_prizes->getchildren())->get_element(x));
 					game_snake1->increaseSnakeSpeed();
 					game_snake1->increaseLength();
 				}
 			}
 		}
 	}
-}
+
 
 void myApp::stopGame() {
 	Running = false;
