@@ -4,6 +4,7 @@
 class RenderableText :
     public IRenderable
 {
+	// Stores details of a text object and draws on screen
 private:
 	
 	int x;
@@ -23,7 +24,6 @@ public:
 	std::string get_font() const;
 	void update_text(std::string newtext);
 
-	//std::string get_colour_key() const;
 	uint8_t get_colour_red() const;
 	uint8_t get_colour_blue() const;
 	uint8_t get_colour_green() const;

@@ -150,6 +150,9 @@ myWindow::~myWindow() {
 	myAppWindow = NULL;
 	myRenderer = NULL;
 
+	//delete banner colour block
+	delete banner;
+
 	//Quit SDL subsystems
 	IMG_Quit();
 	TTF_Quit();

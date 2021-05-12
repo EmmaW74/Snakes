@@ -48,6 +48,7 @@ public:
 	// general tasks
 	void incrementGameTimer();
 	int random_position();
+	
 };
 
 #endif

@@ -123,9 +123,7 @@ void mySnake::moveSnake() {
 }
 
 bool mySnake::checkTailCollision() {
-	//checks if head dot has collided with any other dot in snake body
-
-	
+	//checks if head dot has collided with any other dot in snake body	
 	int head_x = children->get_head()->data->get_x();
 	int head_y = children->get_head()->data->get_y();
 	node<MyDot>* ptr = children->get_head()->next;

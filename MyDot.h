@@ -9,7 +9,7 @@
 
 class MyDot: public RenderableColourBlock {
 
-	//The snake body is made up of MyDot objects.
+	//The snake body is made up of MyDot objects. **THIS MAY NOT BE NEEDED - DOESN@T ADD ANYTHING TO RENDERABLECOLOURBLOCK**
 private:
 	const int width;
 	const int height;
@@ -31,7 +31,7 @@ public:
 	uint8_t get_colour_red() const;
 	uint8_t get_colour_blue() const;
 	uint8_t get_colour_green() const;
-	//const std::shared_ptr<myLinkedList> get_children();
+
 	};
 
 #endif

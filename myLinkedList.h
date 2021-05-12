@@ -10,6 +10,7 @@ struct node {
 
 template<typename T>
 class myLinkedList {
+	//User defined double linked list - used in snake and prize pot
 private:
 	node<T>* head;
 	node<T>* tail;
@@ -23,8 +24,6 @@ public:
 	}
 
 	myLinkedList(T* object) {
-		//head = new node<T>{ object,nullptr };
-		//tail = head;
 		head = new node<T>{ object,nullptr,nullptr };
 		tail = head;
 		head->prev = nullptr;
@@ -47,18 +46,15 @@ public:
 
 		for (int i = 0; i <= x; i++) {
 			if (x == 0) {
-				std::cout << "Get element - return ptr->data (head)" << std::endl;
 				return ptr->data;
 			}
 
 			if (i == x) {
-				std::cout << "Get element - return ptr->data (x)" << std::endl;
 				return ptr->data;
 				
 			}
 			else {
 				if (ptr->next == nullptr) {
-					std::cout << "Get element - return nullptr" << std::endl;
 					return nullptr;
 					
 				} else {
@@ -68,27 +64,8 @@ public:
 			}
 			
 		}
-		std::cout << "Get element - default return nullptr" << std::endl;
 		return nullptr;
-
-		/*if (x == 0) {
-			return ptr->data;
-		}
-		else {
-			
-			for (int i = 0; i < x; i++) {
-				j = i;
-				if (ptr->next != nullptr) {
-					ptr = ptr->next;
-				}
-			}
-			if (j == x) {
-				return ptr->data;
-			}
-			else {
-				return nullptr;
-			} */
-		
+				
 	}
 
 	void set_tail() {
@@ -97,21 +74,9 @@ public:
 			ptr = ptr->next;
 		}
 		tail = ptr;
-		
 	}
 
 	void add_node_tail(T* data) {
-		/*
-		node<T>* temp = new node<T>;
-		temp->data = data;
-		temp->next = nullptr;
-
-		node<T>* ptr = head;
-		while (ptr->next != nullptr) {
-			ptr = ptr->next;
-		}
-		ptr->next = temp;
-		tail = temp; */
 
 		node<T>* temp = new node<T>;
 		temp->data = data;
@@ -135,11 +100,7 @@ public:
 	}
 
 	void add_node_head(T* data) {
-		//node<T>* temp = new node<T>;
-		//temp->data = data;
-		//temp->next = head;
-		//head = temp;
-
+	
 		node<T>* temp = new node<T>;
 		temp->data = data;
 		temp->next = head;
@@ -149,26 +110,8 @@ public:
 	}
 
 	void remove_node_tail() {
-		//Removes last node from linked list, deletes node and related MyDot, updates tail pointer
-		/* 
-		node<T>* ptr2 = head;
-		node<T>* ptr1 = head->next;
-		if (ptr1 == nullptr) {
-			head = nullptr;
-			delete ptr2->data;
-			delete ptr2;
-		}
-		else {
-			while (ptr1->next != nullptr) {
-				ptr2 = ptr2->next;
-				ptr1 = ptr1->next;
-			}
-			ptr2->next = nullptr;
-			tail = ptr2;
-			delete ptr1->data;
-			delete ptr1;
-		} */
-
+		//Removes last node from linked list, deletes node and related MyDot, updates tail pointer ** DO WE NEED THIS? **
+		
 		node<T>* ptr2 = head;
 		node<T>* ptr1 = head->next;
 		if (ptr1 == nullptr) {

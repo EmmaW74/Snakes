@@ -5,7 +5,7 @@
 class Diamond :
 	public ImyPrize
 {
-	//Prize type diamond
+	//Stores details of Diamond prize object and draws to screen
 private:
 	const int width;
 	const int height;
@@ -30,11 +30,7 @@ public:
 	int get_width() const;
 	int get_height() const;
 	int get_points() const;
-	//std::string get_font() const;
 	std::string get_colour_key() const;
-	//uint8_t get_colour_red() const;
-	//uint8_t get_colour_blue() const;
-	//uint8_t get_colour_green() const;
 	void draw_element(SDL_Renderer* myRenderer);
 };
 

@@ -43,4 +43,5 @@ void myPrizePot::add_prize(ImyPrize* newPrize) {
 void myPrizePot::remove_prize(ImyPrize* object) {
 	children->remove_a_node(object);
 	prize_count--;
+	delete object;
 }

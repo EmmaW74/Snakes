@@ -4,6 +4,7 @@
 class RenderableColourBlock :
     public IRenderable
 {
+	// Stores details of a colour block object and draws on screen
 private:
 	int width;
 	int height;
@@ -12,7 +13,6 @@ private:
 	uint8_t colour_red;
 	uint8_t colour_blue;
 	uint8_t colour_green;
-	//std::shared_ptr<myLinkedList<IRenderable>> children;
 	
 
 public:
