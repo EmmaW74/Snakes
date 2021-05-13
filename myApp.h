@@ -1,12 +1,15 @@
 #ifndef MYAPP_H
 #define MYPP_H
 #include "SDL.h"
-#include "myDot.h"
+#include "MyDot.h"
 #include "mySnake.h"
 #include "myWindow.h"
 #include <SDL_image.h>
 #include <string>
 #include <vector>
+#include "myPrizePot.h"
+#include "RenderableText.h"
+#include "Score_controller.h"
 
 class myApp
 {
@@ -17,8 +20,9 @@ private:
 	bool Paused;
 	std::shared_ptr<mySnake> game_snake1;
 	myWindow* game_window;
-	std::vector<std::shared_ptr<ImyPrize>> current_prizes;
-	int score = 100;
+	std::shared_ptr<myPrizePot> current_prizes;
+	std::shared_ptr <Score_controller> score; 
+	std::shared_ptr <RenderableImage> myBackground;
 	int gameTimer;
 
 public:
@@ -33,7 +37,7 @@ public:
 	void collectPoints();
 	void stopGame();
 	void gameOver(myWindow* window);
-	
+	void onPause();
 	// gets
 	const bool getStarted();
 	const bool getRunning();
@@ -44,6 +48,7 @@ public:
 	// general tasks
 	void incrementGameTimer();
 	int random_position();
+	
 };
 
 #endif

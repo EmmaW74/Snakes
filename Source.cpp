@@ -12,12 +12,12 @@ int main(int argc, char* args[])
 
 
 /*
+- BUG - Snake overlaps header before crashing
 - END GAME - TIDY UP AND GIVE OPTION TO PLAY AGAIN
 - Diamond - Points assigned in constructor could be random & image could show points
 - top score held in file & shown on header
 - star gem 
 - global variables for header and navigation areas 
-- myApp on_close() at end 
 - Add molehills to avoid - rise up then down
 - Change to smart pointers
 - Random start position

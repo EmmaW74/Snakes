@@ -1,7 +1,7 @@
 #ifndef MYSNAKE_H
 #define MYSNAKE_H
 #include "SDL.h"
-#include "myDot.h"
+#include "MyDot.h"
 #include "ImyPrize.h"
 #include "myLinkedList.h"
 #include <SDL_image.h>
@@ -18,10 +18,11 @@ class mySnake
 {
 	//Represents the snake and manages its movement
 private:
-	std::shared_ptr<myLinkedList> body;
+	std::shared_ptr<myLinkedList<MyDot>> children;
 	Direction current_direction;
 	int snakeLength;
 	int snakeSpeed;
+	
 
 public:
 	mySnake();
@@ -31,13 +32,13 @@ public:
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();
-	bool checkPrizeCollision(std::shared_ptr<ImyPrize> prize);
+	bool checkPrizeCollision(ImyPrize* prize);
 		
-	const Direction getDirection();
-	const int getSnakeLength();
-	const int getSnakeSpeed();
-	std::shared_ptr<myLinkedList> getBody();
-
+	Direction getDirection() const;
+	int getSnakeLength() const;
+	int getSnakeSpeed() const;
+	std::shared_ptr<myLinkedList<MyDot>> getchildren() const;
+	void draw_element(SDL_Renderer* myRenderer);
 };
 
 #endif

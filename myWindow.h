@@ -3,8 +3,10 @@
 #include "SDL.h"
 #include <SDL_image.h>
 #include "mySnake.h"
-#include "ImyPrize.h"
-
+#include "myPrizePot.h"
+#include "IRenderable.h"
+#include "Score_controller.h"
+#include "RenderableImage.h"
 
 class myWindow
 {
@@ -13,24 +15,22 @@ private:
 	SDL_Window* myAppWindow = NULL;
 	SDL_Renderer* myRenderer = NULL;
 	SDL_Texture* myTexture = NULL;
-	SDL_Texture* myBackground = NULL;
+	
+	RenderableColourBlock* banner = NULL;
 	int SCREEN_WIDTH = 640;
 	int SCREEN_HEIGHT = 480;
 	
 public:
 
 	myWindow();
-	void setBackground(); //Create a background surface to be reused
-	void drawFrame(std::shared_ptr<mySnake> snake, std::vector<std::shared_ptr<ImyPrize>> prizes, int score);
-	void drawHeader();
-	void drawSnake(std::shared_ptr <myLinkedList> snake_body);
-	void drawPrize(std::shared_ptr<ImyPrize> prize);
-	void drawScore(int score);
-	void publishTexture(); //Publish my texture to window
+	void drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr <myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background);
+	
+	void publishTexture();
 	void intro();
 	void showGameOver();
-	void countdown();
-	void renderPrize(ImyPrize* prize); //load prize image and update renderer
+	void countdown(std::shared_ptr<RenderableImage> background);
+	void renderPrize(ImyPrize* prize); 
+	void renderElement(std::shared_ptr<IRenderable> element);
 	~myWindow();
 };
 
