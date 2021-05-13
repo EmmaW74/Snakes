@@ -4,11 +4,14 @@
 #include "Ruby.h"
 #include "Diamond.h"
 #include <iostream>
+#include "dimensions.h"
 
 
 myApp::myApp(){
-	game_window = new myWindow();
-	game_snake1 = std::make_shared<mySnake> ();
+	
+	measurements = std::make_shared<Dimensions>(15);
+	game_window = new myWindow(measurements);
+	game_snake1 = std::make_shared<mySnake> (measurements);
 	current_prizes = std::make_shared<myPrizePot>();
 	Running = true;
 	Paused = false;
@@ -17,6 +20,7 @@ myApp::myApp(){
 	srand(time(NULL));
 	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
 	myBackground = std::make_shared<RenderableImage>(0,0,"Images/grass.jpg"); 
+	
 }
 
 void myApp::updateStarted() {
@@ -209,9 +213,9 @@ void myApp::myContinue() {
 		incrementGameTimer();
 		addPrize();
 		//game_snake1->changeDirection(game_snake1->getDirection());
-		game_snake1->moveSnake();
+		game_snake1->moveSnake(measurements);
 		game_window->drawFrame(game_snake1, current_prizes, score, myBackground);
-		if (game_snake1->checkTailCollision()) {
+		if (game_snake1->checkTailCollision(measurements)) {
 			gameOver(game_window);
 		}
 		collectPoints();
@@ -244,7 +248,7 @@ void myApp::collectPoints() {
 					score->update_score((current_prizes->getchildren())->get_element(x)->get_points());
 					current_prizes->remove_prize((current_prizes->getchildren())->get_element(x));
 					game_snake1->increaseSnakeSpeed();
-					game_snake1->increaseLength();
+					game_snake1->increaseLength(measurements);
 				}
 			}
 		}

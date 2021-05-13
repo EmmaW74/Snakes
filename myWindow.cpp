@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 
-myWindow::myWindow() {
+myWindow::myWindow(std::shared_ptr<Dimensions> measurements) {
 	
 	//Initialisation flag
 	bool success = true;
@@ -24,7 +24,7 @@ myWindow::myWindow() {
 	else
 	{
 		//Create window
-		myAppWindow = SDL_CreateWindow("Snake game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		myAppWindow = SDL_CreateWindow("Snake game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, measurements->get_screen_width(), measurements->get_screen_height(), SDL_WINDOW_SHOWN);
 		if (myAppWindow == NULL)
 		{
 			std::cout << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;

@@ -12,19 +12,19 @@
 template<class T>
 struct node;
 
-mySnake::mySnake() {
+mySnake::mySnake(std::shared_ptr<Dimensions> measurements) {
 	srand(time(NULL));
 	snakeLength = 20;
 	snakeSpeed = 150;
 	int x = 0;
 	int y = rand() % 300 + 50;
-	children = std::make_shared<myLinkedList<MyDot>>(new MyDot{ x, y, 10, 10 });
+	children = std::make_shared<myLinkedList<MyDot>>(new MyDot{ x, y,measurements->get_cell_size(), measurements->get_cell_size() });
 	
-	x -= 10;
+	//x -= 10;
 	for (int i = 0; i < snakeLength; i++) {
 		
-		children->add_node_tail(new MyDot{ x, y, 10, 10 });
-		x -= 10;
+		children->add_node_tail(new MyDot{ x, y, measurements->get_cell_size(), measurements->get_cell_size() });
+		x -= measurements->get_cell_size();
 	}
 	current_direction = Direction::RIGHT;
 }
@@ -71,58 +71,58 @@ void mySnake::increaseSnakeSpeed() {
 	}
 }
 
-void mySnake::increaseLength() {
-
+void mySnake::increaseLength(std::shared_ptr<Dimensions> measurements) {
+	int size = measurements->get_cell_size();
 	snakeLength++;
 	int tail_x = children->get_tail()->data->get_x();
 	int tail_y = children->get_tail()->data->get_y();
 	int width_height = children->get_tail()->data->get_width();
 
 	if (getDirection() == Direction::UP) {
-		int new_y = tail_y + 10;
-		children->add_node_tail(new MyDot(tail_x, new_y, 10, 10));
+		int new_y = tail_y + size;
+		children->add_node_tail(new MyDot(tail_x, new_y, size, size));
 	}
 	else if (getDirection() == Direction::DOWN) {
-		int new_y = tail_y - 10;
-		children->add_node_tail(new MyDot(tail_x, new_y, 10, 10));
+		int new_y = tail_y - size;
+		children->add_node_tail(new MyDot(tail_x, new_y, size, size));
 	}
 	else if (getDirection() == Direction::LEFT) {
-		int new_x = tail_y + 10;
-		children->add_node_tail(new MyDot(new_x, tail_y, 10, 10));
+		int new_x = tail_y + size;
+		children->add_node_tail(new MyDot(new_x, tail_y, size, size));
 	}
 	else if (getDirection() == Direction::RIGHT) {
-		int new_x = tail_y - 10;
-		children->add_node_tail(new MyDot(new_x, tail_y, 10, 10));
+		int new_x = tail_y - size;
+		children->add_node_tail(new MyDot(new_x, tail_y, size, size));
 	}
 }
 
-void mySnake::moveSnake() {
+void mySnake::moveSnake(std::shared_ptr<Dimensions> measurements) {
 	
-	int SCREEN_WIDTH = 640;
-	int SCREEN_HEIGHT = 480;
+	//int SCREEN_WIDTH = 640;
+	//int SCREEN_HEIGHT = 480;
 	int x = children->get_head()->data->get_x();
 	int y = children->get_head()->data->get_y();
 	if (current_direction == Direction::UP) {
-		y -= 10;
+		y -= measurements->get_cell_size();
 
 	}
 	else if (current_direction == Direction::DOWN) {
-		y += 10;
+		y += measurements->get_cell_size();
 
 	}
 	else if (current_direction == Direction::LEFT) {
-		x -= 10;
+		x -= measurements->get_cell_size();
 
 	}
 	else if (current_direction == Direction::RIGHT) {
-		x += 10;
+		x += measurements->get_cell_size();
 
 	}
-	children->add_node_head(new MyDot(x, y, 15, 15));
+	children->add_node_head(new MyDot(x, y, measurements->get_cell_size(),measurements->get_cell_size()));
 	children->remove_node_tail();
 }
 
-bool mySnake::checkTailCollision() {
+bool mySnake::checkTailCollision(std::shared_ptr<Dimensions> measurements) {
 	//checks if head dot has collided with any other dot in snake body	
 	int head_x = children->get_head()->data->get_x();
 	int head_y = children->get_head()->data->get_y();
@@ -131,7 +131,7 @@ bool mySnake::checkTailCollision() {
 	int ptr_y;
 
 	
-	if ((head_x <= -10 || head_x >= 640) || (head_y <= 40 || head_y >= 480)) {
+	if ((head_x <= (0-measurements->get_cell_size()) || head_x >= 640) || (head_y <= 40 || head_y >= 480)) {
 		return true;
 		
 	}

@@ -7,6 +7,8 @@
 #include <SDL_image.h>
 #include <vector>
 #include<memory>
+#include "dimensions.h"
+
 enum class Direction {
 	UP,
 	DOWN,
@@ -25,13 +27,13 @@ private:
 	
 
 public:
-	mySnake();
+	mySnake(std::shared_ptr<Dimensions> measurements);
 
 	void changeDirection(Direction new_direction);
 	void increaseSnakeSpeed();
-	void increaseLength();
-	void moveSnake();
-	bool checkTailCollision();
+	void increaseLength(std::shared_ptr<Dimensions> measurements);
+	void moveSnake(std::shared_ptr<Dimensions> measurements);
+	bool checkTailCollision(std::shared_ptr<Dimensions> measurements);
 	bool checkPrizeCollision(ImyPrize* prize);
 		
 	Direction getDirection() const;
