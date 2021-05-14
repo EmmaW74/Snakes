@@ -44,15 +44,15 @@ myWindow::myWindow(std::shared_ptr<Dimensions> measurements) {
 				intro();
 			}
 		}
-		banner = new RenderableColourBlock{640,40,0,0,0x12,0x4a,0x12};
+		banner = new RenderableColourBlock{measurements->get_screen_width(),measurements->get_banner_height(),0,0,0x12,0x4a,0x12};
 	}
 }
 
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
 	background->draw_element(myRenderer);
-	banner->draw_element(myRenderer);
 	snake->draw_element(myRenderer);
+	banner->draw_element(myRenderer);
 	if (current_prizes != NULL) {
 		current_prizes->draw_element(myRenderer);
 		score->draw_element(myRenderer);

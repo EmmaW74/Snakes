@@ -9,7 +9,7 @@
 
 myApp::myApp(){
 	
-	measurements = std::make_shared<Dimensions>(15);
+	measurements = std::make_shared<Dimensions>(15,45,20,150);
 	game_window = new myWindow(measurements);
 	game_snake1 = std::make_shared<mySnake> (measurements);
 	current_prizes = std::make_shared<myPrizePot>();
@@ -208,14 +208,13 @@ void myApp::OnEvent(SDL_Event& e) {
 	
 
 void myApp::myContinue() {
-	//Continues snake movement while no key presses
+	//Calls methods to move snake, draw frame and check for collision
 	if (!Paused) {
 		incrementGameTimer();
 		addPrize();
-		//game_snake1->changeDirection(game_snake1->getDirection());
-		game_snake1->moveSnake(measurements);
+		game_snake1->moveSnake();
 		game_window->drawFrame(game_snake1, current_prizes, score, myBackground);
-		if (game_snake1->checkTailCollision(measurements)) {
+		if (game_snake1->checkTailCollision()) {
 			gameOver(game_window);
 		}
 		collectPoints();
@@ -241,14 +240,15 @@ void myApp::collectPoints() {
 	//std::shared_ptr<std::vector<std::shared_ptr<ImyPrize>>> temp = current_prizes->getchildren();
 	if (current_prizes->get_prize_count() > 0) {
 			for (int x = 0; x < (current_prizes->getchildren())->get_size(); x++) {
+				
 				std::cout << "Collect points: " << x << std::endl;
-				bool temp = game_snake1->checkPrizeCollision((current_prizes->getchildren())->get_element(x));
+				bool temp = game_snake1->checkPrizeCollision(current_prizes->getchildren()->get_element(x));
 				if (temp) {
 					//if (game_snake1->checkPrizeCollision(temp->at(x))) {
 					score->update_score((current_prizes->getchildren())->get_element(x)->get_points());
 					current_prizes->remove_prize((current_prizes->getchildren())->get_element(x));
 					game_snake1->increaseSnakeSpeed();
-					game_snake1->increaseLength(measurements);
+					game_snake1->increaseLength();
 				}
 			}
 		}

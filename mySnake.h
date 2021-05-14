@@ -20,6 +20,7 @@ class mySnake
 {
 	//Represents the snake and manages its movement
 private:
+	std::shared_ptr<Dimensions> dimensions;
 	std::shared_ptr<myLinkedList<MyDot>> children;
 	Direction current_direction;
 	int snakeLength;
@@ -27,14 +28,14 @@ private:
 	
 
 public:
-	mySnake(std::shared_ptr<Dimensions> measurements);
+	mySnake(std::shared_ptr<Dimensions> dimensions);
 
 	void changeDirection(Direction new_direction);
 	void increaseSnakeSpeed();
-	void increaseLength(std::shared_ptr<Dimensions> measurements);
-	void moveSnake(std::shared_ptr<Dimensions> measurements);
-	bool checkTailCollision(std::shared_ptr<Dimensions> measurements);
-	bool checkPrizeCollision(ImyPrize* prize);
+	void increaseLength();
+	void moveSnake();
+	bool checkTailCollision();
+	bool checkPrizeCollision(ImyPrize* const& prize);
 		
 	Direction getDirection() const;
 	int getSnakeLength() const;
