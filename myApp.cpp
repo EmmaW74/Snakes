@@ -239,7 +239,7 @@ void myApp::addPrize() {
 void myApp::collectPoints() {
 	
 	if (current_prizes->get_prize_count() > 0) {
-		//NEED TO ADD RANGE BASED FOR LOOP HERE!!
+		
 		int x = 0;
 		auto temp = current_prizes->getchildren();
 		for (auto& i:*temp){
