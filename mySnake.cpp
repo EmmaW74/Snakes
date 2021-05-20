@@ -23,7 +23,7 @@ mySnake::mySnake(std::shared_ptr<Dimensions> dimensions):
 	
 	
 	for (int i = 0; i < snakeLength; i++) {
-		
+	
 		children->add_node_tail(new MyDot{ x, y, dimensions->get_cell_size(), dimensions->get_cell_size() });
 		x -= dimensions->get_cell_size();
 	}
@@ -151,8 +151,8 @@ bool mySnake::checkTailCollision() {
 	return false;
 }
 
-bool mySnake::checkPrizeCollision(ImyPrize* const& prize) {
-
+//bool mySnake::checkPrizeCollision(ImyPrize* const& prize) {
+bool mySnake::checkPrizeCollision(ImyPrize* prize) {
 	//BUG here? only collects prizes in the order they appeared
 
 	if (prize == nullptr) {

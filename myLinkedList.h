@@ -7,6 +7,7 @@ struct node {
 	node* next;
 	node* prev;
 };
+class myIterator;
 
 template<typename T>
 class myLinkedList {
@@ -17,6 +18,40 @@ private:
 	int size;
 
 public:
+
+	template<typename T> class myIterator;
+	typedef myIterator<T> iterator;
+	typedef ptrdiff_t difference_type;
+	typedef size_t size_type;
+	typedef node<T> value_type;
+	typedef node<T>* pointer;
+	typedef node<T>& reference;
+
+	template<typename T>
+	class myIterator {
+		friend class myLinkedList;
+	protected:
+		pointer it_ptr;
+		myLinkedList<T>& list;
+	public:
+
+		myIterator<T>(myLinkedList<T>& list, pointer it_ptr) :
+			it_ptr{ it_ptr }, list{ list } {}
+
+		reference operator*() const { return *it_ptr; }
+		pointer operator->() { return it_ptr; }
+
+		// Prefix increment
+		iterator& operator++() { it_ptr = it_ptr->next; return *this; }
+
+		// Postfix increment
+		iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+
+		friend bool operator== (const iterator& a, const iterator& b) { return a.it_ptr == b.it_ptr; };
+		friend bool operator!= (const iterator& a, const iterator& b) { return a.it_ptr != b.it_ptr; };
+
+	};
+
 	myLinkedList() {
 		head = nullptr;
 		tail = NULL;
@@ -152,6 +187,9 @@ public:
 				if (ptr1->next != nullptr) {
 					ptr1->next->prev = ptr1->prev;
 				}
+				else {
+					tail = ptr1->prev;
+				}
 				ptr2->next = ptr1->next;
 				delete ptr1;
 			}
@@ -161,6 +199,14 @@ public:
 		}
 		size--;
 	};
+
+	iterator begin() {
+		return iterator{ *this, head };
+
+	}
+	iterator end() {
+		return iterator{ *this, tail->next };
+	}
 
 	~myLinkedList() {
 		while (head != nullptr) {

@@ -237,18 +237,20 @@ void myApp::addPrize() {
 }
 
 void myApp::collectPoints() {
-	//std::shared_ptr<std::vector<std::shared_ptr<ImyPrize>>> temp = current_prizes->getchildren();
+	
 	if (current_prizes->get_prize_count() > 0) {
-			for (int x = 0; x < (current_prizes->getchildren())->get_size(); x++) {
-				
-				std::cout << "Collect points: " << x << std::endl;
-				bool temp = game_snake1->checkPrizeCollision(current_prizes->getchildren()->get_element(x));
+		//NEED TO ADD RANGE BASED FOR LOOP HERE!!
+		int x = 0;
+		auto temp = current_prizes->getchildren();
+		for (auto& i:*temp){
+			bool temp = game_snake1->checkPrizeCollision(i.data);
+			std::cout << "Collision checked: " << x << std::endl;
 				if (temp) {
-					//if (game_snake1->checkPrizeCollision(temp->at(x))) {
-					score->update_score((current_prizes->getchildren())->get_element(x)->get_points());
-					current_prizes->remove_prize((current_prizes->getchildren())->get_element(x));
+					score->update_score(i.data->get_points());
+					current_prizes->remove_prize(i.data);
 					game_snake1->increaseSnakeSpeed();
 					game_snake1->increaseLength();
+					break;
 				}
 			}
 		}

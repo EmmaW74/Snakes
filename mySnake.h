@@ -35,7 +35,7 @@ public:
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();
-	bool checkPrizeCollision(ImyPrize* const& prize);
+	bool checkPrizeCollision(ImyPrize* prize);
 		
 	Direction getDirection() const;
 	int getSnakeLength() const;
