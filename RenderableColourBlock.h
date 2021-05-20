@@ -6,6 +6,7 @@ class RenderableColourBlock :
 {
 	// Stores details of a colour block object and draws on screen
 private:
+	
 	int width;
 	int height;
 	int x;

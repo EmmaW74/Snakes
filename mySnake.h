@@ -7,6 +7,8 @@
 #include <SDL_image.h>
 #include <vector>
 #include<memory>
+#include "dimensions.h"
+
 enum class Direction {
 	UP,
 	DOWN,
@@ -18,6 +20,7 @@ class mySnake
 {
 	//Represents the snake and manages its movement
 private:
+	std::shared_ptr<Dimensions> dimensions;
 	std::shared_ptr<myLinkedList<MyDot>> children;
 	Direction current_direction;
 	int snakeLength;
@@ -25,7 +28,7 @@ private:
 	
 
 public:
-	mySnake();
+	mySnake(std::shared_ptr<Dimensions> dimensions);
 
 	void changeDirection(Direction new_direction);
 	void increaseSnakeSpeed();

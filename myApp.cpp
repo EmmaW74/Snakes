@@ -4,11 +4,14 @@
 #include "Ruby.h"
 #include "Diamond.h"
 #include <iostream>
+#include "dimensions.h"
 
 
 myApp::myApp(){
-	game_window = new myWindow();
-	game_snake1 = std::make_shared<mySnake> ();
+	
+	measurements = std::make_shared<Dimensions>(15,45,20,150);
+	game_window = new myWindow(measurements);
+	game_snake1 = std::make_shared<mySnake> (measurements);
 	current_prizes = std::make_shared<myPrizePot>();
 	Running = true;
 	Paused = false;
@@ -17,6 +20,7 @@ myApp::myApp(){
 	srand(time(NULL));
 	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
 	myBackground = std::make_shared<RenderableImage>(0,0,"Images/grass.jpg"); 
+	
 }
 
 void myApp::updateStarted() {
@@ -204,11 +208,10 @@ void myApp::OnEvent(SDL_Event& e) {
 	
 
 void myApp::myContinue() {
-	//Continues snake movement while no key presses
+	//Calls methods to move snake, draw frame and check for collision
 	if (!Paused) {
 		incrementGameTimer();
 		addPrize();
-		//game_snake1->changeDirection(game_snake1->getDirection());
 		game_snake1->moveSnake();
 		game_window->drawFrame(game_snake1, current_prizes, score, myBackground);
 		if (game_snake1->checkTailCollision()) {
@@ -234,17 +237,20 @@ void myApp::addPrize() {
 }
 
 void myApp::collectPoints() {
-	//std::shared_ptr<std::vector<std::shared_ptr<ImyPrize>>> temp = current_prizes->getchildren();
+	
 	if (current_prizes->get_prize_count() > 0) {
-			for (int x = 0; x < (current_prizes->getchildren())->get_size(); x++) {
-				std::cout << "Collect points: " << x << std::endl;
-				bool temp = game_snake1->checkPrizeCollision((current_prizes->getchildren())->get_element(x));
+		//NEED TO ADD RANGE BASED FOR LOOP HERE!!
+		int x = 0;
+		auto temp = current_prizes->getchildren();
+		for (auto& i:*temp){
+			bool temp = game_snake1->checkPrizeCollision(i.data);
+			std::cout << "Collision checked: " << x << std::endl;
 				if (temp) {
-					//if (game_snake1->checkPrizeCollision(temp->at(x))) {
-					score->update_score((current_prizes->getchildren())->get_element(x)->get_points());
-					current_prizes->remove_prize((current_prizes->getchildren())->get_element(x));
+					score->update_score(i.data->get_points());
+					current_prizes->remove_prize(i.data);
 					game_snake1->increaseSnakeSpeed();
 					game_snake1->increaseLength();
+					break;
 				}
 			}
 		}

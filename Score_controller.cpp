@@ -46,8 +46,8 @@ void Score_controller::draw_element(SDL_Renderer* myRenderer) {
 	
 
 	SDL_Rect Message_rect; //create a rect
-	Message_rect.x = 10;  //controls the rect's x coordinate 
-	Message_rect.y = 10; // controls the rect's y coordinte
+	Message_rect.x = get_x();  //controls the rect's x coordinate 
+	Message_rect.y = get_y(); // controls the rect's y coordinte
 	Message_rect.w = surfaceMessage->w; // controls the width of the rect
 	Message_rect.h = surfaceMessage->h; // controls the height of the rect
 

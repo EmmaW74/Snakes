@@ -10,6 +10,7 @@
 #include "myPrizePot.h"
 #include "RenderableText.h"
 #include "Score_controller.h"
+#include "dimensions.h"
 
 class myApp
 {
@@ -24,6 +25,7 @@ private:
 	std::shared_ptr <Score_controller> score; 
 	std::shared_ptr <RenderableImage> myBackground;
 	int gameTimer;
+	std::shared_ptr <Dimensions> measurements;
 
 public:
 	myApp();
