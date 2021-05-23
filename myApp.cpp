@@ -133,15 +133,26 @@ void myApp::myContinue() {
 void myApp::addPrize() {
 	//Adds a prize of random type to the prizes vector
 	if (get_timer() == 30) {
-
-		int type = 1 + (int)(2.0 * (rand() / (RAND_MAX + 1.0)));
-		if (type == 1) {
-			current_prizes->add_prize(new Ruby{ random_position(), random_position(), 30 });
-			//current_prizes->push_back(std::make_unique<Ruby>(random_position(), random_position(),30)); 
-		}
-		else {
-			current_prizes->add_prize(new Diamond{ random_position(), random_position(), 30 } );
-		}
+		bool position_check = true;
+		ImyPrize* temp;
+		do {
+			int type = 1 + (int)(2.0 * (rand() / (RAND_MAX + 1.0)));
+			if (type == 1) {
+				temp = new Ruby{ random_position(), random_position(), 30 };
+				position_check = game_snake1->checkPrizeOverlap(temp); 
+				if (!position_check) {
+					current_prizes->add_prize(temp);
+				}
+			}
+			else {
+				temp = new Diamond{ random_position(), random_position(), 30 };
+				position_check = game_snake1->checkPrizeOverlap(temp); 
+				if (!position_check) {
+					current_prizes->add_prize(temp);
+				}
+			}
+		} while (position_check);
+		
 	}
 }
 
@@ -153,7 +164,7 @@ void myApp::collectPoints() {
 		auto temp = current_prizes->getchildren();
 		for (auto& i:*temp){
 			bool temp = game_snake1->checkPrizeCollision(i.data);
-			std::cout << "Collision checked: " << x << std::endl;
+			//std::cout << "Collision checked: " << x << std::endl;
 				if (temp) {
 					score->update_score(i.data->get_points());
 					current_prizes->remove_prize(i.data);
@@ -207,5 +218,6 @@ void myApp::incrementGameTimer() {
 }
 
 int myApp::random_position() {
-	return 30 + (int)(420.0 * (rand() / (RAND_MAX + 30.0)));
+	return 30 + (rand() % (measurements->get_screen_height()-measurements->get_banner_height()-30) / measurements->get_cell_size()) * measurements->get_cell_size();
+	
 }

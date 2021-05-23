@@ -9,20 +9,13 @@ myPrizePot::myPrizePot() :
 	children = std::make_shared<myLinkedList<ImyPrize>>();
 }
 
-//std::shared_ptr<std::vector<std::shared_ptr<ImyPrize>>> myPrizePot::getchildren() const {
+
 std::shared_ptr<myLinkedList<ImyPrize>> myPrizePot::getchildren() const {
 	return children;
 };
 
-void myPrizePot::draw_element(SDL_Renderer* myRenderer) { //MOVE THIS TO LINKED LIST?
-	/*
-	if (prize_count > 0) {
-		auto it = children->begin();
-		while (it != children->end()) {
-			(*it)->draw_element(myRenderer);
-			it++;
-		}
-	}*/
+void myPrizePot::draw_element(SDL_Renderer* myRenderer) { 
+	
 	if (prize_count > 0) {
 		node<ImyPrize>* ptr = children->get_head();
 		while (ptr->next != nullptr) {

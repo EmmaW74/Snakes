@@ -36,6 +36,7 @@ public:
 	void moveSnake();
 	bool checkTailCollision();
 	bool checkPrizeCollision(ImyPrize* &prize);
+	bool checkPrizeOverlap(ImyPrize*& prize);
 	bool getBorderCollide()const;
 		
 	Direction getDirection() const;
