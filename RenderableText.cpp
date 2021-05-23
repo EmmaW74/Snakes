@@ -12,6 +12,9 @@ int RenderableText::get_x() const {
 int RenderableText::get_y() const {
 	return y;
 }
+std::string RenderableText::get_text() const {
+	return text;
+}
 uint8_t RenderableText::get_colour_red() const {
 	return colour_red;
 }

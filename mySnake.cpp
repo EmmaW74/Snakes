@@ -13,7 +13,7 @@ template<class T>
 struct node;
 
 mySnake::mySnake(std::shared_ptr<Dimensions> dimensions):
-	dimensions{ dimensions } {
+	dimensions{ dimensions }, border_collide(true) {
 	srand(time(NULL));
 	snakeLength = dimensions->get_length();
 	snakeSpeed = dimensions->get_speed();
@@ -103,24 +103,61 @@ void mySnake::moveSnake() {
 	int x = children->get_head()->data->get_x();
 	int y = children->get_head()->data->get_y();
 	int cell_size = children->get_head()->data->get_height();
-	if (current_direction == Direction::UP) {
-		y -= cell_size;
+	
+	if (border_collide == true) {
+		if (current_direction == Direction::UP) {
+			y -= cell_size;
 
+		}
+		else if (current_direction == Direction::DOWN) {
+			y += cell_size;
+
+		}
+		else if (current_direction == Direction::LEFT) {
+			x -= cell_size;
+
+		}
+		else if (current_direction == Direction::RIGHT) {
+			x += cell_size;
+
+		}
 	}
-	else if (current_direction == Direction::DOWN) {
-		y += cell_size;
-
-	}
-	else if (current_direction == Direction::LEFT) {
-		x -= cell_size;
-
-	}
-	else if (current_direction == Direction::RIGHT) {
-		x += cell_size;
-
+	else {
+		if (current_direction == Direction::UP) {
+			y -= cell_size;
+			if (y < dimensions->get_banner_height()) {
+				y = (dimensions->get_screen_height() - dimensions->get_cell_size());
+			}
+		}
+		else if (current_direction == Direction::DOWN) {
+			y += cell_size;
+			if (y > (dimensions->get_screen_height() - dimensions->get_cell_size())) {
+				y = 0 + dimensions->get_banner_height();
+			}
+		}
+		else if (current_direction == Direction::LEFT) {
+			x -= cell_size;
+			if (x < 0) {
+				x = (dimensions->get_screen_width() - dimensions->get_cell_size());
+			}
+		}
+		else if (current_direction == Direction::RIGHT) {
+			x += cell_size;
+			if (x > (dimensions->get_screen_width() - dimensions->get_cell_size())) {
+				x = 0;
+			}
+		}
 	}
 	children->add_node_head(new MyDot(x, y,cell_size , cell_size));
 	children->remove_node_tail();
+}
+
+bool mySnake::getBorderCollide()const{
+	return border_collide;
+}
+
+void mySnake::setBorderCollide(){
+	border_collide = !border_collide;
 }
 
 bool mySnake::checkTailCollision() {
@@ -132,10 +169,10 @@ bool mySnake::checkTailCollision() {
 	int ptr_x;
 	int ptr_y;
 
-	
-	if ((head_x <= (0-cell_size) || head_x >= dimensions->get_screen_width()) || (head_y <= (dimensions->get_banner_height()) || head_y >= dimensions->get_screen_height())) {
-		return true;
-		
+	if (border_collide == true) {
+		if ((head_x <= (0 - cell_size) || head_x >= dimensions->get_screen_width()) || (head_y <= (dimensions->get_banner_height()) || head_y >= dimensions->get_screen_height())) {
+			return true;
+		}
 	}
 	while (ptr->next != nullptr) {
 		ptr_x = ptr->data->get_x();
@@ -152,9 +189,8 @@ bool mySnake::checkTailCollision() {
 }
 
 //bool mySnake::checkPrizeCollision(ImyPrize* const& prize) {
-bool mySnake::checkPrizeCollision(ImyPrize* prize) {
-	//BUG here? only collects prizes in the order they appeared
-
+bool mySnake::checkPrizeCollision(ImyPrize* &prize) {
+	
 	if (prize == nullptr) {
 		return false;
 	}

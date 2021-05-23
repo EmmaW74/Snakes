@@ -25,7 +25,7 @@ private:
 	Direction current_direction;
 	int snakeLength;
 	int snakeSpeed;
-	
+	bool border_collide;
 
 public:
 	mySnake(std::shared_ptr<Dimensions> dimensions);
@@ -35,13 +35,15 @@ public:
 	void increaseLength();
 	void moveSnake();
 	bool checkTailCollision();
-	bool checkPrizeCollision(ImyPrize* prize);
+	bool checkPrizeCollision(ImyPrize* &prize);
+	bool getBorderCollide()const;
 		
 	Direction getDirection() const;
 	int getSnakeLength() const;
 	int getSnakeSpeed() const;
 	std::shared_ptr<myLinkedList<MyDot>> getchildren() const;
 	void draw_element(SDL_Renderer* myRenderer);
+	void setBorderCollide();
 };
 
 #endif

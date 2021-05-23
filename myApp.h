@@ -11,6 +11,7 @@
 #include "RenderableText.h"
 #include "Score_controller.h"
 #include "dimensions.h"
+#include "introController.h"
 
 class myApp
 {
@@ -24,6 +25,7 @@ private:
 	std::shared_ptr<myPrizePot> current_prizes;
 	std::shared_ptr <Score_controller> score; 
 	std::shared_ptr <RenderableImage> myBackground;
+	std::shared_ptr <introController> intro;
 	int gameTimer;
 	std::shared_ptr <Dimensions> measurements;
 
