@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="dimensions.cpp" />
+    <ClCompile Include="introController.cpp" />
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
@@ -173,6 +174,7 @@
   <ItemGroup>
     <ClInclude Include="Diamond.h" />
     <ClInclude Include="dimensions.h" />
+    <ClInclude Include="introController.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="MyDot.h" />

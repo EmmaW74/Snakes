@@ -22,6 +22,7 @@ public:
 	int get_x() const;
 	int get_y() const;
 	std::string get_font() const;
+	std::string get_text() const;
 	void update_text(std::string newtext);
 
 	uint8_t get_colour_red() const;

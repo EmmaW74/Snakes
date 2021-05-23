@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 
-myWindow::myWindow(std::shared_ptr<Dimensions> measurements) {
+myWindow::myWindow(std::shared_ptr<Dimensions> measurements, std::shared_ptr<introController> intro, std::shared_ptr<RenderableImage> background) {
 	
 	//Initialisation flag
 	bool success = true;
@@ -41,13 +41,17 @@ myWindow::myWindow(std::shared_ptr<Dimensions> measurements) {
 			}
 			else
 			{
-				intro();
+				//intro()
+				intro->draw_element(myRenderer,background);
+				publishTexture();
 			}
 		}
 		banner = new RenderableColourBlock{measurements->get_screen_width(),measurements->get_banner_height(),0,0,0x12,0x4a,0x12};
 	}
 }
-
+SDL_Renderer* myWindow::get_myRenderer() const {
+	return myRenderer;
+}
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
 	background->draw_element(myRenderer);
@@ -66,14 +70,21 @@ void myWindow::publishTexture() {
 	SDL_RenderPresent(myRenderer);
 }
 
-void myWindow::intro() {
+void myWindow::intro(std::shared_ptr<RenderableImage> background, bool border_choice) {
 	//Load welcome screen
+	// **CHANGE THIS TO BACKGROUND AND TEXT TO ALLOW COLLIDE CHANGE
+	background->draw_element(myRenderer);
+	std::shared_ptr<RenderableText> welcome = std::make_shared<RenderableText>(RenderableText(100,100,"Font/Arial.ttf", "WELCOME TO SNAKES", 0xf8, 0xfc, 0x03 ));
+	welcome->draw_element(myRenderer);
+	publishTexture();
+	/*
 	SDL_Surface* temp = IMG_Load("Images/Welcome1.jpg");
 	SDL_Texture* intro_page = SDL_CreateTextureFromSurface(myRenderer, temp);
 	SDL_RenderCopy(myRenderer, intro_page, NULL, NULL);
 	publishTexture();
 	SDL_DestroyTexture(intro_page);
 	SDL_FreeSurface(temp);
+	*/
 }
 
 void myWindow::showGameOver() {

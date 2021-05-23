@@ -10,7 +10,9 @@
 myApp::myApp(){
 	
 	measurements = std::make_shared<Dimensions>(15,45,20,150);
-	game_window = new myWindow(measurements);
+	intro = std::make_shared<introController>(new introController(true));
+	myBackground = std::make_shared<RenderableImage>(0, 0, "Images/grass.jpg");
+	game_window = new myWindow(measurements, intro,myBackground);
 	game_snake1 = std::make_shared<mySnake> (measurements);
 	current_prizes = std::make_shared<myPrizePot>();
 	Running = true;
@@ -19,7 +21,7 @@ myApp::myApp(){
 	gameTimer = 0;
 	srand(time(NULL));
 	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
-	myBackground = std::make_shared<RenderableImage>(0,0,"Images/grass.jpg"); 
+	
 	
 }
 
@@ -30,8 +32,18 @@ void myApp::updateStarted() {
 void myApp::runGame() {
 	SDL_Event e;
 	while (!getStarted()) {
+		//ADD HERE CODE TO SELECT COLLIDE OPTION
+
+
 		//Wait for Enter to start the game
-		if (SDL_PollEvent(&e) != 0) {
+		if (SDL_PollEvent(&e) != 0 && e.type == SDL_KEYDOWN) {
+			if (e.key.keysym.sym == SDLK_b) {
+				intro->update_border_choice();
+				game_snake1->setBorderCollide();
+				intro->draw_element(game_window->get_myRenderer(),myBackground);
+				game_window->publishTexture();
+			}
+
 			if (e.key.keysym.sym == SDLK_RETURN) {
 				updateStarted();
 			}
@@ -63,109 +75,6 @@ void myApp::runGame() {
 		}
 	}
 }
-/*
-void myApp::OnEvent(SDL_Event& e) {
-	//User requests quit
-	if (e.type == SDL_QUIT)
-	{
-		stopGame();
-	}
-	else if (e.type == SDL_KEYDOWN)
-	{
-		//Action key presses
-		switch (e.key.keysym.sym)
-		{
-
-		case SDLK_RETURN:
-			updateStarted();
-			break;
-
-		case SDLK_SPACE:
-			Paused = !Paused;
-			break;
-
-		case SDLK_UP:
-			if (!Paused) {
-			
-				if (game_snake1->getDirection() == Direction::DOWN) {
-					break;
-				}
-				else {
-					game_snake1->changeDirection(Direction::UP);
-					if (game_snake1->checkTailCollision()) {
-						gameOver(game_window);
-					}
-					else {
-						game_window->drawFrame(game_snake1, current_prizes, score);
-						collectPoints();
-					}
-					break;
-				}
-			}
-
-		case SDLK_DOWN:
-			if (!Paused) {
-				
-				if (game_snake1->getDirection() == Direction::UP) {
-					break;
-				}
-				else {
-					game_snake1->changeDirection(Direction::DOWN);
-					if (game_snake1->checkTailCollision()) {
-						gameOver(game_window);
-					}
-					else {
-						game_window->drawFrame(game_snake1, current_prizes, score);
-						collectPoints();
-					}
-					break;
-				}
-			}
-		case SDLK_LEFT:
-			if (!Paused) {
-
-				if (game_snake1->getDirection() == Direction::RIGHT) {
-					break;
-				}
-				else {
-
-					game_snake1->changeDirection(Direction::LEFT);
-					if (game_snake1->checkTailCollision()) {
-						gameOver(game_window);
-					}
-					else {
-						game_window->drawFrame(game_snake1, current_prizes, score);
-						collectPoints();
-					}
-
-					break;
-				}
-			}
-
-		case SDLK_RIGHT:
-			if (!Paused) {
-				
-				if (game_snake1->getDirection() == Direction::LEFT) {
-					break;
-				}
-				else {
-					game_snake1->changeDirection(Direction::RIGHT);
-					if (game_snake1->checkTailCollision()) {
-						gameOver(game_window);
-					}
-					else {
-						game_window->drawFrame(game_snake1, current_prizes, score);
-						collectPoints();
-					}
-
-					break;
-				}
-			}
-
-		}
-	}
-}
-*/
 
 void myApp::OnEvent(SDL_Event& e) {
 	//User requests quit
