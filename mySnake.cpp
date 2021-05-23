@@ -159,7 +159,27 @@ bool mySnake::getBorderCollide()const{
 void mySnake::setBorderCollide(){
 	border_collide = !border_collide;
 }
+bool mySnake::checkPrizeOverlap(ImyPrize*& prize) { 
+	//Checks if a prize overlaps any part of the snake body
+	int prize_x = prize->get_x();
+	int prize_y = prize->get_y();
+	node<MyDot>* ptr = children->get_head()->next;
+	int ptr_x;
+	int ptr_y;
 
+	while (ptr->next != nullptr) {
+		ptr_x = ptr->data->get_x();
+		ptr_y = ptr->data->get_y();
+
+		if ((ptr_x >= prize_x - prize->get_width()) && (ptr_x <= prize_x + prize->get_width()) && (ptr_y >= prize_y - prize->get_height()) && (ptr_y <= prize_y + prize->get_height())) {
+			//std::cout << "Prize Overlap" << std::endl;
+			return true;
+		}
+		ptr = ptr->next;
+	}
+	//std::cout << "No prize Overlap" << std::endl;
+	return false;
+}
 bool mySnake::checkTailCollision() {
 	//checks if head dot has collided with any other dot in snake body	
 	int cell_size = children->get_head()->data->get_height();
