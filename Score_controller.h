@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderableText.h"
 #include "SDL.h"
+#include <SDL_ttf.h>
 
 class Score_controller :
     public RenderableText
@@ -15,6 +16,9 @@ private:
 	uint8_t colour_green;
 	std::string font;
 	std::string text;
+	std::string high_score_name;
+	int name_x;
+	int name_y;
 
 public:
 	Score_controller();
@@ -22,6 +26,8 @@ public:
     void update_score(int addscore);
 	int get_x() const;
 	int get_y() const;
+	int get_name_x() const;
+	int get_name_y() const;
 	uint8_t get_colour_red() const;
 	uint8_t get_colour_blue() const;
 	uint8_t get_colour_green() const;
@@ -29,6 +35,8 @@ public:
 
 	void update_text();
 	void draw_element(SDL_Renderer* myRenderer);
+
+	//void enter_high_score_name(SDL_Renderer* myRenderer);
 
 };
 

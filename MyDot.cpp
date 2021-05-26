@@ -32,26 +32,17 @@ uint8_t MyDot::get_colour_blue() const {
 uint8_t MyDot::get_colour_green() const {
 	return colour_green;
 }
-/*
-const const char* MyDot::get_image() {
-	return image;
-}
-std::string MyDot::get_font() const {
-	return font;
-}
-std::string MyDot::get_colour_key() const {
-	return colour_key;
-}
 
-//const std::shared_ptr<myLinkedList> MyDot::get_children() {
-//	return children;
-//}
-
-*/
 void MyDot::draw_element(SDL_Renderer* myRenderer) {
 	SDL_Rect* temp = new SDL_Rect{ x,y,width,height };
 	SDL_SetRenderDrawColor(myRenderer, colour_red, colour_blue, colour_green, 0x00);
 	SDL_RenderFillRect(myRenderer, temp);
 	delete temp;
+}
+
+void MyDot::change_colour(uint8_t new_colour_red, uint8_t new_colour_green, uint8_t new_colour_blue) {
+	colour_red = new_colour_red;
+	colour_green = new_colour_green;
+	colour_blue = new_colour_blue;
 }
 

@@ -124,7 +124,7 @@ void myApp::myContinue() {
 		game_snake1->moveSnake();
 		game_window->drawFrame(game_snake1, current_prizes, score, myBackground);
 		if (game_snake1->checkTailCollision()) {
-			gameOver(game_window);
+			gameOver(game_window,game_snake1, game_window->get_myRenderer());
 		}
 		collectPoints();
 	}
@@ -181,8 +181,9 @@ void myApp::stopGame() {
 	Running = false;
 }
 
-void myApp::gameOver(myWindow* window) {
-	window->showGameOver();
+void myApp::gameOver(myWindow* window, std::shared_ptr<mySnake> snake, SDL_Renderer* myRenderer) {
+	window->showGameOver(snake, myBackground);
+	//score->enter_high_score_name(myRenderer);
 	stopGame();
 	SDL_Delay(3000);
 	

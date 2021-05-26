@@ -40,7 +40,7 @@ public:
 	void addPrize();
 	void collectPoints();
 	void stopGame();
-	void gameOver(myWindow* window);
+	void gameOver(myWindow* window, std::shared_ptr<mySnake> snake, SDL_Renderer* myRenderer);
 	void onPause();
 	// gets
 	const bool getStarted();

@@ -22,8 +22,7 @@ private:
 
 public:
 	MyDot(int x, int y, int width, int height);
-	void draw_element(SDL_Renderer* myRenderer);
-	
+	void draw_element(SDL_Renderer* myRenderer);	
 	int get_width() const;
 	int get_height() const;
 	int get_x() const;
@@ -31,6 +30,7 @@ public:
 	uint8_t get_colour_red() const;
 	uint8_t get_colour_blue() const;
 	uint8_t get_colour_green() const;
+	void change_colour(uint8_t new_colour_red, uint8_t new_colour_green, uint8_t new_colour_blue);
 
 	};
 

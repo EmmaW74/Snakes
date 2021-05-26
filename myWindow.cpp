@@ -70,26 +70,23 @@ void myWindow::publishTexture() {
 	SDL_RenderPresent(myRenderer);
 }
 
-void myWindow::intro(std::shared_ptr<RenderableImage> background, bool border_choice) {
-	//Load welcome screen
-	// **CHANGE THIS TO BACKGROUND AND TEXT TO ALLOW COLLIDE CHANGE
-	background->draw_element(myRenderer);
-	std::shared_ptr<RenderableText> welcome = std::make_shared<RenderableText>(RenderableText(100,100,"Font/Arial.ttf", "WELCOME TO SNAKES", 0xf8, 0xfc, 0x03 ));
-	welcome->draw_element(myRenderer);
-	publishTexture();
-	/*
-	SDL_Surface* temp = IMG_Load("Images/Welcome1.jpg");
-	SDL_Texture* intro_page = SDL_CreateTextureFromSurface(myRenderer, temp);
-	SDL_RenderCopy(myRenderer, intro_page, NULL, NULL);
-	publishTexture();
-	SDL_DestroyTexture(intro_page);
-	SDL_FreeSurface(temp);
-	*/
-}
 
-void myWindow::showGameOver() {
+void myWindow::showGameOver(std::shared_ptr<mySnake> snake, std::shared_ptr<RenderableImage> background) {
 	//std::cout << "Game over called" << std::endl;
+		
 	for (int x = 0; x < 3; x++) {
+		snake->changeSnakeColour(0xff, 0xff, 0xff);
+		snake->draw_element(myRenderer);
+		banner->draw_element(myRenderer);
+		SDL_RenderPresent(myRenderer);
+		SDL_Delay(200);
+		snake->changeSnakeColour(0x00, 0x00, 0x00);
+		snake->draw_element(myRenderer);
+		banner->draw_element(myRenderer);
+		SDL_RenderPresent(myRenderer);
+		SDL_Delay(200);
+
+		/*
 		SDL_SetRenderDrawColor(myRenderer, 0xFF, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(myRenderer); // Fill render with color
 		SDL_RenderPresent(myRenderer); // Show render on window
@@ -98,8 +95,9 @@ void myWindow::showGameOver() {
 		SDL_RenderClear(myRenderer); // Fill render with color
 		SDL_RenderPresent(myRenderer); // Show render on window
 		SDL_Delay(200);
+
 	}
-	
+
 	SDL_Surface* surface = IMG_Load("Images/GameOver.jpg");
 	if (surface == NULL) {
 		std::cout << "Game over not loaded" << std::endl;
@@ -107,8 +105,45 @@ void myWindow::showGameOver() {
 	myTexture = SDL_CreateTextureFromSurface(myRenderer, surface);
 	SDL_RenderCopy(myRenderer, myTexture, NULL, NULL);
 	SDL_FreeSurface(surface);
-	publishTexture();
+	publishTexture(); */
+	}
 
+	background->draw_element(myRenderer);
+	TTF_Init();
+	uint8_t red = 0xfc;
+	uint8_t green = 0xe5;
+	uint8_t blue = 0x12;
+	SDL_Color color = { red, green, blue };
+	int tempfont = 70;
+		TTF_Font* myFont = TTF_OpenFont("Font/Gilsanub.ttf", tempfont);
+		SDL_Rect Destination_rect;
+		Destination_rect.x = 50;
+		Destination_rect.y = 150;
+		std::string text = "GAME OVER";
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(myFont, text.c_str(), color); //Create surface first
+		SDL_Texture* textureMessage = SDL_CreateTextureFromSurface(myRenderer, surfaceMessage); //Convert to texture
+
+		Destination_rect.w = surfaceMessage->w;
+		Destination_rect.h = 20;
+		SDL_Rect Source_rect;
+		Source_rect.x = 0;
+		Source_rect.y = 0;
+		Source_rect.w = Destination_rect.w;
+		Source_rect.h = 20;
+		do {
+			SDL_RenderClear(myRenderer);
+			background->draw_element(myRenderer);
+			SDL_RenderCopy(myRenderer, textureMessage, &Source_rect, &Destination_rect);
+			publishTexture();
+			Source_rect.h++;
+			Destination_rect.h++;
+			SDL_Delay(30);
+		} while (Source_rect.h < surfaceMessage->h);
+		//SDL_RenderCopy(myRenderer, textureMessage, &Source_rect, &Destination_rect);
+		//publishTexture();
+		SDL_FreeSurface(surfaceMessage);
+		SDL_DestroyTexture(textureMessage);
+		
 }
 
 void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
