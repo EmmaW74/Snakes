@@ -46,17 +46,22 @@ myWindow::myWindow(std::shared_ptr<Dimensions> measurements, std::shared_ptr<int
 				publishTexture();
 			}
 		}
-		banner = new RenderableColourBlock{measurements->get_screen_width(),measurements->get_banner_height(),0,0,0x12,0x4a,0x12};
+		banner = std::make_shared<RenderableColourBlock>(measurements->get_screen_width(),measurements->get_banner_height(),0,0,0x12,0x4a,0x12);
 	}
 }
 SDL_Renderer* myWindow::get_myRenderer() const {
 	return myRenderer;
 }
+
+std::shared_ptr<RenderableColourBlock> myWindow::get_banner() const {
+	return banner;
+}
+
 void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background) {
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
 	background->draw_element(myRenderer);
 	snake->draw_element(myRenderer);
-	banner->draw_element(myRenderer);
+	banner->draw_element(myRenderer); 
 	if (current_prizes != NULL) {
 		current_prizes->draw_element(myRenderer);
 		score->draw_element(myRenderer);
@@ -137,7 +142,7 @@ void myWindow::showGameOver(std::shared_ptr<mySnake> snake, std::shared_ptr<Rend
 			publishTexture();
 			Source_rect.h++;
 			Destination_rect.h++;
-			SDL_Delay(30);
+			SDL_Delay(10);
 		} while (Source_rect.h < surfaceMessage->h);
 		//SDL_RenderCopy(myRenderer, textureMessage, &Source_rect, &Destination_rect);
 		//publishTexture();
@@ -187,8 +192,11 @@ void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
 
 myWindow::~myWindow() {
 	//Free loaded images
-	SDL_DestroyTexture(myTexture);
-	myTexture = NULL;
+	if (myTexture != NULL) {
+		SDL_DestroyTexture(myTexture);
+		myTexture = NULL;
+	}
+
 
 	//Destroy window    
 	SDL_DestroyRenderer(myRenderer);
@@ -196,8 +204,6 @@ myWindow::~myWindow() {
 	myAppWindow = NULL;
 	myRenderer = NULL;
 
-	//delete banner colour block
-	delete banner;
 
 	//Quit SDL subsystems
 	IMG_Quit();

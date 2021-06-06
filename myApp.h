@@ -12,6 +12,7 @@
 #include "Score_controller.h"
 #include "dimensions.h"
 #include "introController.h"
+#include "myGameOver.h"
 
 class myApp
 {
@@ -28,6 +29,7 @@ private:
 	std::shared_ptr <introController> intro;
 	int gameTimer;
 	std::shared_ptr <Dimensions> measurements;
+	std::shared_ptr<myGameOver> game_over_control;
 
 public:
 	myApp();
@@ -40,7 +42,8 @@ public:
 	void addPrize();
 	void collectPoints();
 	void stopGame();
-	void gameOver(myWindow* window, std::shared_ptr<mySnake> snake, SDL_Renderer* myRenderer);
+	//void gameOver(myWindow* window, std::shared_ptr<mySnake> snake, SDL_Renderer* myRenderer);
+	void gameOver();
 	void onPause();
 	// gets
 	const bool getStarted();

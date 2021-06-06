@@ -18,7 +18,7 @@ private:
 	SDL_Renderer* myRenderer = NULL;
 	SDL_Texture* myTexture = NULL;
 	
-	RenderableColourBlock* banner = NULL;
+	std::shared_ptr<RenderableColourBlock> banner = NULL;
 	int SCREEN_WIDTH;
 	int SCREEN_HEIGHT;
 	
@@ -32,6 +32,7 @@ public:
 	void renderPrize(ImyPrize* prize); 
 	void renderElement(std::shared_ptr<IRenderable> element);
 	SDL_Renderer* get_myRenderer() const;
+	std::shared_ptr<RenderableColourBlock> get_banner() const;
 	~myWindow();
 };
 
