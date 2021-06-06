@@ -38,6 +38,7 @@ public:
 	bool checkPrizeCollision(ImyPrize* &prize);
 	bool checkPrizeOverlap(ImyPrize*& prize);
 	bool getBorderCollide()const;
+	void changeSnakeColour(uint8_t colour_red, uint8_t colour_green, uint8_t colour_blue);
 		
 	Direction getDirection() const;
 	int getSnakeLength() const;

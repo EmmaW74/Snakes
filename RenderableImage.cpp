@@ -48,6 +48,31 @@ std::string RenderableImage::get_colour_key() const {
 	return colour_key;
 }
 
+SDL_Texture* RenderableImage::get_image_texture(SDL_Renderer* myRenderer) {
+	//
+	SDL_Surface* tempSurface = IMG_Load(image);
+	if (tempSurface == NULL)
+	{
+		std::cout << "RenderableImage: Unable to load image" << SDL_GetError() << std::endl;
+	}
+	else {
+		//Color key image
+		SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB(tempSurface->format, 0xFF, 0xFF, 0xFF));
+
+		//Create texture from surface
+		SDL_Texture* tempTexture = SDL_CreateTextureFromSurface(myRenderer, tempSurface);
+		if (tempTexture == NULL)
+		{
+			std::cout << "RenderableImage: Unable to create texture" << std::endl;
+		}
+		else
+		{
+			SDL_FreeSurface(tempSurface);
+			return tempTexture;
+		}
+	}
+}
+
 void RenderableImage::draw_element(SDL_Renderer* myRenderer) {
 	//creates a texture for the image and copies to myRenderer ready to publish
 	SDL_Surface* tempSurface = IMG_Load(image);

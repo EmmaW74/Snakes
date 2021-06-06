@@ -21,6 +21,7 @@ myApp::myApp(){
 	gameTimer = 0;
 	srand(time(NULL));
 	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
+	game_over_control = std::make_shared<myGameOver>(game_window,game_snake1,measurements,myBackground,score);
 	
 	
 }
@@ -124,7 +125,7 @@ void myApp::myContinue() {
 		game_snake1->moveSnake();
 		game_window->drawFrame(game_snake1, current_prizes, score, myBackground);
 		if (game_snake1->checkTailCollision()) {
-			gameOver(game_window);
+			gameOver();
 		}
 		collectPoints();
 	}
@@ -181,14 +182,12 @@ void myApp::stopGame() {
 	Running = false;
 }
 
-void myApp::gameOver(myWindow* window) {
-	window->showGameOver();
+void myApp::gameOver() {
+	//window->showGameOver(snake, myBackground);
+	//score->enter_high_score_name(myRenderer);
+	game_over_control->run_game_over();
 	stopGame();
 	SDL_Delay(3000);
-	
-	delete window;
-	
-
 }
 
 const bool myApp::getStarted() {

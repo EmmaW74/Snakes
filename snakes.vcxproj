@@ -160,6 +160,7 @@
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="MyDot.cpp" />
+    <ClCompile Include="myGameOver.cpp" />
     <ClCompile Include="myLinkedList.cpp" />
     <ClCompile Include="myPrizePot.cpp" />
     <ClCompile Include="mySnake.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="myApp.h" />
     <ClInclude Include="MyDot.h" />
     <ClInclude Include="ImyPrize.h" />
+    <ClInclude Include="myGameOver.h" />
     <ClInclude Include="myLinkedList.h" />
     <ClInclude Include="myPrizePot.h" />
     <ClInclude Include="mySnake.h" />

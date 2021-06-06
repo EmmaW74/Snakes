@@ -26,6 +26,7 @@ public:
 	std::string get_colour_key() const;
 	void set_width_height();
 	void draw_element(SDL_Renderer* myRenderer);
+	SDL_Texture* get_image_texture(SDL_Renderer* myRenderer);
 
 };
 

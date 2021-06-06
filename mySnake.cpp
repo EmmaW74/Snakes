@@ -263,3 +263,9 @@ void mySnake::draw_element(SDL_Renderer* myRenderer) {
 		temp = temp->next;
 	} 
 }
+
+void mySnake::changeSnakeColour(uint8_t colour_red, uint8_t colour_green, uint8_t colour_blue) {
+	for (auto& i : *children) {
+		i.data->change_colour(colour_red, colour_green, colour_blue);
+	}
+}

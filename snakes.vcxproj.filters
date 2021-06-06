@@ -63,6 +63,9 @@
     <ClCompile Include="introController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="myGameOver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApp.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="introController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="myGameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
