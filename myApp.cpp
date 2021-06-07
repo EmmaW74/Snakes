@@ -187,6 +187,7 @@ void myApp::gameOver() {
 	//score->enter_high_score_name(myRenderer);
 	game_over_control->run_game_over();
 	stopGame();
+	score->write_high_scores_file();
 	SDL_Delay(3000);
 }
 

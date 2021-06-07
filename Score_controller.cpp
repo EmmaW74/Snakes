@@ -3,6 +3,8 @@
 #include "SDL_ttf.h"
 #include <string>
 #include <map>
+#include <fstream>
+#include <sstream>
 
 
 Score_controller::Score_controller() {};
@@ -12,11 +14,7 @@ Score_controller::Score_controller(int x, int y, uint8_t red, uint8_t blue, uint
 	update_score(score);
 	name_x = 100;
 	name_y = 250;
-	high_score_list.insert({ 100,"Bob" });
-	high_score_list.insert({ 300,"Frank" });
-	high_score_list.insert({ 100,"Rita" });
-	high_score_list.insert({ 500,"Jane" });
-	high_score_list.insert({ 650,"Larry" });
+	read_high_scores_file();
 };
 
 void Score_controller::update_score(int addScore) {
@@ -128,8 +126,45 @@ void Score_controller::enter_high_score_name(std::string user, int score) {
 			it++;
 		}
 	}
-	
-
-
-	
 } 
+
+void Score_controller::read_high_scores_file() {
+	std::fstream in_file{ "Scores/highscores.txt" };
+	if (in_file.is_open()) {
+		std::string line;
+		int score;
+		std::string name{};
+		while (std::getline(in_file, line)) {
+			std::istringstream iss{ line };
+			iss >> score >> name;
+			high_score_list.insert({ score,name });
+
+		}
+	}
+	else {
+		std::cout << "highscores.txt could not be opened" << std::endl;
+		high_score_list.insert({ 100,"Bob" });
+		high_score_list.insert({ 300,"Frank" });
+		high_score_list.insert({ 100,"Rita" });
+		high_score_list.insert({ 500,"Jane" });
+		high_score_list.insert({ 650,"Larry" });
+	}
+	in_file.close();
+} 
+void Score_controller::write_high_scores_file() {
+	// Saves high scores to a text file to use again
+
+	std::fstream out_file{ "Scores/highscores.txt", std::ios::out };
+	if (!out_file) {
+		std::cout << "highscores.txt could not be created" << std::endl;
+	}
+
+	auto it = high_score_list.begin();
+	while (it != high_score_list.end()) {
+		out_file << it->first << " " << it->second << std::endl;
+		it++;
+	}
+
+	out_file.close();
+
+}

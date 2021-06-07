@@ -43,6 +43,8 @@ public:
 	void draw_element(SDL_Renderer* myRenderer);
 	//void draw_element(SDL_Renderer* myRenderer, SDL_Color colour, std::string mText, int font_size) const;
 	void enter_high_score_name(std::string user, int score);
+	void read_high_scores_file();
+	void write_high_scores_file();
 
 };
 
