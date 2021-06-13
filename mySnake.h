@@ -5,7 +5,6 @@
 #include "ImyPrize.h"
 #include "myLinkedList.h"
 #include <SDL_image.h>
-#include <vector>
 #include<memory>
 #include "dimensions.h"
 
@@ -30,6 +29,8 @@ private:
 public:
 	mySnake(std::shared_ptr<Dimensions> dimensions);
 
+	//methods to manage snake properties and movement
+	void set_start();
 	void changeDirection(Direction new_direction);
 	void increaseSnakeSpeed();
 	void increaseLength();
@@ -37,15 +38,16 @@ public:
 	bool checkTailCollision();
 	bool checkPrizeCollision(ImyPrize* &prize);
 	bool checkPrizeOverlap(ImyPrize*& prize);
-	bool getBorderCollide()const;
 	void changeSnakeColour(uint8_t colour_red, uint8_t colour_green, uint8_t colour_blue);
+	void draw_element(SDL_Renderer* myRenderer);
+	void setBorderCollide();
 		
+	// get methods
+	bool getBorderCollide()const;
 	Direction getDirection() const;
 	int getSnakeLength() const;
 	int getSnakeSpeed() const;
 	std::shared_ptr<myLinkedList<MyDot>> getchildren() const;
-	void draw_element(SDL_Renderer* myRenderer);
-	void setBorderCollide();
 };
 
 #endif

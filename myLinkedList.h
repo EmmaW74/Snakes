@@ -29,6 +29,7 @@ public:
 
 	template<typename T>
 	class myIterator {
+		//user defined iterator to use with linked list
 		friend class myLinkedList;
 	protected:
 		pointer it_ptr;
@@ -145,7 +146,7 @@ public:
 	}
 
 	void remove_node_tail() {
-		//Removes last node from linked list, deletes node and related MyDot, updates tail pointer ** DO WE NEED THIS? **
+		//Removes last node from linked list, deletes node and related MyDot, updates tail pointer
 		
 		node<T>* ptr2 = head;
 		node<T>* ptr1 = head->next;

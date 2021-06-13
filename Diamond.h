@@ -23,7 +23,9 @@ private:
 public:
 	
 	Diamond(int x, int y, int width_height);
+	void draw_element(SDL_Renderer* myRenderer);
 
+	//get methods
 	int get_x() const;
 	int get_y() const;
 	const char* get_image() const;
@@ -31,7 +33,6 @@ public:
 	int get_height() const;
 	int get_points() const;
 	std::string get_colour_key() const;
-	void draw_element(SDL_Renderer* myRenderer);
 };
 
 #endif

@@ -9,7 +9,6 @@ Diamond::Diamond(int x, int y, int width_height) :
 	points = 100;
 	font = "";
 	colour_key = "";
-	
 	colour_blue = NULL;
 	colour_green = NULL;
 	colour_red = NULL;
@@ -32,14 +31,11 @@ const char* Diamond::get_image() const {
 int Diamond::get_points() const {
 	return points;
 }
-
-
 std::string Diamond::get_colour_key() const {
 return colour_key;
 }
 
-
-void Diamond::draw_element(SDL_Renderer* myRenderer) {
+void Diamond::draw_element(SDL_Renderer* myRenderer){
 	//creates a texture for the image and copies to myRenderer ready to publish
 	SDL_Surface* tempSurface = IMG_Load(image);
 	if (tempSurface == NULL)
@@ -68,6 +64,4 @@ void Diamond::draw_element(SDL_Renderer* myRenderer) {
 	}
 }
 
-//Diamond::~Diamond() {
-//	std::cout << "Diamond destructor" << std::endl;
-//}
+

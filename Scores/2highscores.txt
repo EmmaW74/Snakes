@@ -1,5 +1,0 @@
-500 Jan
-400 Bob
-300 Clare
-200 John
-100 George

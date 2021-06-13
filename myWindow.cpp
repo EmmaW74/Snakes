@@ -10,7 +10,8 @@
 #include <string>
 #include <sstream>
 
-myWindow::myWindow(std::shared_ptr<Dimensions> measurements, std::shared_ptr<introController> intro, std::shared_ptr<RenderableImage> background) {
+myWindow::myWindow(std::shared_ptr<Dimensions> measurements, std::shared_ptr<introController> intro, std::shared_ptr<RenderableImage> background, std::shared_ptr<Dimensions> defaults):
+	defaults{ defaults } {
 	
 	//Initialisation flag
 	bool success = true;
@@ -41,7 +42,6 @@ myWindow::myWindow(std::shared_ptr<Dimensions> measurements, std::shared_ptr<int
 			}
 			else
 			{
-				//intro()
 				intro->draw_element(myRenderer,background);
 				publishTexture();
 			}
@@ -61,7 +61,7 @@ void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPri
 	// Draws header, score, snake and any prizes and adds a delay based on snake speed
 	background->draw_element(myRenderer);
 	snake->draw_element(myRenderer);
-	banner->draw_element(myRenderer); 
+	banner->draw_element(myRenderer);
 	if (current_prizes != NULL) {
 		current_prizes->draw_element(myRenderer);
 		score->draw_element(myRenderer);
@@ -71,99 +71,21 @@ void myWindow::drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr < myPri
 }
 
 void myWindow::publishTexture() {
-	//std::cout << "Publish" << std::endl;
 	SDL_RenderPresent(myRenderer);
 }
 
-
-void myWindow::showGameOver(std::shared_ptr<mySnake> snake, std::shared_ptr<RenderableImage> background) {
-	//std::cout << "Game over called" << std::endl;
-		
-	for (int x = 0; x < 3; x++) {
-		snake->changeSnakeColour(0xff, 0xff, 0xff);
-		snake->draw_element(myRenderer);
-		banner->draw_element(myRenderer);
-		SDL_RenderPresent(myRenderer);
-		SDL_Delay(200);
-		snake->changeSnakeColour(0x00, 0x00, 0x00);
-		snake->draw_element(myRenderer);
-		banner->draw_element(myRenderer);
-		SDL_RenderPresent(myRenderer);
-		SDL_Delay(200);
-
-		/*
-		SDL_SetRenderDrawColor(myRenderer, 0xFF, 0x00, 0x00, 0xFF);
-		SDL_RenderClear(myRenderer); // Fill render with color
-		SDL_RenderPresent(myRenderer); // Show render on window
-		SDL_Delay(200);
-		SDL_SetRenderDrawColor(myRenderer, 0x2F, 0x3A, 0xCE, 0x2F);
-		SDL_RenderClear(myRenderer); // Fill render with color
-		SDL_RenderPresent(myRenderer); // Show render on window
-		SDL_Delay(200);
-
-	}
-
-	SDL_Surface* surface = IMG_Load("Images/GameOver.jpg");
-	if (surface == NULL) {
-		std::cout << "Game over not loaded" << std::endl;
-	}
-	myTexture = SDL_CreateTextureFromSurface(myRenderer, surface);
-	SDL_RenderCopy(myRenderer, myTexture, NULL, NULL);
-	SDL_FreeSurface(surface);
-	publishTexture(); */
-	}
-
-	background->draw_element(myRenderer);
-	TTF_Init();
-	uint8_t red = 0xfc;
-	uint8_t green = 0xe5;
-	uint8_t blue = 0x12;
-	SDL_Color color = { red, green, blue };
-	int tempfont = 70;
-		TTF_Font* myFont = TTF_OpenFont("Font/Gilsanub.ttf", tempfont);
-		SDL_Rect Destination_rect;
-		Destination_rect.x = 50;
-		Destination_rect.y = 150;
-		std::string text = "GAME OVER";
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(myFont, text.c_str(), color); //Create surface first
-		SDL_Texture* textureMessage = SDL_CreateTextureFromSurface(myRenderer, surfaceMessage); //Convert to texture
-
-		Destination_rect.w = surfaceMessage->w;
-		Destination_rect.h = 20;
-		SDL_Rect Source_rect;
-		Source_rect.x = 0;
-		Source_rect.y = 0;
-		Source_rect.w = Destination_rect.w;
-		Source_rect.h = 20;
-		do {
-			SDL_RenderClear(myRenderer);
-			background->draw_element(myRenderer);
-			SDL_RenderCopy(myRenderer, textureMessage, &Source_rect, &Destination_rect);
-			publishTexture();
-			Source_rect.h++;
-			Destination_rect.h++;
-			SDL_Delay(10);
-		} while (Source_rect.h < surfaceMessage->h);
-		//SDL_RenderCopy(myRenderer, textureMessage, &Source_rect, &Destination_rect);
-		//publishTexture();
-		SDL_FreeSurface(surfaceMessage);
-		SDL_DestroyTexture(textureMessage);
-		
-}
-
 void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
-	
+	//Draws countdown from 3
 	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("Font/Arial.ttf", 200); //this opens a font style and sets a size
+	TTF_Font* font = TTF_OpenFont((defaults->get_game_font()).c_str(), 200); //this opens a font style and sets a size
 
-	SDL_Color color = { 255, 242, 0 };  // this is the text color in rgb format
+	SDL_Color color = { defaults->get_main_red(), defaults->get_main_green(), defaults->get_main_blue() };
 
-
-	SDL_Rect Message_rect; //create a rect
-	Message_rect.x = 280;  //controls the rect's x coordinate 
-	Message_rect.y = 150; // controls the rect's y coordinte
-	Message_rect.w = 100; // controls the width of the rect
-	Message_rect.h = 200; // controls the height of the rect
+	SDL_Rect Message_rect; 
+	Message_rect.x = 280;  
+	Message_rect.y = 150; 
+	Message_rect.w = 100; 
+	Message_rect.h = 200;  
 
 	SDL_Surface* surfaceMessage = NULL;
 	SDL_Texture* Message = NULL;
@@ -184,11 +106,10 @@ void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
 		s.str("");
 	}
 
-	//Free your surface and texture
+	//Free surface and texture
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
 }
-
 
 myWindow::~myWindow() {
 	//Free loaded images

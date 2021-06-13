@@ -7,8 +7,6 @@ MyDot::MyDot(int x, int y, int width, int height):
 	colour_red = 0xff;
 	colour_blue = 0x00;
 	colour_green = 0x00;
-	
-	//std::cout << "MyDot constructor called" << std::endl;
 }
 
 int MyDot::get_width() const {
@@ -34,6 +32,7 @@ uint8_t MyDot::get_colour_green() const {
 }
 
 void MyDot::draw_element(SDL_Renderer* myRenderer) {
+	//Draw a square to renderer
 	SDL_Rect* temp = new SDL_Rect{ x,y,width,height };
 	SDL_SetRenderDrawColor(myRenderer, colour_red, colour_blue, colour_green, 0x00);
 	SDL_RenderFillRect(myRenderer, temp);

@@ -8,11 +8,10 @@
 
 
 myApp::myApp(){
-	
 	measurements = std::make_shared<Dimensions>(15,45,20,150);
 	intro = std::make_shared<introController>(new introController(true));
 	myBackground = std::make_shared<RenderableImage>(0, 0, "Images/grass.jpg");
-	game_window = new myWindow(measurements, intro,myBackground);
+	game_window = new myWindow(measurements, intro,myBackground,measurements);
 	game_snake1 = std::make_shared<mySnake> (measurements);
 	current_prizes = std::make_shared<myPrizePot>();
 	Running = true;
@@ -20,9 +19,23 @@ myApp::myApp(){
 	started = false;
 	gameTimer = 0;
 	srand(time(NULL));
-	score = std::make_shared<Score_controller>(5, 5, 0xff, 0xff, 0xff);
+	score = std::make_shared<Score_controller>(measurements, 5, 5);
 	game_over_control = std::make_shared<myGameOver>(game_window,game_snake1,measurements,myBackground,score);
-	
+		
+}
+
+void myApp::reset_game() {
+	//Resets values ready to play game again and refreshes the game window
+	game_snake1->set_start();
+	current_prizes->reset_prize_pot();
+	Running = true;
+	Paused = false;
+	started = false;
+	gameTimer = 0;
+	score->reset_score();
+	score->update_text();  
+	intro->draw_element(game_window->get_myRenderer(), myBackground);
+	game_window->publishTexture();
 	
 }
 
@@ -31,11 +44,10 @@ void myApp::updateStarted() {
 }
 
 void myApp::runGame() {
+	//manages progress of the game
 	SDL_Event e;
+	int x;
 	while (!getStarted()) {
-		//ADD HERE CODE TO SELECT COLLIDE OPTION
-
-
 		//Wait for Enter to start the game
 		if (SDL_PollEvent(&e) != 0 && e.type == SDL_KEYDOWN) {
 			if (e.key.keysym.sym == SDLK_b) {
@@ -54,11 +66,8 @@ void myApp::runGame() {
 	game_window->countdown(myBackground);
 
 	while (getRunning()) {
-		//if (!Paused) {
-		//	incrementGameTimer();
-		//	addPrize();
-		//}
-		//While running, action event or if no event continue to move snake
+		
+		//While running, action event or, if no event, continue to move snake
 		if (Paused) {
 			if (SDL_PollEvent(&e) != 0 && e.type == SDL_KEYDOWN) {
 				if (e.key.keysym.sym == SDLK_SPACE) {
@@ -78,12 +87,14 @@ void myApp::runGame() {
 }
 
 void myApp::OnEvent(SDL_Event& e) {
-	//User requests quit
+	//Actins keyboard events
 	if (e.type == SDL_QUIT)
+		//User requests quit
 	{
 		stopGame();
 	}
 	else if (e.type == SDL_KEYDOWN)
+		//user presses a key
 	{
 			switch (e.key.keysym.sym)
 			{
@@ -160,12 +171,12 @@ void myApp::addPrize() {
 void myApp::collectPoints() {
 	
 	if (current_prizes->get_prize_count() > 0) {
-		
+		//removes collided prize from prize pot and updates score
 		int x = 0;
 		auto temp = current_prizes->getchildren();
 		for (auto& i:*temp){
 			bool temp = game_snake1->checkPrizeCollision(i.data);
-			//std::cout << "Collision checked: " << x << std::endl;
+			
 				if (temp) {
 					score->update_score(i.data->get_points());
 					current_prizes->remove_prize(i.data);
@@ -183,31 +194,37 @@ void myApp::stopGame() {
 }
 
 void myApp::gameOver() {
-	//window->showGameOver(snake, myBackground);
-	//score->enter_high_score_name(myRenderer);
+	//Runs game over sequence, actions change based on user's play again choice
 	game_over_control->run_game_over();
-	stopGame();
-	score->write_high_scores_file();
-	SDL_Delay(3000);
+
+	if (game_over_control->play_again() == 1) {
+		reset_game();
+		runGame();
+	}
+	else {
+		stopGame();
+		score->write_high_scores_file();
+		SDL_Delay(300);
+	}	
 }
 
-const bool myApp::getStarted() {
+bool myApp::getStarted() const {
 	return started;
 }
 
-const bool myApp::getRunning() {
+bool myApp::getRunning() const {
 	return Running;
 }
 
-const std::shared_ptr<mySnake> myApp::getSnake() {
+std::shared_ptr<mySnake> myApp::getSnake() const {
 	return game_snake1;
 }
 
-const myWindow* myApp::getWindow() {
+myWindow* myApp::getWindow() const {
 	return game_window;
 }
 
-const int myApp::get_timer() {
+int myApp::get_timer() const {
 	return gameTimer;
 }
 
@@ -217,7 +234,8 @@ void myApp::incrementGameTimer() {
 	gameTimer = gameTimer % 50;
 }
 
-int myApp::random_position() {
+int myApp::random_position() const {
+	//returns a random number for element positioning
 	return 30 + (rand() % (measurements->get_screen_height()-measurements->get_banner_height()-30) / measurements->get_cell_size()) * measurements->get_cell_size();
 	
 }
