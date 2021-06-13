@@ -12,7 +12,7 @@ private:
 	uint8_t colour_red;
 	uint8_t colour_blue;
 	uint8_t colour_green;
-	std::string font;
+	std::string text_font;
 	std::string text;
 
 public:

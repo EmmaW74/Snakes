@@ -6,14 +6,15 @@ myGameOver::myGameOver(myWindow* gameWindow, std::shared_ptr<mySnake> gameSnake1
 	gameWindow{gameWindow},gameSnake1{gameSnake1},gameDefaults{gameDefaults},gameBackground{gameBackground},gameScore{gameScore} {
 	game_over_text = "GAME OVER";
 	enter_name_text = "Enter your name:";
+	play_again_text = "Play again? Y / N";
 	main_colour.r = gameDefaults->get_main_red();
 	main_colour.g = gameDefaults->get_main_green();
 	main_colour.b = gameDefaults->get_main_blue();
 	
 	line1_y = (gameDefaults->get_screen_height() / 10) * 1;
 	line2_y = (gameDefaults->get_screen_height() / 10) * 2.5;
-	line3_y = (gameDefaults->get_screen_height() / 10) * 5;
-	line4_y = (gameDefaults->get_screen_height() / 10) * 6;
+	line3_y = (gameDefaults->get_screen_height() / 10) * 4;
+	line4_y = (gameDefaults->get_screen_height() / 10) * 5;
 	line5_y = (gameDefaults->get_screen_height() / 10) * 8;
 }
 SDL_Texture* myGameOver::create_texture(std::string text, int size) {
@@ -121,10 +122,8 @@ void myGameOver::snake_flash() {
 
 void myGameOver::get_user_name() {
 	//gets user name and passes it to score controller to update top score list 
-
-	//NEED TO ADD MIN AND MAX CHARACTERS FOR USERNAME ENTERED
 	
-	std::string high_score_name;
+	std::string high_score_name; //**NEED TO ADD MIN AND MAX CHARACTERS FOR USERNAME ENTERED**
 	bool tempRunning = true;
 
 	while (tempRunning) {
@@ -155,10 +154,11 @@ void myGameOver::get_user_name() {
 
 void myGameOver::draw_top_scores(std::multimap<int, std::string, std::greater<int>> top_scores) {
 	// Draws list of top scores
+	int row_y = line3_y;
 	std::string top_score_title = "Top scores";
 	SDL_Texture* top_score_texture = create_texture(top_score_title, gameDefaults->get_h2_size());
-	draw_text(top_score_texture, get_centre_align(top_score_texture), line3_y, Text_type::gradual);
-	line3_y = line3_y + gameDefaults->get_h1_size();
+	draw_text(top_score_texture, get_centre_align(top_score_texture), row_y, Text_type::gradual);
+	row_y = row_y + gameDefaults->get_h1_size();
 
 	std::multimap<int, std::string>::iterator it = top_scores.begin();
 	std::string temp = it->second + " - " + std::to_string(it->first);
@@ -166,18 +166,19 @@ void myGameOver::draw_top_scores(std::multimap<int, std::string, std::greater<in
 	while (it != top_scores.end()) {
 		std::string temp = it->second + " - " + std::to_string(it->first);
 		temp_texture = create_texture(temp, gameDefaults->get_h3_size());
-		draw_text(temp_texture, get_centre_align(temp_texture), line3_y, Text_type::gradual);
-		line3_y = line3_y + gameDefaults->get_h3_size();
+		draw_text(temp_texture, get_centre_align(temp_texture), row_y, Text_type::gradual);
+		row_y = row_y + gameDefaults->get_h3_size();
 		it++;
 	}
 }
 
 void myGameOver::draw_name_element(std::string username) {
-	
+	//draws username to renderer
 	SDL_Texture* username_texture = create_texture(username, gameDefaults->get_h2_size());
 	int w;
 	int h;
 	SDL_QueryTexture(username_texture, NULL, NULL, &w, &h);
+
 	//Refresh background section
 	SDL_Rect Background_rect{0,line4_y,gameDefaults->get_screen_width(),(gameDefaults->get_screen_height()-line4_y)};
 	SDL_Rect Destination_rect{ 0,line4_y,gameDefaults->get_screen_width(),(gameDefaults->get_screen_height() - line4_y) };
@@ -194,9 +195,33 @@ void myGameOver::draw_name_element(std::string username) {
 	Source_rect.w = Destination_rect.w;
 	Source_rect.h = Destination_rect.h;
 	
-	SDL_RenderCopy(gameWindow->get_myRenderer(), username_texture,&Source_rect,&Destination_rect);
-	//gameWindow->publishTexture();
-	
+	SDL_RenderCopy(gameWindow->get_myRenderer(), username_texture,&Source_rect,&Destination_rect);	
 }
 
+int myGameOver::play_again() {
+	//Draws play again prompt and return option use selects
+	int play_again_texture_y_align = line5_y;
+	SDL_Texture* play_again_texture = create_texture(play_again_text, gameDefaults->get_h2_size());
+	int play_again_texture_x_align = get_centre_align(play_again_texture);
+	draw_text(play_again_texture, play_again_texture_x_align, play_again_texture_y_align, Text_type::gradual);
+	
+	int play_again = 2;
+	bool waiting = true;
 
+	while (waiting) {
+		SDL_StartTextInput();
+		SDL_Event ev;
+		while (SDL_PollEvent(&ev)) {
+			if (ev.type == SDL_KEYDOWN && ev.key.keysym.sym == SDLK_y) {
+				play_again = 1;
+				waiting = false;
+			}
+			else if (ev.type == SDL_KEYDOWN && ev.key.keysym.sym == SDLK_n) {
+				play_again = 0;
+				waiting = false;
+			}
+		}
+	}
+
+	return play_again;
+}

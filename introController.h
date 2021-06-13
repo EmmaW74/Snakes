@@ -19,10 +19,14 @@ private:
 	std::string font;
 	int font_size;
 	
-
 public:
+
+	//manage and draw introduction screen
 	introController(bool border_choice);
 	void update_border_choice();
+	void draw_element(SDL_Renderer* myRenderer, std::shared_ptr<RenderableImage> background);
+	
+	//get methods
 	bool get_border_choice() const;
 	uint8_t get_colour_red() const;
 	uint8_t get_colour_blue() const;
@@ -30,8 +34,6 @@ public:
 	std::string get_font() const;
 	int get_x() const;
 	int get_y() const;
-
-	void draw_element(SDL_Renderer* myRenderer, std::shared_ptr<RenderableImage> background);
 
 };
 

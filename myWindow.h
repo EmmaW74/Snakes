@@ -17,20 +17,15 @@ private:
 	SDL_Window* myAppWindow = NULL;
 	SDL_Renderer* myRenderer = NULL;
 	SDL_Texture* myTexture = NULL;
-	
+	std::shared_ptr<Dimensions> defaults;
 	std::shared_ptr<RenderableColourBlock> banner = NULL;
-	int SCREEN_WIDTH;
-	int SCREEN_HEIGHT;
 	
 public:
 
-	myWindow(std::shared_ptr<Dimensions> measurements, std::shared_ptr<introController> intro, std::shared_ptr<RenderableImage> background);
+	myWindow(std::shared_ptr<Dimensions> measurements, std::shared_ptr<introController> intro, std::shared_ptr<RenderableImage> background, std::shared_ptr<Dimensions> defaults);
 	void drawFrame(std::shared_ptr<mySnake> snake, std::shared_ptr <myPrizePot> current_prizes, std::shared_ptr<Score_controller> score, std::shared_ptr<RenderableImage> background);
 	void publishTexture();
-	void showGameOver(std::shared_ptr<mySnake> snake, std::shared_ptr<RenderableImage> background);
 	void countdown(std::shared_ptr<RenderableImage> background);
-	void renderPrize(ImyPrize* prize); 
-	void renderElement(std::shared_ptr<IRenderable> element);
 	SDL_Renderer* get_myRenderer() const;
 	std::shared_ptr<RenderableColourBlock> get_banner() const;
 	~myWindow();

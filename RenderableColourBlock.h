@@ -27,8 +27,6 @@ public:
 	uint8_t get_colour_red() const;
 	uint8_t get_colour_blue() const;
 	uint8_t get_colour_green() const;
-	//virtual std::shared_ptr<myLinkedList<IRenderable>> get_children() const = 0;
-	
 	void draw_element(SDL_Renderer* myRenderer);
 
 	

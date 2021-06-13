@@ -15,15 +15,24 @@ struct node;
 mySnake::mySnake(std::shared_ptr<Dimensions> dimensions):
 	dimensions{ dimensions }, border_collide(true) {
 	srand(time(NULL));
+	set_start();
+}
+
+void mySnake::set_start() {
+	//Remove existing snake and create new one ready for new game
+	while (snakeLength > 0) {
+		children->remove_node_tail();
+		snakeLength--;
+	}
 	snakeLength = dimensions->get_length();
 	snakeSpeed = dimensions->get_speed();
 	int x = 0;
-	int y = ((rand() % 300)/dimensions->get_cell_size())*dimensions->get_cell_size() + 50;
+	int y = ((rand() % 300) / dimensions->get_cell_size()) * dimensions->get_cell_size() + 50;
 	children = std::make_shared<myLinkedList<MyDot>>(new MyDot{ x, y,dimensions->get_cell_size(), dimensions->get_cell_size() });
-	
-	
+
+
 	for (int i = 0; i < snakeLength; i++) {
-	
+
 		children->add_node_tail(new MyDot{ x, y, dimensions->get_cell_size(), dimensions->get_cell_size() });
 		x -= dimensions->get_cell_size();
 	}
@@ -73,9 +82,8 @@ void mySnake::increaseSnakeSpeed() {
 }
 
 void mySnake::increaseLength() {
-	
+	//Add new section to tail of snake
 	snakeLength++;
-
 	int tail_x = children->get_tail()->data->get_x();
 	int tail_y = children->get_tail()->data->get_y();
 	int width_height = children->get_tail()->data->get_width();
@@ -160,7 +168,7 @@ void mySnake::setBorderCollide(){
 	border_collide = !border_collide;
 }
 bool mySnake::checkPrizeOverlap(ImyPrize*& prize) { 
-	//Checks if a prize overlaps any part of the snake body
+	//Checks if a prize overlaps any part of the snake body **This could be more accurate**
 	int prize_x = prize->get_x();
 	int prize_y = prize->get_y();
 	node<MyDot>* ptr = children->get_head()->next;
@@ -172,12 +180,10 @@ bool mySnake::checkPrizeOverlap(ImyPrize*& prize) {
 		ptr_y = ptr->data->get_y();
 
 		if ((ptr_x >= prize_x - prize->get_width()) && (ptr_x <= prize_x + prize->get_width()) && (ptr_y >= prize_y - prize->get_height()) && (ptr_y <= prize_y + prize->get_height())) {
-			//std::cout << "Prize Overlap" << std::endl;
 			return true;
 		}
 		ptr = ptr->next;
 	}
-	//std::cout << "No prize Overlap" << std::endl;
 	return false;
 }
 bool mySnake::checkTailCollision() {
@@ -208,9 +214,9 @@ bool mySnake::checkTailCollision() {
 	return false;
 }
 
-//bool mySnake::checkPrizeCollision(ImyPrize* const& prize) {
+
 bool mySnake::checkPrizeCollision(ImyPrize* &prize) {
-	
+	//Check is snake head has collided with prize
 	if (prize == nullptr) {
 		return false;
 	}
@@ -257,6 +263,7 @@ std::shared_ptr<myLinkedList<MyDot>> mySnake::getchildren() const {
 }
 
 void mySnake::draw_element(SDL_Renderer* myRenderer) {
+	//Calls method to draw each snake node
 	node<MyDot>* temp = children->get_head();
 	while (temp != NULL) {
 		temp->data->draw_element(myRenderer);

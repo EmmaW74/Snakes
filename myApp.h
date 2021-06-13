@@ -34,7 +34,7 @@ private:
 public:
 	myApp();
 	
-	// game progress
+	// game progress methods
 	void updateStarted();
 	void runGame();
 	void OnEvent(SDL_Event& e); 
@@ -42,19 +42,19 @@ public:
 	void addPrize();
 	void collectPoints();
 	void stopGame();
-	//void gameOver(myWindow* window, std::shared_ptr<mySnake> snake, SDL_Renderer* myRenderer);
 	void gameOver();
-	void onPause();
-	// gets
-	const bool getStarted();
-	const bool getRunning();
-	const std::shared_ptr<mySnake> getSnake();
-	const myWindow* getWindow();
-	const int get_timer();
+	void reset_game();
+
+	// gets methods
+	bool getStarted() const;
+	bool getRunning() const;
+	std::shared_ptr<mySnake> getSnake() const;
+	myWindow* getWindow() const;
+	int get_timer() const;
 
 	// general tasks
 	void incrementGameTimer();
-	int random_position();
+	int random_position() const;
 	
 };
 

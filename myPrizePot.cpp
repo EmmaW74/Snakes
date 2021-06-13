@@ -2,20 +2,25 @@
 #include "SDL.h"
 #include <vector>
 
-
-
 myPrizePot::myPrizePot() :
 	prize_count{ 0 } {
 	children = std::make_shared<myLinkedList<ImyPrize>>();
 }
 
+void myPrizePot::reset_prize_pot() {
+	// Remove existing prizes when restaring game
+	if (prize_count > 0) {
+		children->remove_node_tail();
+		prize_count--;
+	}
+}
 
 std::shared_ptr<myLinkedList<ImyPrize>> myPrizePot::getchildren() const {
 	return children;
 };
 
-void myPrizePot::draw_element(SDL_Renderer* myRenderer) { 
-	
+void myPrizePot::draw_element(SDL_Renderer* myRenderer) const { 
+	//calls draw element for each prize node
 	if (prize_count > 0) {
 		node<ImyPrize>* ptr = children->get_head();
 		while (ptr->next != nullptr) {

@@ -49,7 +49,7 @@ std::string RenderableImage::get_colour_key() const {
 }
 
 SDL_Texture* RenderableImage::get_image_texture(SDL_Renderer* myRenderer) {
-	//
+	//loads image and returns a texture of the image
 	SDL_Surface* tempSurface = IMG_Load(image);
 	if (tempSurface == NULL)
 	{
@@ -74,7 +74,7 @@ SDL_Texture* RenderableImage::get_image_texture(SDL_Renderer* myRenderer) {
 }
 
 void RenderableImage::draw_element(SDL_Renderer* myRenderer) {
-	//creates a texture for the image and copies to myRenderer ready to publish
+	//creates a texture for the image and copies to myRenderer ready to publish **IS THIS DUPLICATING THE ABOVE METHOD?**
 	SDL_Surface* tempSurface = IMG_Load(image);
 	if (tempSurface == NULL)
 	{
@@ -96,7 +96,7 @@ void RenderableImage::draw_element(SDL_Renderer* myRenderer) {
 			SDL_RenderCopy(myRenderer, tempTexture, NULL, &renderQuad);
 		}
 
-		//Get rid of old loaded surface and texture
+		//Remove old loaded surface and texture
 		SDL_DestroyTexture(tempTexture);
 		SDL_FreeSurface(tempSurface);
 	}

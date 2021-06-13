@@ -62,11 +62,9 @@ void Ruby::draw_element(SDL_Renderer* myRenderer) {
 			SDL_RenderCopy(myRenderer, tempTexture, NULL, &renderQuad);
 		}
 
-		//Get rid of old loaded surface and texture
+		//Remove old loaded surface and texture
 		SDL_DestroyTexture(tempTexture);
 		SDL_FreeSurface(tempSurface);
 	}
 }
-//Ruby::~Ruby() {
-//	std::cout << "Ruby destructor" << std::endl;
-//}
+

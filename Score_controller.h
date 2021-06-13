@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include <SDL_ttf.h>
 #include <map>
+#include "dimensions.h"
 
 class Score_controller :
     public RenderableText
@@ -15,7 +16,7 @@ private:
 	uint8_t colour_red;
 	uint8_t colour_blue;
 	uint8_t colour_green;
-	std::string font;
+	std::string score_font;
 	std::string current_score_text;
 	std::string high_score_name;
 	int name_x;
@@ -24,8 +25,8 @@ private:
 
 
 public:
-	Score_controller();
-    Score_controller(int x, int y, uint8_t red, uint8_t blue, uint8_t green);
+	
+    Score_controller(std::shared_ptr<Dimensions> defaults, int x, int y);
     void update_score(int addscore);
 	int get_x() const;
 	int get_y() const;
@@ -41,10 +42,9 @@ public:
 
 	void update_text();
 	void draw_element(SDL_Renderer* myRenderer);
-	//void draw_element(SDL_Renderer* myRenderer, SDL_Color colour, std::string mText, int font_size) const;
 	void enter_high_score_name(std::string user, int score);
 	void read_high_scores_file();
 	void write_high_scores_file();
-
+	void reset_score();
 };
 
