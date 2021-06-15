@@ -2,6 +2,7 @@
 #include "RenderableText.h"
 #include "RenderableImage.h"
 #include "myLinkedList.h"
+#include "dimensions.h"
 
 class introController :
     public RenderableText
@@ -12,17 +13,19 @@ private:
 	int x;
 	int y;
 	bool border_choice;
-	uint8_t colour_red;
-	uint8_t colour_blue;
-	uint8_t colour_green;
+	//uint8_t colour_red;
+	//uint8_t colour_blue;
+	//uint8_t colour_green;
 	std::shared_ptr<myLinkedList<RenderableText>> intro_text;
-	std::string font;
+	//std::string font;
 	int font_size;
+	std::shared_ptr<Dimensions> defaults;
+
 	
 public:
 
 	//manage and draw introduction screen
-	introController(bool border_choice);
+	introController(bool border_choice, std::shared_ptr<Dimensions> gameDefaults);
 	void update_border_choice();
 	void draw_element(SDL_Renderer* myRenderer, std::shared_ptr<RenderableImage> background);
 	

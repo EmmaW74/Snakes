@@ -2,22 +2,22 @@
 #include "RenderableImage.h"
 #include "SDL_ttf.h"
 #include <string>
+#include "dimensions.h"
 
-introController::introController(bool border_choice) :
-	border_choice{ border_choice }, colour_red{ 0xfc }, colour_blue{ 0x12 }, colour_green{ 0xe5 }, x{ 100 }, y{ 150 } {
-	font = "Font/Gilsanub.ttf";
+introController::introController(bool border_choice, std::shared_ptr<Dimensions> gameDefaults) :
+	border_choice{ border_choice }, defaults{gameDefaults}, x{ 100 }, y{ 150 } {
 	font_size = 45;
 	intro_text= std::make_shared<myLinkedList<RenderableText>>();
-	intro_text->add_node_tail(new RenderableText(30, 100, font, "WELCOME TO SNAKES", colour_red, colour_blue, colour_green));
-	intro_text->add_node_tail(new RenderableText(50, 180, font, "- TO START, PRESS ENTER", colour_red, colour_blue, colour_green));
-	intro_text->add_node_tail(new RenderableText(50, 210, font, "- CONTROL SNAKE WITH ARROW KEYS", colour_red, colour_blue, colour_green));
-	intro_text->add_node_tail(new RenderableText(50, 240, font, "- TO PAUSE, PRESS SPACE", colour_red, colour_blue, colour_green));
+	intro_text->add_node_tail(new RenderableText(30, 100, defaults->get_game_font(), "WELCOME TO SNAKES", defaults->get_main_red(), defaults->get_main_blue(), defaults->get_main_green()));
+	intro_text->add_node_tail(new RenderableText(50, 180, defaults->get_game_font(), "- TO START, PRESS ENTER", defaults->get_main_red(), defaults->get_main_blue(), defaults->get_main_green()));
+	intro_text->add_node_tail(new RenderableText(50, 210, defaults->get_game_font(), "- CONTROL SNAKE WITH ARROW KEYS", defaults->get_main_red(), defaults->get_main_blue(), defaults->get_main_green()));
+	intro_text->add_node_tail(new RenderableText(50, 240, defaults->get_game_font(), "- TO PAUSE, PRESS SPACE", defaults->get_main_red(), defaults->get_main_blue(), defaults->get_main_green()));
 
 	if (border_choice) {
-		intro_text->add_node_tail(new RenderableText(50, 270, font, "- BORDER COLLISION, PRESS B: ON", colour_red, colour_blue, colour_green));
+		intro_text->add_node_tail(new RenderableText(50, 270, defaults->get_game_font(), "- BORDER COLLISION, PRESS B: ON", defaults->get_main_red(), defaults->get_main_blue(), defaults->get_main_green()));
 	}
 	else {
-		intro_text->add_node_tail(new RenderableText(50, 270, font, "- BORDER COLLISION, PRESS B: OFF", colour_red, colour_blue, colour_green));
+		intro_text->add_node_tail(new RenderableText(50, 270, defaults->get_game_font(), "- BORDER COLLISION, PRESS B: OFF", defaults->get_main_red(), defaults->get_main_blue(), defaults->get_main_green()));
 	}
 
 }
@@ -35,18 +35,7 @@ introController::introController(bool border_choice) :
 	bool introController::get_border_choice() const {
 		return border_choice;
 	}
-	uint8_t introController::get_colour_red() const {
-		return colour_red;
-	}
-	uint8_t introController::get_colour_blue() const {
-		return colour_blue;
-	}
-	uint8_t introController::get_colour_green() const {
-		return colour_green;
-	}
-	std::string introController::get_font() const {
-		return font;
-	}
+	
 	int introController::get_x() const {
 		return x;
 	}
@@ -58,10 +47,10 @@ introController::introController(bool border_choice) :
 		// Creates welcome text texture and copies to renderer ready to publish 
 		background->draw_element(myRenderer);
 		TTF_Init();
-		SDL_Color color = { colour_red, colour_green, colour_blue };  
+		SDL_Color color = { defaults->get_main_red(), defaults->get_main_green(), defaults->get_main_blue() };
 		int tempfont = font_size;
 		for (auto& i : *intro_text) {
-			TTF_Font* myFont = TTF_OpenFont(font.c_str(), tempfont); 
+			TTF_Font* myFont = TTF_OpenFont(defaults->get_game_font().c_str(), tempfont); 
 			SDL_Rect Message_rect;
 			Message_rect.x = i.data->get_x();  
 			Message_rect.y = i.data->get_y(); 
