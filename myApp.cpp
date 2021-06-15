@@ -9,7 +9,7 @@
 
 myApp::myApp(){
 	measurements = std::make_shared<Dimensions>(15,45,20,150);
-	intro = std::make_shared<introController>(new introController(true));
+	intro = std::make_shared<introController>(introController(true,measurements));
 	myBackground = std::make_shared<RenderableImage>(0, 0, "Images/grass.jpg");
 	game_window = new myWindow(measurements, intro,myBackground,measurements);
 	game_snake1 = std::make_shared<mySnake> (measurements);
