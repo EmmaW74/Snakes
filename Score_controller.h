@@ -5,10 +5,11 @@
 #include <map>
 #include "dimensions.h"
 
+
+//Keeps score and draws it on screen
 class Score_controller :
     public RenderableText
 {
-	//Keeps score and draws it on screen
 private:
     int score;
 	int x;

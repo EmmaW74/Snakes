@@ -1,12 +1,12 @@
 #pragma once
 #include "IRenderable.h"
 #include "SDL.h"
+
+// Stores details of a colour block object and draws on screen
 class RenderableColourBlock :
     public IRenderable
 {
-	// Stores details of a colour block object and draws on screen
 private:
-	
 	int width;
 	int height;
 	int x;
@@ -14,7 +14,6 @@ private:
 	uint8_t colour_red;
 	uint8_t colour_blue;
 	uint8_t colour_green;
-	
 
 public:
 	RenderableColourBlock();
@@ -23,12 +22,10 @@ public:
 	int get_y() const;
 	int get_width() const;
 	int get_height() const;
-
 	uint8_t get_colour_red() const;
 	uint8_t get_colour_blue() const;
 	uint8_t get_colour_green() const;
 	void draw_element(SDL_Renderer* myRenderer);
-
 	
 };
 
