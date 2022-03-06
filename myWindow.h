@@ -9,11 +9,10 @@
 #include "RenderableImage.h"
 #include "introController.h"
 
+//Handles window creation and rendering
 class myWindow
-{
-//This class handles window creation and rendering
+{	
 private:
-	
 	SDL_Window* myAppWindow = NULL;
 	SDL_Renderer* myRenderer = NULL;
 	SDL_Texture* myTexture = NULL;

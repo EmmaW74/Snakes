@@ -1,10 +1,11 @@
 #pragma once
 #include "IRenderable.h"
 #include "SDL.h"
+
+// Stores details of a text object and draws on screen
 class RenderableText :
     public IRenderable
 {
-	// Stores details of a text object and draws on screen
 private:
 	
 	int x;

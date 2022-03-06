@@ -1,10 +1,11 @@
 #pragma once
 #include "IRenderable.h"
 #include "SDL.h"
+
+// Stores details of an image object and draws on screen
 class RenderableImage :
     public IRenderable
 {
-	// Stores details of an image object and draws on screen
 private:
 	const char* image;
 	int x;

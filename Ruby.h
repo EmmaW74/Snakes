@@ -2,10 +2,10 @@
 #define RUBY_H
 #include "ImyPrize.h"
 
+//Stores details of prize type ruby and draws on screen
 class Ruby :
     public ImyPrize
 {
-	//Stores details of prize type ruby and draws on screen
 private:
 	const int width;
 	const int height;
