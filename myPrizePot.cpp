@@ -22,12 +22,13 @@ std::shared_ptr<myLinkedList<ImyPrize>> myPrizePot::getchildren() const {
 void myPrizePot::draw_element(SDL_Renderer* myRenderer) const { 
 	//calls draw element for each prize node
 	if (prize_count > 0) {
-		node<ImyPrize>* ptr = children->get_head();
-		while (ptr->next != nullptr) {
-			ptr->data->draw_element(myRenderer);
-			ptr = ptr->next;
+
+		myLinkedList<ImyPrize>::myIterator<ImyPrize> it = children->begin();
+		while (it->next != nullptr) {
+			it->data->draw_element(myRenderer);
+			it++;
 		}
-		ptr->data->draw_element(myRenderer);
+		it->data->draw_element(myRenderer);
 	}
 }
 int myPrizePot::get_prize_count() const {

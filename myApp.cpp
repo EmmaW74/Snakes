@@ -18,7 +18,7 @@ myApp::myApp(){
 	Paused = false;
 	started = false;
 	gameTimer = 0;
-	srand(time(NULL));
+	//srand(time(NULL));
 	score = std::make_shared<Score_controller>(measurements, 5, 5);
 	game_over_control = std::make_shared<myGameOver>(game_window,game_snake1,measurements,myBackground,score);
 		
