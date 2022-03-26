@@ -14,9 +14,9 @@
 #include "introController.h"
 #include "myGameOver.h"
 
+//Handles the logic of the game
 class myApp
 {
-	//This class handles the logic of the game
 private:
 	bool started;
 	bool Running;

@@ -6,10 +6,9 @@
 #include<memory>
 #include<vector>
 
-
+//The snake body is made up of MyDot objects. **THIS MAY NOT BE NEEDED - DOESN'T ADD ANYTHING TO RENDERABLECOLOURBLOCK**
 class MyDot: public RenderableColourBlock {
 
-	//The snake body is made up of MyDot objects. **THIS MAY NOT BE NEEDED - DOESN'T ADD ANYTHING TO RENDERABLECOLOURBLOCK**
 private:
 	const int width;
 	const int height;
@@ -18,7 +17,6 @@ private:
 	uint8_t colour_red;
 	uint8_t colour_blue;
 	uint8_t colour_green;
-	
 
 public:
 	MyDot(int x, int y, int width, int height);

@@ -15,9 +15,9 @@ enum class Direction {
 	RIGHT
 };
 
+//Represents the snake and manages its movement
 class mySnake
 {
-	//Represents the snake and manages its movement
 private:
 	std::shared_ptr<Dimensions> dimensions;
 	std::shared_ptr<myLinkedList<MyDot>> children;

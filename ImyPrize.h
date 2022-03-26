@@ -3,10 +3,10 @@
 #include "RenderableImage.h"
 #include <string>
 
+// Interface class - individual prize types are derived from this
 class ImyPrize:
 	public RenderableImage
 {
-// Interface class - individual prize types are derived from this
 public:
 	ImyPrize() {};
 	virtual void draw_element(SDL_Renderer* myRenderer) = 0;
@@ -19,7 +19,6 @@ public:
 	virtual int get_height() const = 0;
 	virtual int get_points() const = 0;
 	virtual std::string get_colour_key() const = 0;
-
 	virtual ~ImyPrize() {}
 }; 
 

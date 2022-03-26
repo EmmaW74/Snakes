@@ -4,9 +4,10 @@
 #include<string>
 #include<memory>
 #include<vector>
+
+//Interface class for rendering to window
 class IRenderable
 {
-	//Interface class for rendering to window
 	int x;
 	int y;
 

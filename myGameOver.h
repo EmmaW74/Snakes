@@ -13,6 +13,7 @@ enum class Text_type {
 	block //text appears instantly
 };
 
+//Manages when the game ends
 class myGameOver
 {
 private:

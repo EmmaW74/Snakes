@@ -2,10 +2,10 @@
 #define DIAMOND_H
 #include "ImyPrize.h"
 
+//Stores details of Diamond prize object and draws to screen
 class Diamond :
 	public ImyPrize
 {
-	//Stores details of Diamond prize object and draws to screen
 private:
 	const int width;
 	const int height;
@@ -18,10 +18,8 @@ private:
 	uint8_t colour_red;
 	uint8_t colour_blue;
 	uint8_t colour_green;
-	
 
 public:
-	
 	Diamond(int x, int y, int width_height);
 	void draw_element(SDL_Renderer* myRenderer);
 

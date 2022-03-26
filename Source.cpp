@@ -6,12 +6,12 @@ int main(int argc, char* args[])
 {
 	myApp game;
 	game.runGame();
-	
 	return 0;
 }
 
 
 /*
+* Improvements to make:
 - Add comments for more complicated functions
 - Diamond - Points assigned in constructor could be random & image could show points
 - star gem 

@@ -2,6 +2,8 @@
 #include <string>
 #include "SDL.h"
 #include "SDL_ttf.h"
+
+//Dimensions, font and colours
 class Dimensions
 {
 private:
@@ -14,18 +16,18 @@ private:
 	const int initial_snake_speed;
 	
 
-	std::string game_font{ "Font/Gilsanub.ttf" }; //"Font/Gilsanub.ttf"
-	const int h1_size{ 70 }; //70
-	const int h2_size{ 40 }; //40
-	const int h3_size{ 20 }; //20
+	std::string game_font{ "Font/Gilsanub.ttf" }; 
+	const int h1_size{ 70 };  
+	const int h2_size{ 40 };  
+	const int h3_size{ 20 };  
 
-	const uint8_t main_colour_red{ 0xfc }; // 0xfc
-	const uint8_t main_colour_blue{ 0x12 }; // 0x12 
-	const uint8_t main_colour_green{ 0xe5 }; // 0xe5
+	const uint8_t main_colour_red{ 0xfc };  
+	const uint8_t main_colour_blue{ 0x12 };  
+	const uint8_t main_colour_green{ 0xe5 };  
 
-	const uint8_t sec_colour_red{ 0xff }; //0xff
-	const uint8_t sec_colour_blue{ 0xff }; // 0xff
-	const uint8_t sec_colour_green{ 0xff }; //0xff
+	const uint8_t sec_colour_red{ 0xff };  
+	const uint8_t sec_colour_blue{ 0xff };  
+	const uint8_t sec_colour_green{ 0xff };  
 	
 
 public:

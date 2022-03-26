@@ -9,16 +9,15 @@ struct node {
 };
 class myIterator;
 
+//Template for user defined double linked list - used in snake and prize pot
 template<typename T>
 class myLinkedList {
-	//User defined double linked list - used in snake and prize pot
 private:
 	node<T>* head;
 	node<T>* tail;
 	int size;
 
 public:
-
 	template<typename T> class myIterator;
 	typedef myIterator<T> iterator;
 	typedef ptrdiff_t difference_type;
@@ -27,15 +26,14 @@ public:
 	typedef node<T>* pointer;
 	typedef node<T>& reference;
 
+	//user defined iterator to use with linked list
 	template<typename T>
 	class myIterator {
-		//user defined iterator to use with linked list
 		friend class myLinkedList;
 	protected:
 		pointer it_ptr;
 		myLinkedList<T>& list;
 	public:
-
 		myIterator<T>(myLinkedList<T>& list, pointer it_ptr) :
 			it_ptr{ it_ptr }, list{ list } {}
 

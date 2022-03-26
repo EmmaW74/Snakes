@@ -4,26 +4,20 @@
 #include "myLinkedList.h"
 #include "dimensions.h"
 
+//Displays and updates text and options on Welcome screen
 class introController :
     public RenderableText
 {
-	//Displays and updates text and options on Welcome screen
 private:
 	
 	int x;
 	int y;
 	bool border_choice;
-	//uint8_t colour_red;
-	//uint8_t colour_blue;
-	//uint8_t colour_green;
 	std::shared_ptr<myLinkedList<RenderableText>> intro_text;
-	//std::string font;
 	int font_size;
 	std::shared_ptr<Dimensions> defaults;
 
-	
 public:
-
 	//manage and draw introduction screen
 	introController(bool border_choice, std::shared_ptr<Dimensions> gameDefaults);
 	void update_border_choice();

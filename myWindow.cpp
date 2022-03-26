@@ -77,7 +77,7 @@ void myWindow::publishTexture() {
 void myWindow::countdown(std::shared_ptr<RenderableImage> background) {
 	//Draws countdown from 3
 	TTF_Init();
-	TTF_Font* font = TTF_OpenFont((defaults->get_game_font()).c_str(), 200); //this opens a font style and sets a size
+	TTF_Font* font = TTF_OpenFont((defaults->get_game_font()).c_str(), 200); 
 
 	SDL_Color color = { defaults->get_main_red(), defaults->get_main_green(), defaults->get_main_blue() };
 

@@ -2,8 +2,8 @@
 #include "IMyPrize.h"
 #include "myLinkedList.h"
 
+//Manages the current prizes available in the game
 class myPrizePot 
-   // Class to manage the current prizes available in the game
 {
 private:
     std::shared_ptr<myLinkedList<ImyPrize>> children;
